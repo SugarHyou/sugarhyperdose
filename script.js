@@ -1,11 +1,11 @@
 const IS_DEV_MODE = true;
 let sugarMode = 'default';
-const avatarImg = document.getElementById("sugar-avatar");
-const dialogueBox = document.getElementById("dialogue-box");
-const optionsBox = document.getElementById("options-box");
 
 function setSugarMode(mode) {
     sugarMode = mode;
+    const avatarImg = document.getElementById("sugar-avatar");
+    const dialogueBox = document.getElementById("dialogue-box");
+    const optionsBox = document.getElementById("options-box");
 
     if (!avatarImg || !dialogueBox) return;
 
@@ -13,44 +13,44 @@ function setSugarMode(mode) {
         case 'busy':
             avatarImg.src = "/assets/art/Empty-(Jul-12-2026).png";
             dialogueBox.innerText = "Sugar is busy right now...";
-            optionsBox.innerHTML = "";
+            if (optionsBox) optionsBox.innerHTML = "";
             break;
         case 'gaming':
             avatarImg.src = "/assets/art/Sugar-5-(Jul-8-2026).gif";
             dialogueBox.innerText = "Sugar is busy playing video games.";
-            optionsBox.innerHTML = "";
+            if (optionsBox) optionsBox.innerHTML = "";
             break;
         case 'blogging':
             avatarImg.src = "/assets/art/Sugar-8-(Jul-11-2026).gif";
             dialogueBox.innerText = "Sugar is typing a new blog...";
-            optionsBox.innerHTML = "";
+            if (optionsBox) optionsBox.innerHTML = "";
             setTimeout(() => setSugarMode('default'), 5000);
             break;
         case 'sleep':
             avatarImg.src = "/assets/art/Sugar-9-(Jul-12-2026).gif";
             dialogueBox.innerText = "Sugar is sleeping... Zzz...";
-            optionsBox.innerHTML = "";
+            if (optionsBox) optionsBox.innerHTML = "";
             break;
-        // Add this inside setSugarMode(mode) switch statement
-case 'andy':
-    avatarImg.src = "/assets/art/Andy-(Jul-16-2026).png";
-    dialogueBox.innerText = "...";
-    optionsBox.innerHTML = "";
-    document.body.classList.add('andy-mode'); // Apply dark styling
-    break;
-
-// Update the 'default' case to ensure it removes the dark styling
-default:
-    avatarImg.src = "/assets/art/Sugar-(Jul-3-2026).gif";
-    dialogueBox.innerText = "So, what's up?";
-    document.body.classList.remove('andy-mode'); // Remove dark styling
-    renderDefaultOptions();
-    break;
+        case 'andy':
+            avatarImg.src = "/assets/art/Andy-(Jul-16-2026).png";
+            dialogueBox.innerText = "...don't look at me.";
+            document.body.classList.add('andy-mode');
+            renderAndyOptions();
+            break;
+        default:
+            avatarImg.src = "/assets/art/Sugar-11-(Jul-25-2026).gif";
+            dialogueBox.innerText = "So, what's up?";
+            document.body.classList.remove('andy-mode');
+            renderDefaultOptions();
+            break;
     }
 }
 
 function renderDefaultOptions() {
     const optionsBox = document.getElementById("options-box");
+    const dialogueBox = document.getElementById("dialogue-box");
+    if (!optionsBox) return;
+    
     optionsBox.innerHTML = "";
     const choices = ["How are you?", "What's new?", "Goodbye!"];
 
@@ -58,7 +58,36 @@ function renderDefaultOptions() {
         const btn = document.createElement("button");
         btn.className = "dialogue-choice";
         btn.innerText = `► ${text}`;
-        btn.onclick = () => { dialogueBox.innerText = "Sugar just shrugs in response."; };
+        btn.onclick = () => { 
+            if (dialogueBox) dialogueBox.innerText = "Sugar just shrugs in response."; 
+        };
+        optionsBox.appendChild(btn);
+    });
+}
+
+function renderAndyOptions() {
+    const optionsBox = document.getElementById("options-box");
+    const dialogueBox = document.getElementById("dialogue-box");
+    if (!optionsBox) return;
+    
+    optionsBox.innerHTML = "";
+    
+    const andyChoices = [
+        { text: "Are you okay?", response: "No. Leave it alone." },
+        { text: "What happened?", response: "Just life. Don't worry about it." },
+        { text: "Rest...", response: "...I am trying." }
+    ];
+
+    andyChoices.forEach(item => {
+        const btn = document.createElement("button");
+        btn.className = "dialogue-choice";
+        btn.innerText = `► ${item.text}`;
+        
+        // Explicitly bind the unique response for each Andy choice
+        btn.onclick = () => { 
+            if (dialogueBox) dialogueBox.innerText = item.response; 
+        };
+        
         optionsBox.appendChild(btn);
     });
 }
@@ -69,11 +98,11 @@ async function loadSiteData() {
             cache: 'no-store'
         });
         const data = await res.json();
-        
+
         const container = document.getElementById('blog-posts-container');
         if (!container || !data.posts) return;
 
-        container.innerHTML = ""; // Clear existing
+        container.innerHTML = "";
 
         data.posts.forEach(post => {
             const postEl = document.createElement('div');
@@ -104,14 +133,15 @@ window.addEventListener('DOMContentLoaded', () => {
     checkSleepStatus();
 
     if (sugarMode !== 'sleep') {
-        setSugarMode('default');
+        const savedMode = localStorage.getItem('sugar_mode_request') || 'default';
+        setSugarMode(savedMode);
     }
 
     setInterval(checkSleepStatus, 60000);
 
     makeWindowsDraggable();
     loadSiteData();
-    makeWindowsDraggable();
+    populatePlaylist();
 });
 
 function playSong(trackName, audioSrc) {
@@ -150,14 +180,15 @@ const myPlaylist = [
     { title: "＋♂", file: "/assets/audio/music/plus-boy.mp3" },
     { title: "BANG BANG BANG", file: "/assets/audio/music/BANG BANG BANG.mp3" },
     { title: "Chiwawa", file: "/assets/audio/music/Chiwawa.mp3" },
-    { title: "Confessions of a Rotten Girl", file: "/assets/audio/music/Confessions of a Rotten Girl.mp3" }
+    { title: "Confessions of a Rotten Girl", file: "/assets/audio/music/Confessions of a Rotten Girl.mp3" },
+    { title: "ELECTRIC WEEKEND ZONE", file: "/assets/audio/music/ELECTRIC WEEKEND ZONE.mp3" }
 ];
 
 function populatePlaylist() {
     const container = document.getElementById('playlist-container');
-    if (!container) return; // Exit if the window isn't open/loaded
-    
-    container.innerHTML = ""; 
+    if (!container) return;
+
+    container.innerHTML = "";
 
     myPlaylist.forEach((song, index) => {
         const trackDiv = document.createElement('div');
@@ -165,10 +196,9 @@ function populatePlaylist() {
         trackDiv.style.cursor = "pointer";
         trackDiv.style.padding = "4px";
         trackDiv.innerText = `${(index + 1).toString().padStart(2, '0')}. ${song.title}`;
-        
-        // Use your existing playSong function
+
         trackDiv.onclick = () => playSong(song.title, song.file);
-        
+
         container.appendChild(trackDiv);
     });
 }
@@ -253,10 +283,6 @@ function makeWindowsDraggable() {
     });
 }
 
-window.addEventListener('DOMContentLoaded', () => {
-    makeWindowsDraggable();
-});
-
 function switchAboutTab(tabId) {
     const tabs = document.querySelectorAll('.about-tab-content');
     tabs.forEach(tab => tab.style.display = 'none');
@@ -285,15 +311,6 @@ window.addEventListener('storage', (event) => {
     }
 });
 
-window.addEventListener('DOMContentLoaded', () => {
-    const savedMode = localStorage.getItem('sugar_mode_request') || 'default';
-    setSugarMode(savedMode);
-
-    makeWindowsDraggable();
-    loadSiteData();
-    populatePlaylist();
-});
-
 const openSound = new Audio('/assets/audio/ui/Maximize.wav');
 
 function playOpen() {
@@ -304,8 +321,10 @@ function playOpen() {
 function handleSugarClick() {
     if (sugarMode === 'default') {
         const dialogueBox = document.getElementById("dialogue-box");
-        dialogueBox.innerText = "Stop poking me!";
-        setTimeout(() => setSugarMode('default'), 2000);
+        if (dialogueBox) {
+            dialogueBox.innerText = "Stop poking me!";
+            setTimeout(() => setSugarMode('default'), 2000);
+        }
     }
 }
 
@@ -387,7 +406,6 @@ const characterEvents = {
 };
 
 let fetchedHolidays = {};
-let loadedHolidayYear = null;
 let calDate = new Date();
 
 function fetchHolidays(year) {
@@ -445,8 +463,10 @@ function renderCalendar() {
     }
 }
 
-document.getElementById('prevMonth').onclick = () => { calDate.setMonth(calDate.getMonth() - 1); renderCalendar(); };
-document.getElementById('nextMonth').onclick = () => { calDate.setMonth(calDate.getMonth() + 1); renderCalendar(); };
+const prevBtn = document.getElementById('prevMonth');
+const nextBtn = document.getElementById('nextMonth');
+if (prevBtn) prevBtn.onclick = () => { calDate.setMonth(calDate.getMonth() - 1); renderCalendar(); };
+if (nextBtn) nextBtn.onclick = () => { calDate.setMonth(calDate.getMonth() + 1); renderCalendar(); };
 
 fetchHolidays(calDate.getFullYear());
 
