@@ -13,51 +13,53 @@
 
     <div class="desktop flex">
 
-        <img id="sugar" src="/assets/art/Sugar-4-(Jul-5-2026).png" style="transform: scaleX(-1); margin-left: -170px;">
+                        <img src="/assets/art/Sugar-10B-(Jul-20-2026).png" height="250" style="position: absolute; left: 2%; top: 3%;">
+        <img id="sugar" src="/assets/art/Sugar-4-(Jul-5-2026).png" style="transform: scaleX(-1); margin-left: -170px;visibility: hidden;">
 
-        <div class="window main-content flex">
-            <div class=" window-title flex">
+        <div class="window main-content flex" style="width: 750px; height: 500px;">
+            <div class="window-title flex">
                 <span>🌈 HOME</span>
                 <div class="window-close">X</div>
             </div>
 
-            <div class="window-popup-content flex column" style="height: 100%; overflow: hidden; gap: 10px;">
-                <marquee behavior="scroll" direction="left" scrollamount="4">Updating index.html...</marquee>
-                <div class="flex justify-between" style="flex-direction: row; flex-wrap: wrap; gap: 10px;">
+            <div class="window-popup-content"
+                style="display: flex; flex-direction: row; height: 100%; overflow: hidden; padding: 10px; gap: 10px;">
+                
+                <div
+                    style="flex: 1; overflow-y: auto; padding-right: 10px; display: flex; flex-direction: column; gap: 15px;">
+                    <marquee behavior="scroll" direction="left" scrollamount="4">Updating index.html...</marquee>
+                </div>
+
+                <div class="app-sidebar">
+
                     <a href="javascript:void(0)" class="app flex column"
                         onclick="toggleWindow('window-chat');playOpen();">
                         <span class="app-icon">💬</span>
-                        <span class="app-name" style="background: red; color: white;">chat.exe</span>
+                        <span class="app-name">chat.exe</span>
                     </a>
+
                     <a href="javascript:void(0)" class="app flex column"
                         onclick="toggleWindow('window-calendar');playOpen();">
                         <span class="app-icon">📅</span>
-                        <span class="app-name" style="background: orange;">calendar.exe</span>
+                        <span class="app-name">calendar.exe</span>
                     </a>
 
-                    <a href="javascript:void(0)" class="app flex column"
-                        onclick="toggleWindow('window-about');playOpen();">
-                        <span class="app-icon">👤</span>
-                        <span class="app-name" style="background: yellow;">about_me.txt</span>
-                    </a>
-
-                    <!-- Replace your old info/notepad links with these -->
                     <a href="javascript:void(0)" class="app flex column"
                         onclick="toggleWindow('window-blog');playOpen();">
                         <span class="app-icon">📰</span>
-                        <span class="app-name" style="background: limegreen; color: white;">blog.exe</span>
+                        <span class="app-name">blog.exe</span>
                     </a>
 
                     <a href="javascript:void(0)" class="app flex column"
                         onclick="toggleWindow('window-playlist');playOpen();">
                         <span class="app-icon">🎵</span>
-                        <span class="app-name" style="background: dodgerblue; color: white;">music.exe</span>
+                        <span class="app-name">music.exe</span>
                     </a>
 
                     <a href="javascript:void(0)" class="app flex column"
                         onclick="toggleWindow('window-commissions');playOpen();">
                         <span class="app-icon">🎨</span>
-                        <span class="app-name" style="background: blueviolet; color: white;">commissions.txt</span>
+                        <span class="app-name">commissions.txt</span>
                     </a>
                 </div>
 
@@ -124,77 +126,15 @@
         </div>
     </div>
 
-    <div id="window-about" class="window window-popup hidden flex" style="width: 350px; border: 4px solid yellow;">
-        <div class="window-title flex" style="background: yellow;">
-            <span>ABOUT_ME.TXT</span>
-            <div class="window-close" onclick="toggleWindow('window-about')">X</div>
-        </div>
-        <div class="window-popup-content flex column" style="gap: 10px;">
-            <div class="flex" style="gap: 10px; align-items: center;">
-                <img src="/assets/art/Sugar-3-(Jul-4-2026).png"
-                    style="width: 80px; height: 80px; border: 2px solid yellow;">
-                <div class="flex column" style="gap: 10px;">
-                    <h2>SugarHyperdose</h2>
-                    <div class="flex" style="gap: 10px; flex-wrap: wrap;">
-                        <span style="background: yellow; padding: 2px 5px;">Artist</span>
-                        <span style="background: yellow; padding: 2px 5px;">Clown</span>
-                        <span style="background: yellow; padding: 2px 5px;">Coder</span>
-                    </div>
-                </div>
-            </div>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5px; font-size: 0.85rem;">
-                <div>
-                    <strong style="color: lime;">Likes:</strong>
-                    <p>
-                        <span class="has-tooltip">Cranberry juice
-                            <span class="tooltip-text">
-                                <img src="/assets/art/Sugar-7-(Jul-9-2026).gif" width="80">I could drink this thing
-                                'till I'm SLOSHING bro. Especially if it's CranMango I will fuck that shit UP.
-                            </span>
-                        </span>,
-                        <span class="has-tooltip">Cheese
-                            <span class="tooltip-text"><img src="/assets/art/Sugar-7B-(Jul-9-2026).gif" width="80">I'm
-                                literally a mouse. 🧀</span>
-                        </span>
-                    </p>
-                </div>
-                <div>
-                    <strong style="color: red;">Dislikes:</strong>
-                    <p>
-                        <span class="has-tooltip">Overly competitive people
-                            <span class="tooltip-text">
-                                <img src="/assets/art/Sugar-7C-(Jul-9-2026).gif" width="80">I feel like they're just not
-                                really having fun. At all. It stresses me out!
-                            </span>
-                        </span>, <span class="has-tooltip">Winter
-                            <span class="tooltip-text"><img src="/assets/art/Sugar-7E-(Jul-9-2026).gif" width="80">I
-                                hate the cold! It makes my leg hurt!</span>
-                        </span>, <span class="has-tooltip">Soda
-                            <span class="tooltip-text"><img src="/assets/art/Sugar-7E-(Jul-9-2026).gif" width="80">From
-                                Coca Cola to Strawberry Fanta, I can't stand carbonated drinks. They taste like
-                                shit!</span>
-                        </span>, <span class="has-tooltip">Parents
-                            <span class="tooltip-text" style="background: black;">
-                                <img src="/assets/art/Sugar-7D-(Jul-9-2026).gif" width="80">
-                            </span>
-                        </span>
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <div id="window-blog" class="window window-popup hidden flex" style="width: 350px; border: 4px solid limegreen;">
         <div class="window-title flex" style="background: limegreen;">
             <span>BLOG.EXE</span>
             <div class="window-close" onclick="toggleWindow('window-blog')">X</div>
         </div>
         <div class="window-popup-content" id="blog-posts-container" style="max-height: 400px; overflow-y: auto;">
-            <!-- All blog posts will be injected here -->
         </div>
     </div>
 
-    <!-- Add this window code -->
     <div id="window-playlist" class="window window-popup hidden flex"
         style="width: 300px; border: 4px solid dodgerblue;">
         <div class="window-title flex" style="background: dodgerblue; color: white;">

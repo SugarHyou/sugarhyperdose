@@ -1,6 +1,107 @@
 const IS_DEV_MODE = true;
 let sugarMode = 'default';
 
+// 1. Move the dialogue trees definition to the top so it exists before anything tries to read it
+const sugarDialogueTrees = {
+    default: {
+        nodeId: "start",
+        text: "So, what's up?",
+        choices: [
+            { text: "You look super energetic today!", next: "energetic_path" },
+            { text: "Are you hiding something from your blog?", next: "blog_path" },
+            { text: "Let's just chill and listen to music.", next: "chill_path" }
+        ]
+    },
+    energetic_path: {
+        nodeId: "energetic_path",
+        text: "Right?! I had way too much caffeine and a brilliant layout idea. Want to hear about it?",
+        effect: { affection: 5, stress: 2 },
+        choices: [
+            { text: "Always! Tell me everything.", next: "energetic_deep_dive" },
+            { text: "Maybe tone it down a bit before you crash.", next: "energetic_warning" }
+        ]
+    },
+    energetic_deep_dive: {
+        nodeId: "energetic_deep_dive",
+        text: "YES! Okay, so imagine neon pink blinking margins, flashing marquee tags, and a custom cursor that leaves rainbow sparkles—",
+        effect: { affection: 10, stress: -5 },
+        choices: [
+            { text: "That sounds like a masterpiece.", next: "end_positive" },
+            { text: "That sounds like a migraine waiting to happen.", next: "end_tease" }
+        ]
+    },
+    energetic_warning: {
+        nodeId: "energetic_warning",
+        text: "...Hmph. You sound like my calendar. But... yeah, okay, maybe a little break is fine.",
+        effect: { affection: 2, stress: -10 },
+        choices: [
+            { text: "See? Trust me.", next: "end_positive" }
+        ]
+    },
+    blog_path: {
+        nodeId: "blog_path",
+        text: "W-what?! No! I'm just typing regular journal stuff. Why, did you read something?!",
+        effect: { affection: -2, stress: 8 },
+        choices: [
+            { text: "Just a hunch. You're acting suspicious.", next: "blog_defensive" },
+            { text: "Relax, I'm just teasing you.", next: "blog_calm" }
+        ]
+    },
+    blog_defensive: {
+        nodeId: "blog_defensive",
+        text: "Ugh, leave me alone! Sometimes my brain is just too loud and writing is the only way out...",
+        effect: { stress: 10 },
+        choices: [
+            { text: "Hey, sorry. Take all the time you need.", next: "end_gentle" }
+        ]
+    },
+    blog_calm: {
+        nodeId: "blog_calm",
+        text: "...Oh. Okay. Sorry for snapping. It's just hard keeping everything synchronized sometimes.",
+        effect: { affection: 5, stress: -5 },
+        choices: [
+            { text: "We can talk about it whenever you're ready.", next: "end_positive" }
+        ]
+    },
+    chill_path: {
+        nodeId: "chill_path",
+        text: "Oh, mood. Honestly, the playlist has been hitting just right today anyway.",
+        effect: { affection: 5, stress: -5 },
+        choices: [
+            { text: "What song are you vibing to most?", next: "chill_music" }
+        ]
+    },
+    chill_music: {
+        nodeId: "chill_music",
+        text: "Definitely the electronic tracks. They match the site's neon aesthetic perfectly.",
+        effect: { affection: 5 },
+        choices: [
+            { text: "Couldn't agree more.", next: "end_positive" }
+        ]
+    },
+    end_positive: {
+        nodeId: "end_positive",
+        text: "Hehe, yeah! Thanks for hanging out with me.",
+        effect: { affection: 5, stress: -5 },
+        choices: []
+    },
+    end_tease: {
+        nodeId: "end_tease",
+        text: "Hey! Rude! But... fine, maybe a little chaotic.",
+        effect: { affection: 3, stress: 0 },
+        choices: []
+    },
+    end_gentle: {
+        nodeId: "end_gentle",
+        text: "...Thanks. You're alright, you know that?",
+        effect: { affection: 8, stress: -8 },
+        choices: []
+    }
+};
+
+// 2. Now initialize currentDialogueNode safely because sugarDialogueTrees is fully defined
+let currentDialogueNode = sugarDialogueTrees.default;
+
 function setSugarMode(mode) {
     sugarMode = mode;
     const avatarImg = document.getElementById("sugar-avatar");
@@ -46,23 +147,101 @@ function setSugarMode(mode) {
     }
 }
 
-function renderDefaultOptions() {
-    const optionsBox = document.getElementById("options-box");
+function renderDialogueNode(node) {
     const dialogueBox = document.getElementById("dialogue-box");
-    if (!optionsBox) return;
-    
-    optionsBox.innerHTML = "";
-    const choices = ["How are you?", "What's new?", "Goodbye!"];
+    const optionsBox = document.getElementById("options-box");
+    if (!dialogueBox || !optionsBox) return;
 
-    choices.forEach(text => {
-        const btn = document.createElement("button");
-        btn.className = "dialogue-choice";
-        btn.innerText = `► ${text}`;
-        btn.onclick = () => { 
-            if (dialogueBox) dialogueBox.innerText = "Sugar just shrugs in response."; 
-        };
-        optionsBox.appendChild(btn);
+    // Temporarily clear option buttons while text is typing out
+    optionsBox.innerHTML = "";
+
+    // Apply typewriter effect to the text box
+    typeWriterEffect(dialogueBox, node.text, 25, () => {
+        // Once typing finishes, apply stats and render the choice buttons
+        if (node.effect) {
+            applyStatChanges(node.effect);
+        }
+
+        if (!node.choices || node.choices.length === 0) {
+            const btn = document.createElement("button");
+            btn.className = "dialogue-choice";
+            btn.innerText = "► (Back)";
+            btn.onclick = () => {
+                currentDialogueNode = sugarDialogueTrees.default;
+                renderDialogueNode(currentDialogueNode);
+            };
+            optionsBox.appendChild(btn);
+            return;
+        }
+
+        node.choices.forEach(choice => {
+            const btn = document.createElement("button");
+            btn.className = "dialogue-choice";
+            btn.innerText = `► ${choice.text}`;
+            btn.onclick = () => {
+                if (sugarDialogueTrees[choice.next]) {
+                    currentDialogueNode = sugarDialogueTrees[choice.next];
+                    renderDialogueNode(currentDialogueNode);
+                }
+            };
+            optionsBox.appendChild(btn);
+        });
     });
+}
+
+let typingInterval = null;
+
+function typeWriterEffect(element, text, speed = 25, callback = null) {
+    if (!element) return;
+    
+    if (typingInterval) {
+        clearInterval(typingInterval);
+    }
+
+    element.innerText = "";
+    let i = 0;
+
+    typingInterval = setInterval(() => {
+        if (i < text.length) {
+            // Use textContent instead of innerText to ensure spaces don't get swallowed
+            element.textContent += text.charAt(i);
+            i++;
+        } else {
+            clearInterval(typingInterval);
+            typingInterval = null;
+            if (callback) callback();
+        }
+    }, speed);
+}
+
+function applyStatChanges(effect) {
+    console.log("Applying stat changes:", effect);
+    
+    const stressMeter = document.getElementById('meter-stress');
+    const affectionMeter = document.getElementById('meter-affection');
+    
+    let currentStress = parseInt(document.getElementById('txt-stress').innerText) || 0;
+    let currentAffection = parseInt(document.getElementById('txt-affection').innerText) || 0;
+
+    if (effect.stress) {
+        currentStress = Math.max(0, Math.min(100, currentStress + effect.stress));
+    }
+    if (effect.affection) {
+        currentAffection = Math.max(0, Math.min(100, currentAffection + effect.affection));
+    }
+
+    if (stressMeter) stressMeter.style.width = currentStress + '%';
+    const txtStress = document.getElementById('txt-stress');
+    if (txtStress) txtStress.innerText = currentStress + '%';
+
+    if (affectionMeter) affectionMeter.style.width = currentAffection + '%';
+    const txtAffection = document.getElementById('txt-affection');
+    if (txtAffection) txtAffection.innerText = currentAffection + '%';
+}
+
+function renderDefaultOptions() {
+    currentDialogueNode = sugarDialogueTrees.default;
+    renderDialogueNode(currentDialogueNode);
 }
 
 function renderAndyOptions() {
@@ -78,16 +257,13 @@ function renderAndyOptions() {
         { text: "Rest...", response: "...I am trying." }
     ];
 
-    andyChoices.forEach(item => {
+    andyChoices.forEach(choice => {
         const btn = document.createElement("button");
         btn.className = "dialogue-choice";
-        btn.innerText = `► ${item.text}`;
-        
-        // Explicitly bind the unique response for each Andy choice
+        btn.innerText = `► ${choice.text}`;
         btn.onclick = () => { 
-            if (dialogueBox) dialogueBox.innerText = item.response; 
+            if (dialogueBox) dialogueBox.innerText = choice.response; 
         };
-        
         optionsBox.appendChild(btn);
     });
 }

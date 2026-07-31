@@ -433,11 +433,51 @@ button:hover {
     border-color: limegreen !important;
 }
 
+.app-sidebar {
+    width: 140px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-left: 10px;
+    flex-shrink: 0;
+}
+
+.app-sidebar > span:first-child {
+    font-weight: bold;
+    font-size: 0.8rem;
+    text-align: center;
+}
+
 .app {
+    justify-content: end;
     align-items: center;
     text-decoration: none;
-    height: fit-content;
-    min-width: 112px;
+}
+
+.app .app-name {
+    text-align: center;
+    width: 100%;
+    color: white;
+}
+
+.app-sidebar .app:nth-child(1) .app-name {
+    background: red;
+}
+
+.app-sidebar .app:nth-child(2) .app-name {
+    background: orange;
+}
+
+.app-sidebar .app:nth-child(3) .app-name {
+    background: limegreen;
+}
+
+.app-sidebar .app:nth-child(4) .app-name {
+    background: dodgerblue;
+}
+
+.app-sidebar .app:nth-child(5) .app-name {
+    background: blueviolet;
 }
 
 .app:hover,
@@ -449,17 +489,6 @@ button:hover {
 
 .app-icon {
     font-size: 2.2rem;
-}
-
-.app-name {
-    text-align: center;
-    width: 100%;
-    padding: 1px 4px;
-}
-
-#sidebar {
-    flex: 0.25;
-    gap: 10px;
 }
 
 #player-track-title {
@@ -492,7 +521,7 @@ button:hover {
     z-index: -1;
     pointer-events: none;
     max-height: 100%;
-    margin: 0 -100px;
+    margin: 0 -150px;
 }
 
 blockquote {
