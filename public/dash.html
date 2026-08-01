@@ -1,97 +1,114 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>ADMIN PANEL</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        .dash-container { 
-            width: 100%; 
-            max-width: 400px; 
-            max-height: 90vh; 
+        .dash-container {
+            width: 100%;
+            max-width: 400px;
+            max-height: 90vh;
             display: flex;
             flex-direction: column;
         }
-        .window-title { 
-            padding: 8px; 
-            font-weight: 900; 
+
+        .window-title {
+            padding: 8px;
+            font-weight: 900;
         }
-        .window-body { 
-            padding: 15px; 
-            display: flex; 
-            flex-direction: column; 
-            gap: 12px; 
-            overflow-y: auto; 
+
+        .window-body {
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            overflow-y: auto;
             flex: 1;
         }
+
         .section-box {
-            padding: 10px; 
-            background: #f9f9f9; 
+            padding: 10px;
+            background: #f9f9f9;
         }
-        label { 
-            display: block; 
-            font-weight: 900; 
-            margin-bottom: 5px; 
-            font-size: 0.8rem; 
+
+        label {
+            display: block;
+            font-weight: 900;
+            margin-bottom: 5px;
+            font-size: 0.8rem;
         }
-        .slider-wrap { 
-            display: flex; 
-            align-items: center; 
-            gap: 10px; 
+
+        .slider-wrap {
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
-        input[type="range"] { 
-            flex: 1; 
-            accent-color: #ff0055; 
+
+        input[type="range"] {
+            flex: 1;
+            accent-color: #ff0055;
         }
-        .mode-grid { 
-            display: grid; 
-            grid-template-columns: 1fr 1fr; 
-            gap: 5px; 
+
+        .mode-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5px;
         }
-        button { 
-            cursor: pointer; 
-            border: 2px outset #fff; 
-            background: #eee; 
-            font-weight: bold; 
-            padding: 8px; 
+
+        button {
+            cursor: pointer;
+            border: 2px outset #fff;
+            background: #eee;
+            font-weight: bold;
+            padding: 8px;
         }
-        button:hover { 
+
+        button:hover {
             background: #ddd;
         }
-        input[type="text"], textarea { 
+
+        input[type="text"],
+        textarea {
             width: 100%;
-            padding: 8px; 
-            box-sizing: border-box; 
-            margin-bottom: 8px; 
+            padding: 8px;
+            box-sizing: border-box;
+            margin-bottom: 8px;
         }
+
         textarea {
             resize: vertical;
             min-height: 60px;
         }
-        #submit-btn { 
+
+        #submit-btn {
             background: blueviolet;
             color: white;
-            font-weight: 900; 
-            padding: 10px; 
-            cursor: pointer; 
+            font-weight: 900;
+            padding: 10px;
+            cursor: pointer;
         }
-        .widget-section { 
-            border-left: 4px solid blueviolet; 
-            padding-left: 8px; 
-            margin-top: 8px; 
+
+        .widget-section {
+            border-left: 4px solid blueviolet;
+            padding-left: 8px;
+            margin-top: 8px;
         }
     </style>
 </head>
+
 <body class="flex justify-center align-center">
 
     <div class="window dash-container">
         <div class="window-title">admin.exe</div>
         <div class="window-body">
-            
+
             <div class="section-box">
                 <label style="color: red;">STRESS</label>
                 <div class="slider-wrap">
-                    <input type="range" id="stat-stress" min="0" max="100" value="20" oninput="document.getElementById('val-stress').innerText = this.value + '%'">
+                    <input type="range" id="stat-stress" min="0" max="100" value="20"
+                        oninput="document.getElementById('val-stress').innerText = this.value + '%'">
                     <span id="val-stress">20%</span>
                 </div>
             </div>
@@ -99,7 +116,8 @@
             <div class="section-box">
                 <label style="color: hotpink;">AFFECTION</label>
                 <div class="slider-wrap">
-                    <input type="range" id="stat-affection" min="0" max="100" value="50" oninput="document.getElementById('val-affection').innerText = this.value + '%'">
+                    <input type="range" id="stat-affection" min="0" max="100" value="50"
+                        oninput="document.getElementById('val-affection').innerText = this.value + '%'">
                     <span id="val-affection">50%</span>
                 </div>
             </div>
@@ -147,116 +165,134 @@
     </div>
 
     <script>
-    const GITHUB_USERNAME = 'SugarHyou';
-    const REPO_NAME = 'sugarhyperdose';
-    const FILE_PATH = 'public/output/journal.json';
+        const GITHUB_USERNAME = 'SugarHyou';
+        const REPO_NAME = 'sugarhyperdose';
+        const FILE_PATH = 'public/output/journal.json';
 
-    function saveMode(mode) {
-        localStorage.setItem('sugar_mode_request', mode);
-        alert("Command Sent: " + mode.toUpperCase());
-    }
-
-    async function publishPost() {
-        let GITHUB_TOKEN = localStorage.getItem('overdose_journal_token');
-        if (!GITHUB_TOKEN) {
-            GITHUB_TOKEN = prompt("† SYSTEM ACCESS REQUIRED † Please insert your activation key:");
-            if (GITHUB_TOKEN) localStorage.setItem('overdose_journal_token', GITHUB_TOKEN.trim());
-            else return;
+        function saveMode(mode) {
+            localStorage.setItem('sugar_mode_request', mode);
+            alert("Command Sent: " + mode.toUpperCase());
         }
 
-        const btn = document.getElementById('submit-btn');
-        const title = document.getElementById('title').value;
-        const content = document.getElementById('content').value;
-        const targetStress = parseInt(document.getElementById('stat-stress').value);
-        const targetAffection = parseInt(document.getElementById('stat-affection').value);
-
-        const artTitle = document.getElementById('art-title').value;
-        const artImage = document.getElementById('art-image').value;
-        const artDesc = document.getElementById('art-desc').value;
-
-        const playTitle = document.getElementById('play-title').value;
-        const playImage = document.getElementById('play-image').value;
-        const playDesc = document.getElementById('play-desc').value;
-
-        const watchTitle = document.getElementById('watch-title').value;
-        const watchImage = document.getElementById('watch-image').value;
-        const watchDesc = document.getElementById('watch-desc').value;
-
-        btn.innerText = "TRANSMITTING... ⚡";
-        btn.disabled = true;
-
-        const now = new Date();
-        const formattedDate = now.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) + ' - ' + now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
-
-        try {
-            const url = `https://api.github.com/repos/${GITHUB_USERNAME}/${REPO_NAME}/contents/${FILE_PATH}`;
-            let res = await fetch(url, { headers: { 'Authorization': `token ${GITHUB_TOKEN}` } });
-            let sha = "";
-            let dbStructure = { 
-                currentStats: { stress: targetStress, affection: targetAffection }, 
-                art: {}, playing: {}, watching: {},
-                posts: [] 
-            };
-
-            if (res.status === 200) {
-                const fileData = await res.json();
-                sha = fileData.sha;
-                dbStructure = JSON.parse(decodeURIComponent(escape(atob(fileData.content.replace(/\n/g, '')))));
+        async function publishPost() {
+            let GITHUB_TOKEN = localStorage.getItem('overdose_journal_token');
+            if (!GITHUB_TOKEN) {
+                GITHUB_TOKEN = prompt("SYSTEM ACCESS REQUIRED:");
+                if (GITHUB_TOKEN) localStorage.setItem('overdose_journal_token', GITHUB_TOKEN.trim());
+                else return;
             }
 
-            dbStructure.currentStats = { stress: targetStress, affection: targetAffection };
+            const btn = document.getElementById('submit-btn');
+            const title = document.getElementById('title').value;
+            const content = document.getElementById('content').value;
+            const targetStress = parseInt(document.getElementById('stat-stress').value);
+            const targetAffection = parseInt(document.getElementById('stat-affection').value);
 
-            if (artTitle || artImage || artDesc) {
-                dbStructure.art = {
-                    title: artTitle || dbStructure.art?.title || "",
-                    image: artImage || dbStructure.art?.image || "",
-                    desc: artDesc || dbStructure.art?.desc || ""
+            const artTitle = document.getElementById('art-title').value;
+            const artImage = document.getElementById('art-image').value;
+            const artDesc = document.getElementById('art-desc').value;
+
+            const playTitle = document.getElementById('play-title').value;
+            const playImage = document.getElementById('play-image').value;
+            const playDesc = document.getElementById('play-desc').value;
+
+            const watchTitle = document.getElementById('watch-title').value;
+            const watchImage = document.getElementById('watch-image').value;
+            const watchDesc = document.getElementById('watch-desc').value;
+
+            btn.innerText = "TRANSMITTING... ⚡";
+            btn.disabled = true;
+
+            const now = new Date();
+            const formattedDate = now.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) + ' - ' + now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+
+            try {
+                const url = `https://api.github.com/repos/${GITHUB_USERNAME}/${REPO_NAME}/contents/${FILE_PATH}`;
+                let res = await fetch(url, { headers: { 'Authorization': `token ${GITHUB_TOKEN}` } });
+                let sha = undefined;
+                let dbStructure = {
+                    currentStats: { stress: targetStress, affection: targetAffection },
+                    art: { title: "", image: "", desc: "" },
+                    playing: { title: "", image: "", desc: "" },
+                    watching: { title: "", image: "", desc: "" },
+                    posts: []
                 };
-            }
-            if (playTitle || playImage || playDesc) {
-                dbStructure.playing = {
-                    title: playTitle || dbStructure.playing?.title || "",
-                    image: playImage || dbStructure.playing?.image || "",
-                    desc: playDesc || dbStructure.playing?.desc || ""
+
+                if (res.status === 200) {
+                    const fileData = await res.json();
+                    sha = fileData.sha;
+                    try {
+                        dbStructure = JSON.parse(decodeURIComponent(escape(atob(fileData.content.replace(/\n/g, '')))));
+                    } catch (e) {
+                        console.warn("Existing file was empty or malformed, resetting structure.");
+                    }
+                }
+
+                // Ensure structural safety
+                if (!dbStructure.currentStats) dbStructure.currentStats = {};
+                dbStructure.currentStats.stress = targetStress;
+                dbStructure.currentStats.affection = targetAffection;
+
+                if (!dbStructure.art) dbStructure.art = {};
+                if (artTitle || artImage || artDesc) {
+                    dbStructure.art.title = artTitle || dbStructure.art.title || "";
+                    dbStructure.art.image = artImage || dbStructure.art.image || "";
+                    dbStructure.art.desc = artDesc || dbStructure.art.desc || "";
+                }
+
+                if (!dbStructure.playing) dbStructure.playing = {};
+                if (playTitle || playImage || playDesc) {
+                    dbStructure.playing.title = playTitle || dbStructure.playing.title || "";
+                    dbStructure.playing.image = playImage || dbStructure.playing.image || "";
+                    dbStructure.playing.desc = playDesc || dbStructure.playing.desc || "";
+                }
+
+                if (!dbStructure.watching) dbStructure.watching = {};
+                if (watchTitle || watchImage || watchDesc) {
+                    dbStructure.watching.title = watchTitle || dbStructure.watching.title || "";
+                    dbStructure.watching.image = watchImage || dbStructure.watching.image || "";
+                    dbStructure.watching.desc = watchDesc || dbStructure.watching.desc || "";
+                }
+
+                if (content.trim() !== "") {
+                    if (!dbStructure.posts) dbStructure.posts = [];
+                    dbStructure.posts.unshift({ date: formattedDate, title: title || "Untitled", content: content });
+                }
+
+                const bodyPayload = {
+                    message: `📈 Update Dashboard & Widgets via Admin Panel`,
+                    content: btoa(unescape(encodeURIComponent(JSON.stringify(dbStructure, null, 2))))
                 };
-            }
-            if (watchTitle || watchImage || watchDesc) {
-                dbStructure.watching = {
-                    title: watchTitle || dbStructure.watching?.title || "",
-                    image: watchImage || dbStructure.watching?.image || "",
-                    desc: watchDesc || dbStructure.watching?.desc || ""
-                };
-            }
 
-            if (content) {
-                if (!dbStructure.posts) dbStructure.posts = [];
-                dbStructure.posts.unshift({ date: formattedDate, title: title, content: content });
-            }
+                if (sha) {
+                    bodyPayload.sha = sha;
+                }
 
-            let updateRes = await fetch(url, {
-                method: 'PUT',
-                headers: { 'Authorization': `token ${GITHUB_TOKEN}`, 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    message: `📈 Update Dashboard & Widgets`,
-                    content: btoa(unescape(encodeURIComponent(JSON.stringify(dbStructure, null, 2)))),
-                    sha: sha
-                })
-            });
+                let updateRes = await fetch(url, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `token ${GITHUB_TOKEN}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(bodyPayload)
+                });
 
-            if (updateRes.status === 200 || updateRes.status === 201) {
-                alert("TRANSMITTED SUCCESSFULLY! 🎀");
-                document.getElementById('title').value = '';
-                document.getElementById('content').value = '';
-            } else {
-                alert("Error writing to core.");
+                if (updateRes.status === 200 || updateRes.status === 201) {
+                    alert("TRANSMITTED SUCCESSFULLY! 🎀");
+                    document.getElementById('title').value = '';
+                    document.getElementById('content').value = '';
+                } else {
+                    const errData = await updateRes.json();
+                    alert("Error writing to core: " + (errData.message || updateRes.status));
+                }
+            } catch (error) {
+                alert(`Terminal Error: ${error.message}`);
+            } finally {
+                btn.innerText = "TRANSMIT TO CORE ⚡";
+                btn.disabled = false;
             }
-        } catch (error) {
-            alert(`Terminal Error: ${error.message}`);
-        } finally {
-            btn.innerText = "TRANSMIT TO CORE ⚡";
-            btn.disabled = false;
         }
-    }
-</script>
+    </script>
 </body>
+
 </html>
