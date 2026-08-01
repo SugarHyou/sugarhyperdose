@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <title>ADMIN PANEL</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/gif" href="assets/graphics/favicons/x.gif">
     <style>
         .dash-container {
             width: 100%;
@@ -12,11 +13,6 @@
             max-height: 90vh;
             display: flex;
             flex-direction: column;
-        }
-
-        .window-title {
-            padding: 8px;
-            font-weight: 900;
         }
 
         .window-body {
@@ -221,14 +217,15 @@
             }
         }
 
-        // Helper to convert an uploaded file into base64 and push it to GitHub
+        // Helper to convert an uploaded file into base64 and push it to GitHub (CLEAN FILENAME VERSION)
         async function uploadFileToGithub(fileInputId, token) {
             const fileInput = document.getElementById(fileInputId);
             if (!fileInput.files || fileInput.files.length === 0) return null;
 
             const file = fileInput.files[0];
+            // Format the filename cleanly without adding timestamp numbers
             const fileName = file.name.replace(/\s+/g, '-').toLowerCase();
-            const targetPath = `${ASSETS_PATH}/${Date.now()}-${fileName}`;
+            const targetPath = `${ASSETS_PATH}/${fileName}`;
             const url = `https://api.github.com/repos/${GITHUB_USERNAME}/${REPO_NAME}/contents/${targetPath}`;
 
             // Convert file to Base64
@@ -243,14 +240,14 @@
                 method: 'PUT',
                 headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    message: `Upload asset via Admin Console: ${fileName}`,
+                    message: `Upload clean asset via Admin Console: ${fileName}`,
                     content: base64Content
                 })
             });
 
             if (res.status === 200 || res.status === 201) {
-                // Return path formatted for your site context
-                return `assets/art/${targetPath.split('/').pop()}`;
+                // Return path formatted precisely how you want it
+                return `assets/art/${fileName}`;
             } else {
                 throw new Error(`Failed to upload image file: ${fileName}`);
             }
