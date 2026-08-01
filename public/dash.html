@@ -2,32 +2,90 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>† OVERDOSE ADMIN PANEL †</title>
+    <title>ADMIN PANEL</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        body { background: #ffccf2; padding: 20px; font-family: sans-serif; }
-        .dash-container { width: 100%; max-width: 400px; margin: 0 auto; border: 4px solid #000; background: #fff; }
-        .window-title { background: #ff0055; color: white; padding: 8px; font-weight: 900; border-bottom: 4px solid #000; }
-        .window-body { padding: 15px; display: flex; flex-direction: column; gap: 15px; }
-        
-        .section-box { border: 3px solid #000; padding: 10px; background: #f9f9f9; }
-        label { display: block; font-weight: 900; margin-bottom: 5px; font-size: 0.8rem; }
-        
-        .slider-wrap { display: flex; align-items: center; gap: 10px; }
-        input[type="range"] { flex: 1; accent-color: #ff0055; }
-        
-        .mode-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; }
-        button { cursor: pointer; border: 2px outset #fff; background: #eee; font-weight: bold; padding: 8px; }
-        button:hover { background: #ddd; border: 2px inset #000; }
-        
-        input[type="text"], textarea { width: 100%; border: 2px solid #000; padding: 8px; box-sizing: border-box; }
-        #submit-btn { background: #00ffcc; border: 3px solid #000; font-weight: 900; padding: 10px; cursor: pointer; }
+        .dash-container { 
+            width: 100%; 
+            max-width: 400px; 
+            max-height: 90vh; 
+            display: flex;
+            flex-direction: column;
+        }
+        .window-title { 
+            padding: 8px; 
+            font-weight: 900; 
+        }
+        .window-body { 
+            padding: 15px; 
+            display: flex; 
+            flex-direction: column; 
+            gap: 12px; 
+            overflow-y: auto; 
+            flex: 1;
+        }
+        .section-box {
+            padding: 10px; 
+            background: #f9f9f9; 
+        }
+        label { 
+            display: block; 
+            font-weight: 900; 
+            margin-bottom: 5px; 
+            font-size: 0.8rem; 
+        }
+        .slider-wrap { 
+            display: flex; 
+            align-items: center; 
+            gap: 10px; 
+        }
+        input[type="range"] { 
+            flex: 1; 
+            accent-color: #ff0055; 
+        }
+        .mode-grid { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 5px; 
+        }
+        button { 
+            cursor: pointer; 
+            border: 2px outset #fff; 
+            background: #eee; 
+            font-weight: bold; 
+            padding: 8px; 
+        }
+        button:hover { 
+            background: #ddd;
+        }
+        input[type="text"], textarea { 
+            width: 100%;
+            padding: 8px; 
+            box-sizing: border-box; 
+            margin-bottom: 8px; 
+        }
+        textarea {
+            resize: vertical;
+            min-height: 60px;
+        }
+        #submit-btn { 
+            background: blueviolet;
+            color: white;
+            font-weight: 900; 
+            padding: 10px; 
+            cursor: pointer; 
+        }
+        .widget-section { 
+            border-left: 4px solid blueviolet; 
+            padding-left: 8px; 
+            margin-top: 8px; 
+        }
     </style>
 </head>
-<body>
+<body class="flex justify-center align-center">
 
     <div class="window dash-container">
-        <div class="window-title">† Broadcast Console.exe †</div>
+        <div class="window-title">admin.exe</div>
         <div class="window-body">
             
             <div class="section-box">
@@ -43,6 +101,30 @@
                 <div class="slider-wrap">
                     <input type="range" id="stat-affection" min="0" max="100" value="50" oninput="document.getElementById('val-affection').innerText = this.value + '%'">
                     <span id="val-affection">50%</span>
+                </div>
+            </div>
+
+            <!-- Widget Updaters -->
+            <div class="section-box">
+                <div class="widget-section">
+                    <label>🎨 LATEST ART</label>
+                    <input type="text" id="art-title" placeholder="Art Title...">
+                    <input type="text" id="art-image" placeholder="Image Path (e.g. assets/art/...)">
+                    <input type="text" id="art-desc" placeholder="Art Short Description...">
+                </div>
+
+                <div class="widget-section" style="border-left-color: dodgerblue;">
+                    <label>🎮 PLAYING</label>
+                    <input type="text" id="play-title" placeholder="Game Name...">
+                    <input type="text" id="play-image" placeholder="Game Icon Path...">
+                    <input type="text" id="play-desc" placeholder="Status (e.g. Grinding levels)...">
+                </div>
+
+                <div class="widget-section" style="border-left-color: limegreen;">
+                    <label>📺 WATCHING</label>
+                    <input type="text" id="watch-title" placeholder="Show Name...">
+                    <input type="text" id="watch-image" placeholder="Show Icon Path...">
+                    <input type="text" id="watch-desc" placeholder="Status (e.g. Episode 4)...">
                 </div>
             </div>
 
@@ -67,7 +149,7 @@
     <script>
     const GITHUB_USERNAME = 'SugarHyou';
     const REPO_NAME = 'sugarhyperdose';
-    const FILE_PATH = 'output/journal.json';
+    const FILE_PATH = 'public/output/journal.json';
 
     function saveMode(mode) {
         localStorage.setItem('sugar_mode_request', mode);
@@ -88,7 +170,17 @@
         const targetStress = parseInt(document.getElementById('stat-stress').value);
         const targetAffection = parseInt(document.getElementById('stat-affection').value);
 
-        if (!content) return alert("Cannot transmit empty consciousness.");
+        const artTitle = document.getElementById('art-title').value;
+        const artImage = document.getElementById('art-image').value;
+        const artDesc = document.getElementById('art-desc').value;
+
+        const playTitle = document.getElementById('play-title').value;
+        const playImage = document.getElementById('play-image').value;
+        const playDesc = document.getElementById('play-desc').value;
+
+        const watchTitle = document.getElementById('watch-title').value;
+        const watchImage = document.getElementById('watch-image').value;
+        const watchDesc = document.getElementById('watch-desc').value;
 
         btn.innerText = "TRANSMITTING... ⚡";
         btn.disabled = true;
@@ -100,7 +192,11 @@
             const url = `https://api.github.com/repos/${GITHUB_USERNAME}/${REPO_NAME}/contents/${FILE_PATH}`;
             let res = await fetch(url, { headers: { 'Authorization': `token ${GITHUB_TOKEN}` } });
             let sha = "";
-            let dbStructure = { currentStats: { stress: targetStress, affection: targetAffection }, posts: [] };
+            let dbStructure = { 
+                currentStats: { stress: targetStress, affection: targetAffection }, 
+                art: {}, playing: {}, watching: {},
+                posts: [] 
+            };
 
             if (res.status === 200) {
                 const fileData = await res.json();
@@ -109,13 +205,39 @@
             }
 
             dbStructure.currentStats = { stress: targetStress, affection: targetAffection };
-            dbStructure.posts.unshift({ date: formattedDate, title: title, content: content });
+
+            if (artTitle || artImage || artDesc) {
+                dbStructure.art = {
+                    title: artTitle || dbStructure.art?.title || "",
+                    image: artImage || dbStructure.art?.image || "",
+                    desc: artDesc || dbStructure.art?.desc || ""
+                };
+            }
+            if (playTitle || playImage || playDesc) {
+                dbStructure.playing = {
+                    title: playTitle || dbStructure.playing?.title || "",
+                    image: playImage || dbStructure.playing?.image || "",
+                    desc: playDesc || dbStructure.playing?.desc || ""
+                };
+            }
+            if (watchTitle || watchImage || watchDesc) {
+                dbStructure.watching = {
+                    title: watchTitle || dbStructure.watching?.title || "",
+                    image: watchImage || dbStructure.watching?.image || "",
+                    desc: watchDesc || dbStructure.watching?.desc || ""
+                };
+            }
+
+            if (content) {
+                if (!dbStructure.posts) dbStructure.posts = [];
+                dbStructure.posts.unshift({ date: formattedDate, title: title, content: content });
+            }
 
             let updateRes = await fetch(url, {
                 method: 'PUT',
                 headers: { 'Authorization': `token ${GITHUB_TOKEN}`, 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    message: `📈 Stats & Post: ${title || 'Update'}`,
+                    message: `📈 Update Dashboard & Widgets`,
                     content: btoa(unescape(encodeURIComponent(JSON.stringify(dbStructure, null, 2)))),
                     sha: sha
                 })

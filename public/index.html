@@ -1,36 +1,105 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head> 
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SugarHyperdose</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="icon" type="image/gif" href="/assets/graphics/favicons/x.gif">
+    <link rel="icon" type="image/gif" href="assets/graphics/favicons/x.gif">
 </head>
 
 <body>
 
     <div class="desktop flex">
-
-                        <img src="/assets/art/Sugar-10B-(Jul-20-2026).png" height="250" style="position: absolute; left: 2%; top: 3%;">
-        <img id="sugar" src="/assets/art/Sugar-4-(Jul-5-2026).png" style="transform: scaleX(-1); margin-left: -170px;visibility: hidden;">
+        <img id="sugar" src="assets/art/Sugar-4-(Jul-5-2026).png" style="transform: scaleX(-1); margin-left: -80px;">
 
         <div class="window main-content flex">
             <div class="window-title flex">
                 <span>🌈 HOME</span>
                 <div class="window-close">X</div>
             </div>
-
             <div class="window-popup-content"
                 style="display: flex; flex-direction: row; height: 100%; overflow: hidden; padding: 10px; gap: 10px;">
-                
-                <div
+                <div id="app-mainbar"
                     style="flex: 1; overflow-y: auto; padding-right: 10px; display: flex; flex-direction: column; gap: 15px;">
-                    <marquee behavior="scroll" direction="left" scrollamount="4">Updating index.html...</marquee>
-                </div>
+                    <div class="flex row" style="position: relative;">
+                        <div>
+                            <h1>Finding Sweetness in Chaos!</h1>
+                            <p style="padding: 4px 1px;">Hi! Hello! I'm Sugar, and I run <i>SugarHyperdose</i> across
+                                all different kinds of places on the web! I'm a Decora Artist trying to get by life
+                                while stressing out about it and eating all the sweets I find to cope. Oh, I'm also
+                                trying to go to school for Animation! I hope to help bring an indie company's dream to
+                                life someday!</p>
+                            <table style="margin-top: 5px; border-collapse: collapse;">
+                                <tr>
+                                    <td
+                                        style="padding: 5px 0; font-weight: bold; width: 35%; border-bottom: 1px solid blueviolet;">
+                                        Name:</td>
+                                    <td style="padding: 5px 0; border-bottom: 1px solid blueviolet;">SugarHyperdose</td>
+                                </tr>
+                                <tr>
+                                    <td
+                                        style="padding: 5px 0; font-weight: bold; width: 35%; border-bottom: 1px solid blueviolet;">
+                                        Nickame:</td>
+                                    <td style="padding: 5px 0; border-bottom: 1px solid blueviolet;">Sugar</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 5px 0; font-weight: bold; border-bottom: 1px solid blueviolet;">
+                                        Occupation:</td>
+                                    <td style="padding: 5px 0; border-bottom: 1px solid blueviolet;">Artist (Specialty
+                                        in Pixel Art)</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" style="padding: 10px; font-style: italic; text-align: center;">
+                                        “I’m obsessed with sweets to a probably-unhealthy degree!”
+                                    </td>
+                                </tr>
+                            </table>
 
-                <div class="app-sidebar">
+                        </div>
+                        <img src="assets/art/Sugar-12-(Jul-31-2026).png" height="350"
+                            style="width: fit-content; pointer-events: none; margin: -20px;">
+                    </div>
+                    <div class="flex column" style="margin-top: 15px; gap: 10px;">
+                        <h3 style="border-bottom: 2px dashed hotpink; padding-bottom: 4px; color: hotpink;">✨ CURRENT
+                            STATUS ✨</h3>
+
+                        <div class="flex" style="gap: 10px; flex-wrap: wrap;">
+                            <!-- Recent Art Widget -->
+                            <div class="widget-box"
+                                style="flex: 1; min-width: 130px; border: 2px solid blueviolet; padding: 8px; background: #fff0f5; font-size: 0.85rem;">
+                                <div style="font-weight: bold; color: blueviolet; margin-bottom: 4px;">🎨 LATEST ART
+                                </div>
+                                <img id="widget-art-img" src=""
+                                    style="width: 100%; height: 80px; object-fit: cover; border: 1px solid blueviolet; margin-bottom: 4px;">
+                                <div id="widget-art-title" style="font-weight: bold;">Loading...</div>
+                                <div id="widget-art-desc" style="font-size: 0.75rem; color: #555;">Loading...</div>
+                            </div>
+
+                            <!-- Currently Playing Widget -->
+                            <div class="widget-box"
+                                style="flex: 1; min-width: 130px; border: 2px solid dodgerblue; padding: 8px; background: #f0f8ff; font-size: 0.85rem;">
+                                <div style="font-weight: bold; color: dodgerblue; margin-bottom: 4px;">🎮 PLAYING</div>
+                                <img id="widget-play-img" src=""
+                                    style="width: 100%; height: 80px; object-fit: cover; border: 1px solid dodgerblue; margin-bottom: 4px;">
+                                <div id="widget-play-title" style="font-weight: bold;">Loading...</div>
+                                <div id="widget-play-desc" style="font-size: 0.75rem; color: #555;">Loading...</div>
+                            </div>
+
+                            <!-- Currently Watching Widget -->
+                            <div class="widget-box"
+                                style="flex: 1; min-width: 130px; border: 2px solid limegreen; padding: 8px; background: #f0fff0; font-size: 0.85rem;">
+                                <div style="font-weight: bold; color: limegreen; margin-bottom: 4px;">📺 WATCHING</div>
+                                <img id="widget-watch-img" src=""
+                                    style="width: 100%; height: 80px; object-fit: cover; border: 1px solid limegreen; margin-bottom: 4px;">
+                                <div id="widget-watch-title" style="font-weight: bold;">Loading...</div>
+                                <div id="widget-watch-desc" style="font-size: 0.75rem; color: #555;">Loading...</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="app-sidebar justify-center align-center">
 
                     <a href="javascript:void(0)" class="app flex column"
                         onclick="toggleWindow('window-chat');playOpen();">
@@ -61,50 +130,55 @@
                         <span class="app-icon">🎨</span>
                         <span class="app-name">commissions.txt</span>
                     </a>
+
+                    <img src="assets/art/Sugar-10B-(Jul-20-2026).png"
+                        style="width: fit-content; max-width: 100%; max-height: 100%;">
                 </div>
 
             </div>
         </div>
 
-        <img id="sugar" src="/assets/art/Sugar-4-(Jul-5-2026).png" style="margin-right: -170px;">
+        <img id="sugar" src="assets/art/Sugar-4-(Jul-5-2026).png" style="margin-right: -80px;">
 
-        <div id="window-chat" class="window window-popup hidden flex" style="width: 280px; border: 4px solid red;">
-            <div class="window-title flex" style="background: red;">
-                <span>Chat
-                    <span id="online-status" style="color: lime; animation: blinker 1.5s linear infinite;">🟢
-                        ONLINE</span>
-                </span>
-                <div class="window-close" onclick="toggleWindow('window-chat')">X</div>
+    </div>
+
+
+    <div id="window-chat" class="window window-popup hidden flex" style="width: 280px; border: 4px solid red;">
+        <div class="window-title flex" style="background: red;">
+            <span>Chat
+                <span id="online-status" style="color: lime; animation: blinker 1.5s linear infinite;">🟢
+                    ONLINE</span>
+            </span>
+            <div class="window-close" onclick="toggleWindow('window-chat')">X</div>
+        </div>
+
+        <div id="chat-window-body" class="window-popup-content flex column">
+            <div class="flex"
+                style="padding: 0 0 10px; flex-direction: column; gap: 6px; font-size: 0.75rem; font-weight: bold;">
+                <div class="flex" style="align-items: center; justify-content: space-between; gap: 8px;">
+                    <span style="color: red; width: 65px;">STRESS:</span>
+                    <div style="flex: 1; height: 12px; background: #eee; border: 1px solid red;">
+                        <div id="meter-stress" style="height: 100%; background: red; width: 0%;"></div>
+                    </div>
+                    <span id="txt-stress" style="width: 30px; text-align: right;">0%</span>
+                </div>
+                <div class="flex" style="align-items: center; justify-content: space-between; gap: 8px;">
+                    <span style="color: hotpink; width: 65px;">AFFECTION:</span>
+                    <div style="flex: 1; height: 12px; background: #eee; border: 1px solid red;">
+                        <div id="meter-affection" style="height: 100%; background: hotpink; width: 0%;"></div>
+                    </div>
+                    <span id="txt-affection" style="width: 30px; text-align: right; color: hotpink;">0%</span>
+                </div>
             </div>
 
-            <div id="chat-window-body" class="window-popup-content flex column">
-                <div class="flex"
-                    style="padding: 0 0 10px; flex-direction: column; gap: 6px; font-size: 0.75rem; font-weight: bold;">
-                    <div class="flex" style="align-items: center; justify-content: space-between; gap: 8px;">
-                        <span style="color: red; width: 65px;">STRESS:</span>
-                        <div style="flex: 1; height: 12px; background: #eee; border: 1px solid red;">
-                            <div id="meter-stress" style="height: 100%; background: red; width: 0%;"></div>
-                        </div>
-                        <span id="txt-stress" style="width: 30px; text-align: right;">0%</span>
-                    </div>
-                    <div class="flex" style="align-items: center; justify-content: space-between; gap: 8px;">
-                        <span style="color: hotpink; width: 65px;">AFFECTION:</span>
-                        <div style="flex: 1; height: 12px; background: #eee; border: 1px solid red;">
-                            <div id="meter-affection" style="height: 100%; background: hotpink; width: 0%;"></div>
-                        </div>
-                        <span id="txt-affection" style="width: 30px; text-align: right; color: hotpink;">0%</span>
-                    </div>
-                </div>
-
-                <div class="avatar-container" style="text-align: center;">
-                    <img id="sugar-avatar" src="/assets/art/Sugar-(Jul-3-2026).gif" alt="[SUGAR-CHAN GRAPHIC]"
-                        onclick="handleSugarClick()" style="height: 180px; object-fit: cover; cursor: pointer;">
-                </div>
-                <div class="dialogue-text-box" id="dialogue-box">
-                    Loading...
-                </div>
-                <div class="options-container flex" id="options-box" style="flex-direction: column; gap: 4px;">
-                </div>
+            <div class="avatar-container" style="text-align: center;">
+                <img id="sugar-avatar" src="assets/art/Sugar-(Jul-3-2026).gif" alt="[SUGAR-CHAN GRAPHIC]"
+                    onclick="handleSugarClick()" style="height: 180px; object-fit: cover; cursor: pointer;">
+            </div>
+            <div class="dialogue-text-box" id="dialogue-box">
+                Loading...
+            </div>
+            <div class="options-container flex" id="options-box" style="flex-direction: column; gap: 4px;">
             </div>
         </div>
     </div>
@@ -191,8 +265,6 @@
             </a>
         </div>
     </div>
-
-
 
     <script src="script.js"></script>
 </body>

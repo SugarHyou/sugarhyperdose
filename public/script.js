@@ -112,34 +112,34 @@ function setSugarMode(mode) {
 
     switch (sugarMode) {
         case 'busy':
-            avatarImg.src = "/assets/art/Empty-(Jul-12-2026).png";
+            avatarImg.src = "assets/art/Empty-(Jul-12-2026).png";
             dialogueBox.innerText = "Sugar is busy right now...";
             if (optionsBox) optionsBox.innerHTML = "";
             break;
         case 'gaming':
-            avatarImg.src = "/assets/art/Sugar-5-(Jul-8-2026).gif";
+            avatarImg.src = "assets/art/Sugar-5-(Jul-8-2026).gif";
             dialogueBox.innerText = "Sugar is busy playing video games.";
             if (optionsBox) optionsBox.innerHTML = "";
             break;
         case 'blogging':
-            avatarImg.src = "/assets/art/Sugar-8-(Jul-11-2026).gif";
+            avatarImg.src = "assets/art/Sugar-8-(Jul-11-2026).gif";
             dialogueBox.innerText = "Sugar is typing a new blog...";
             if (optionsBox) optionsBox.innerHTML = "";
             setTimeout(() => setSugarMode('default'), 5000);
             break;
         case 'sleep':
-            avatarImg.src = "/assets/art/Sugar-9-(Jul-12-2026).gif";
+            avatarImg.src = "assets/art/Sugar-9-(Jul-12-2026).gif";
             dialogueBox.innerText = "Sugar is sleeping... Zzz...";
             if (optionsBox) optionsBox.innerHTML = "";
             break;
         case 'andy':
-            avatarImg.src = "/assets/art/Andy-(Jul-16-2026).png";
+            avatarImg.src = "assets/art/Andy-(Jul-16-2026).png";
             dialogueBox.innerText = "...don't look at me.";
             document.body.classList.add('andy-mode');
             renderAndyOptions();
             break;
         default:
-            avatarImg.src = "/assets/art/Sugar-11-(Jul-25-2026).gif";
+            avatarImg.src = "assets/art/Sugar-11-(Jul-25-2026).gif";
             dialogueBox.innerText = "So, what's up?";
             document.body.classList.remove('andy-mode');
             renderDefaultOptions();
@@ -270,7 +270,7 @@ function renderAndyOptions() {
 
 async function loadSiteData() {
     try {
-        const res = await fetch('https://raw.githubusercontent.com/SugarHyou/sugarhyperdose/main/output/journal.json', {
+        const res = await fetch('https://raw.githubusercontent.com/SugarHyou/sugarhyperdose/main/public/output/journal.json', {
             cache: 'no-store'
         });
         const data = await res.json();
@@ -288,7 +288,7 @@ async function loadSiteData() {
 
             postEl.innerHTML = `
                 <div class="flex" style="align-items: center; gap: 8px; margin-bottom: 5px;">
-                    <img src="/assets/art/Sugar-3-(Jul-4-2026).png" style="width: 40px; height: 40px; border: 2px solid red;">
+                    <img src="assets/art/Sugar-3-(Jul-4-2026).png" style="width: 40px; height: 40px; border: 2px solid red;">
                     <div class="flex column">
                         <span>SugarHyperdose</span>
                         <span style="margin-top: 2.5px; font-size: 0.7rem; opacity: 0.6;">${post.date}</span>
@@ -352,12 +352,12 @@ function controlAudio(action) {
 }
 
 const myPlaylist = [
-    { title: "混沌ブギ 初音ミク", file: "/assets/audio/music/混沌ブギ 初音ミク.mp3" },
-    { title: "＋♂", file: "/assets/audio/music/plus-boy.mp3" },
-    { title: "BANG BANG BANG", file: "/assets/audio/music/BANG BANG BANG.mp3" },
-    { title: "Chiwawa", file: "/assets/audio/music/Chiwawa.mp3" },
-    { title: "Confessions of a Rotten Girl", file: "/assets/audio/music/Confessions of a Rotten Girl.mp3" },
-    { title: "ELECTRIC WEEKEND ZONE", file: "/assets/audio/music/ELECTRIC WEEKEND ZONE.mp3" }
+    { title: "混沌ブギ 初音ミク", file: "assets/audio/music/混沌ブギ 初音ミク.mp3" },
+    { title: "＋♂", file: "assets/audio/music/plus-boy.mp3" },
+    { title: "BANG BANG BANG", file: "assets/audio/music/BANG BANG BANG.mp3" },
+    { title: "Chiwawa", file: "assets/audio/music/Chiwawa.mp3" },
+    { title: "Confessions of a Rotten Girl", file: "assets/audio/music/Confessions of a Rotten Girl.mp3" },
+    { title: "ELECTRIC WEEKEND ZONE", file: "assets/audio/music/ELECTRIC WEEKEND ZONE.mp3" }
 ];
 
 function populatePlaylist() {
@@ -487,7 +487,7 @@ window.addEventListener('storage', (event) => {
     }
 });
 
-const openSound = new Audio('/assets/audio/ui/Maximize.wav');
+const openSound = new Audio('assets/audio/ui/Maximize.wav');
 
 function playOpen() {
     openSound.currentTime = 0;
@@ -515,7 +515,7 @@ function triggerBlogAnimation() {
 
 async function updateUIStats() {
     try {
-        const res = await fetch('https://raw.githubusercontent.com/SugarHyou/sugarhyperdose/main/output/journal.json');
+        const res = await fetch('https://raw.githubusercontent.com/SugarHyou/sugarhyperdose/main/public/output/journal.json');
         const data = await res.json();
 
         if (data.currentStats) {

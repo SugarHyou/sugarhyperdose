@@ -13,30 +13,40 @@
     --green: limegreen;
     --blue: blue;
     --purple: blueviolet;
+    --pink: fuchsia;
     --rainbow-gradient: linear-gradient(90deg, red, orange, yellow, lime, cyan, blue, blueviolet);
     --rainbow-gradient-border: linear-gradient(90deg, red, orange, yellow, lime, cyan, blue, blueviolet) 1;
 }
 
 @font-face {
     font-family: 'Main';
-    src: url('/assets/fonts/W95F.otf');
+    src: url('assets/fonts/W95F.otf');
 }
 
 body {
+    width: 100vw;
     height: 100vh;
     overflow: hidden;
-    background-image: url('/assets/graphics/backgrounds/default.png');
+    background-image: url('assets/graphics/backgrounds/default4.png');
+    background-position: center;
     background-size: cover;
     display: flex;
     flex-direction: column;
     font-family: 'Main';
-    color: var(--blue);
-    gap: 15px;
+    color: var(--purple);
     padding: 10px 0;
 }
 
-img {
-    image-rendering: pixelated;
+@keyframes rainbowText {
+  0% { filter: hue-rotate(0deg); }
+  100% { filter: hue-rotate(360deg); }
+}
+
+h1 {
+  background: var(--rainbow-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: rainbowText 2s linear infinite;
 }
 
 strong {
@@ -44,13 +54,17 @@ strong {
 }
 
 hr {
-    background-image: url('/assets/graphics/dividers/Rainbow.webp');
+    background-image: url('assets/graphics/dividers/Rainbow.webp');
     background-size: contain;
     background-position: center;
     background-repeat: repeat-x;
     border: none;
     filter: contrast(2);
     height: 25px;
+}
+
+a {
+    color: var(--pink);
 }
 
 .flex {
@@ -433,6 +447,11 @@ button:hover {
     border-color: limegreen !important;
 }
 
+#app-mainbar {
+    overflow-x: hidden;
+    position: relative;
+}
+
 .app-sidebar {
     width: 140px;
     display: flex;
@@ -449,6 +468,7 @@ button:hover {
 }
 
 .app {
+    width: 100%;
     justify-content: end;
     align-items: center;
     text-decoration: none;
@@ -521,7 +541,7 @@ button:hover {
     z-index: -1;
     pointer-events: none;
     max-height: 100%;
-    margin: 0 -150px;
+    margin: 0 -50px;
 }
 
 blockquote {
@@ -638,7 +658,7 @@ blockquote {
 }
 
 .andy-mode {
-    background-image: url('/assets/graphics/backgrounds/andy.jpg');
+    background-image: url('assets/graphics/backgrounds/andy.jpg');
     background-size: contain;
     --white: #0d1632;
     --blue: white;
