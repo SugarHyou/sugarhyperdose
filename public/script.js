@@ -656,3 +656,30 @@ function checkSleepStatus() {
         setSugarMode('default');
     }
 }
+
+async function loadStatusWidgets() {
+    try {
+        const response = await fetch('https://raw.githubusercontent.com/SugarHyou/sugarhyperdose/main/public/output/journal.json');
+        const data = await response.json();
+
+        // Art Widget
+        document.getElementById('widget-art-img').src = data.art.image;
+        document.getElementById('widget-art-title').innerText = data.art.title;
+        document.getElementById('widget-art-desc').innerText = data.art.desc;
+
+        // Playing Widget
+        document.getElementById('widget-play-img').src = data.playing.image;
+        document.getElementById('widget-play-title').innerText = data.playing.title;
+        document.getElementById('widget-play-desc').innerText = data.playing.desc;
+
+        // Watching Widget
+        document.getElementById('widget-watch-img').src = data.watching.image;
+        document.getElementById('widget-watch-title').innerText = data.watching.title;
+        document.getElementById('widget-watch-desc').innerText = data.watching.desc;
+    } catch (error) {
+        console.error("Failed to load status widgets:", error);
+    }
+}
+
+// Call it when the page loads
+loadStatusWidgets();
