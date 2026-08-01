@@ -1,9 +1,14 @@
 {
   "currentStats": {
-    "stress": 100,
-    "affection": 16
+    "stress": 20,
+    "affection": 50
   },
   "posts": [
+    {
+      "date": "Jul 31 - 05:22 PM",
+      "title": "test",
+      "content": "test"
+    },
     {
       "date": "Jul 16 - 01:05 AM",
       "title": "GET ME OUT OF HERE.",
@@ -59,5 +64,20 @@
       "title": "test",
       "content": "test"
     }
-  ]
+  ],
+  "art": {
+    "title": "test",
+    "image": "test",
+    "desc": "test"
+  },
+  "playing": {
+    "title": "test",
+    "image": "test",
+    "desc": "tesrt"
+  },
+  "watching": {
+    "title": "test",
+    "image": "test",
+    "desc": "test"
+  }
 }
