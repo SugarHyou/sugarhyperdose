@@ -70,11 +70,15 @@
         }
 
         input[type="text"],
+        select,
+        input[type="file"],
         textarea {
             width: 100%;
             padding: 8px;
             box-sizing: border-box;
             margin-bottom: 8px;
+            border: 2px solid #000;
+            background: #fff;
         }
 
         textarea {
@@ -98,7 +102,7 @@
     </style>
 </head>
 
-<body class="flex justify-center align-center">
+<body class="flex justify-center align-center" onload="initAdminPanel()">
 
     <div class="window dash-container">
         <div class="window-title">admin.exe</div>
@@ -122,26 +126,39 @@
                 </div>
             </div>
 
-            <!-- Widget Updaters -->
+            <!-- Widget Updaters with Dual Image Selection (Dropdown or File Upload) -->
             <div class="section-box">
+                <!-- LATEST ART -->
                 <div class="widget-section">
                     <label>🎨 LATEST ART</label>
                     <input type="text" id="art-title" placeholder="Art Title...">
-                    <input type="text" id="art-image" placeholder="Image Path (e.g. assets/art/...)">
+                    <label style="font-size: 0.7rem; color: #555; margin-bottom: 2px;">Select Existing Asset or Upload New:</label>
+                    <select id="art-select" class="art-dropdown">
+                        <option value="">-- Load from existing assets --</option>
+                    </select>
+                    <input type="file" id="art-file-upload" accept="image/*">
                     <input type="text" id="art-desc" placeholder="Art Short Description...">
                 </div>
 
+                <!-- PLAYING -->
                 <div class="widget-section" style="border-left-color: dodgerblue;">
                     <label>🎮 PLAYING</label>
                     <input type="text" id="play-title" placeholder="Game Name...">
-                    <input type="text" id="play-image" placeholder="Game Icon Path...">
+                    <select id="play-select" class="art-dropdown">
+                        <option value="">-- Load from existing assets --</option>
+                    </select>
+                    <input type="file" id="play-file-upload" accept="image/*">
                     <input type="text" id="play-desc" placeholder="Status (e.g. Grinding levels)...">
                 </div>
 
+                <!-- WATCHING -->
                 <div class="widget-section" style="border-left-color: limegreen;">
                     <label>📺 WATCHING</label>
                     <input type="text" id="watch-title" placeholder="Show Name...">
-                    <input type="text" id="watch-image" placeholder="Show Icon Path...">
+                    <select id="watch-select" class="art-dropdown">
+                        <option value="">-- Load from existing assets --</option>
+                    </select>
+                    <input type="file" id="watch-file-upload" accept="image/*">
                     <input type="text" id="watch-desc" placeholder="Status (e.g. Episode 4)...">
                 </div>
             </div>
@@ -168,45 +185,120 @@
         const GITHUB_USERNAME = 'SugarHyou';
         const REPO_NAME = 'sugarhyperdose';
         const FILE_PATH = 'public/output/journal.json';
+        const ASSETS_PATH = 'public/assets/art'; // Folder scanned for existing images
 
         function saveMode(mode) {
             localStorage.setItem('sugar_mode_request', mode);
             alert("Command Sent: " + mode.toUpperCase());
         }
 
+        // Automatically populate dropdown menus with existing repo files on load
+        async function initAdminPanel() {
+            let GITHUB_TOKEN = localStorage.getItem('overdose_journal_token');
+            if (!GITHUB_TOKEN) return; // Skip fetching if not authenticated yet
+
+            try {
+                const url = `https://api.github.com/repos/${GITHUB_USERNAME}/${REPO_NAME}/contents/${ASSETS_PATH}`;
+                let res = await fetch(url, { headers: { 'Authorization': `token ${GITHUB_TOKEN}` } });
+                if (res.status === 200) {
+                    let files = await res.json();
+                    let dropdowns = ['art-select', 'play-select', 'watch-select'];
+                    
+                    dropdowns.forEach(id => {
+                        let select = document.getElementById(id);
+                        files.forEach(file => {
+                            if (file.type === 'file' && /\.(png|jpg|jpeg|gif|webp)$/i.test(file.name)) {
+                                let opt = document.createElement('option');
+                                opt.value = `assets/art/${file.name}`; // Path relative to public folder layout
+                                opt.innerText = file.name;
+                                select.appendChild(opt);
+                            }
+                        });
+                    });
+                }
+            } catch (e) {
+                console.log("Could not pre-load asset folder list automatically:", e);
+            }
+        }
+
+        // Helper to convert an uploaded file into base64 and push it to GitHub
+        async function uploadFileToGithub(fileInputId, token) {
+            const fileInput = document.getElementById(fileInputId);
+            if (!fileInput.files || fileInput.files.length === 0) return null;
+
+            const file = fileInput.files[0];
+            const fileName = file.name.replace(/\s+/g, '-').toLowerCase();
+            const targetPath = `${ASSETS_PATH}/${Date.now()}-${fileName}`;
+            const url = `https://api.github.com/repos/${GITHUB_USERNAME}/${REPO_NAME}/contents/${targetPath}`;
+
+            // Convert file to Base64
+            const base64Content = await new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = () => resolve(reader.result.split(',')[1]);
+                reader.onerror = error => reject(error);
+            });
+
+            let res = await fetch(url, {
+                method: 'PUT',
+                headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    message: `Upload asset via Admin Console: ${fileName}`,
+                    content: base64Content
+                })
+            });
+
+            if (res.status === 200 || res.status === 201) {
+                // Return path formatted for your site context
+                return `assets/art/${targetPath.split('/').pop()}`;
+            } else {
+                throw new Error(`Failed to upload image file: ${fileName}`);
+            }
+        }
+
         async function publishPost() {
             let GITHUB_TOKEN = localStorage.getItem('overdose_journal_token');
             if (!GITHUB_TOKEN) {
                 GITHUB_TOKEN = prompt("SYSTEM ACCESS REQUIRED:");
-                if (GITHUB_TOKEN) localStorage.setItem('overdose_journal_token', GITHUB_TOKEN.trim());
-                else return;
+                if (GITHUB_TOKEN) {
+                    localStorage.setItem('overdose_journal_token', GITHUB_TOKEN.trim());
+                } else {
+                    return;
+                }
             }
 
             const btn = document.getElementById('submit-btn');
-            const title = document.getElementById('title').value;
-            const content = document.getElementById('content').value;
-            const targetStress = parseInt(document.getElementById('stat-stress').value);
-            const targetAffection = parseInt(document.getElementById('stat-affection').value);
-
-            const artTitle = document.getElementById('art-title').value;
-            const artImage = document.getElementById('art-image').value;
-            const artDesc = document.getElementById('art-desc').value;
-
-            const playTitle = document.getElementById('play-title').value;
-            const playImage = document.getElementById('play-image').value;
-            const playDesc = document.getElementById('play-desc').value;
-
-            const watchTitle = document.getElementById('watch-title').value;
-            const watchImage = document.getElementById('watch-image').value;
-            const watchDesc = document.getElementById('watch-desc').value;
-
             btn.innerText = "TRANSMITTING... ⚡";
             btn.disabled = true;
 
-            const now = new Date();
-            const formattedDate = now.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) + ' - ' + now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
-
             try {
+                // 1. Handle any file uploads first if selected
+                const uploadedArtImg = await uploadFileToGithub('art-file-upload', GITHUB_TOKEN);
+                const uploadedPlayImg = await uploadFileToGithub('play-file-upload', GITHUB_TOKEN);
+                const uploadedWatchImg = await uploadFileToGithub('watch-file-upload', GITHUB_TOKEN);
+
+                const title = document.getElementById('title').value;
+                const content = document.getElementById('content').value;
+                const targetStress = parseInt(document.getElementById('stat-stress').value);
+                const targetAffection = parseInt(document.getElementById('stat-affection').value);
+
+                // Priority: Newly uploaded file > Selected dropdown item > Leave empty/unchanged
+                const artImageFinal = uploadedArtImg || document.getElementById('art-select').value;
+                const playImageFinal = uploadedPlayImg || document.getElementById('play-select').value;
+                const watchImageFinal = uploadedWatchImg || document.getElementById('watch-select').value;
+
+                const artTitle = document.getElementById('art-title').value;
+                const artDesc = document.getElementById('art-desc').value;
+
+                const playTitle = document.getElementById('play-title').value;
+                const playDesc = document.getElementById('play-desc').value;
+
+                const watchTitle = document.getElementById('watch-title').value;
+                const watchDesc = document.getElementById('watch-desc').value;
+
+                const now = new Date();
+                const formattedDate = now.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) + ' - ' + now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+
                 const url = `https://api.github.com/repos/${GITHUB_USERNAME}/${REPO_NAME}/contents/${FILE_PATH}`;
                 let res = await fetch(url, { headers: { 'Authorization': `token ${GITHUB_TOKEN}` } });
                 let sha = undefined;
@@ -228,39 +320,43 @@
                     }
                 }
 
-                // Ensure structural safety
+                // Update core stats
                 if (!dbStructure.currentStats) dbStructure.currentStats = {};
                 dbStructure.currentStats.stress = targetStress;
                 dbStructure.currentStats.affection = targetAffection;
 
+                // Update Art Widget
                 if (!dbStructure.art) dbStructure.art = {};
-                if (artTitle || artImage || artDesc) {
+                if (artTitle || artImageFinal || artDesc) {
                     dbStructure.art.title = artTitle || dbStructure.art.title || "";
-                    dbStructure.art.image = artImage || dbStructure.art.image || "";
+                    if (artImageFinal) dbStructure.art.image = artImageFinal;
                     dbStructure.art.desc = artDesc || dbStructure.art.desc || "";
                 }
 
+                // Update Playing Widget
                 if (!dbStructure.playing) dbStructure.playing = {};
-                if (playTitle || playImage || playDesc) {
+                if (playTitle || playImageFinal || playDesc) {
                     dbStructure.playing.title = playTitle || dbStructure.playing.title || "";
-                    dbStructure.playing.image = playImage || dbStructure.playing.image || "";
+                    if (playImageFinal) dbStructure.playing.image = playImageFinal;
                     dbStructure.playing.desc = playDesc || dbStructure.playing.desc || "";
                 }
 
+                // Update Watching Widget
                 if (!dbStructure.watching) dbStructure.watching = {};
-                if (watchTitle || watchImage || watchDesc) {
+                if (watchTitle || watchImageFinal || watchDesc) {
                     dbStructure.watching.title = watchTitle || dbStructure.watching.title || "";
-                    dbStructure.watching.image = watchImage || dbStructure.watching.image || "";
+                    if (watchImageFinal) dbStructure.watching.image = watchImageFinal;
                     dbStructure.watching.desc = watchDesc || dbStructure.watching.desc || "";
                 }
 
+                // Append blog post if available
                 if (content.trim() !== "") {
                     if (!dbStructure.posts) dbStructure.posts = [];
                     dbStructure.posts.unshift({ date: formattedDate, title: title || "Untitled", content: content });
                 }
 
                 const bodyPayload = {
-                    message: `📈 Update Dashboard & Widgets via Admin Panel`,
+                    message: `📈 Update Dashboard, Assets & Widgets via Admin Panel`,
                     content: btoa(unescape(encodeURIComponent(JSON.stringify(dbStructure, null, 2))))
                 };
 
@@ -281,6 +377,9 @@
                     alert("TRANSMITTED SUCCESSFULLY! 🎀");
                     document.getElementById('title').value = '';
                     document.getElementById('content').value = '';
+                    document.getElementById('art-file-upload').value = '';
+                    document.getElementById('play-file-upload').value = '';
+                    document.getElementById('watch-file-upload').value = '';
                 } else {
                     const errData = await updateRes.json();
                     alert("Error writing to core: " + (errData.message || updateRes.status));
