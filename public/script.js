@@ -1,7 +1,6 @@
 const IS_DEV_MODE = true;
 let sugarMode = 'default';
 
-// 1. Move the dialogue trees definition to the top so it exists before anything tries to read it
 const sugarDialogueTrees = {
     default: {
         nodeId: "start",
@@ -99,7 +98,6 @@ const sugarDialogueTrees = {
     }
 };
 
-// 2. Now initialize currentDialogueNode safely because sugarDialogueTrees is fully defined
 let currentDialogueNode = sugarDialogueTrees.default;
 
 function setSugarMode(mode) {
@@ -152,12 +150,9 @@ function renderDialogueNode(node) {
     const optionsBox = document.getElementById("options-box");
     if (!dialogueBox || !optionsBox) return;
 
-    // Temporarily clear option buttons while text is typing out
     optionsBox.innerHTML = "";
 
-    // Apply typewriter effect to the text box
     typeWriterEffect(dialogueBox, node.text, 25, () => {
-        // Once typing finishes, apply stats and render the choice buttons
         if (node.effect) {
             applyStatChanges(node.effect);
         }
@@ -203,7 +198,6 @@ function typeWriterEffect(element, text, speed = 25, callback = null) {
 
     typingInterval = setInterval(() => {
         if (i < text.length) {
-            // Use textContent instead of innerText to ensure spaces don't get swallowed
             element.textContent += text.charAt(i);
             i++;
         } else {
@@ -662,17 +656,14 @@ async function loadStatusWidgets() {
         const response = await fetch('https://raw.githubusercontent.com/SugarHyou/sugarhyperdose/main/public/output/journal.json');
         const data = await response.json();
 
-        // Art Widget
         document.getElementById('widget-art-img').src = data.art.image;
         document.getElementById('widget-art-title').innerText = data.art.title;
         document.getElementById('widget-art-desc').innerText = data.art.desc;
 
-        // Playing Widget
         document.getElementById('widget-play-img').src = data.playing.image;
         document.getElementById('widget-play-title').innerText = data.playing.title;
         document.getElementById('widget-play-desc').innerText = data.playing.desc;
 
-        // Watching Widget
         document.getElementById('widget-watch-img').src = data.watching.image;
         document.getElementById('widget-watch-title').innerText = data.watching.title;
         document.getElementById('widget-watch-desc').innerText = data.watching.desc;
@@ -681,5 +672,4 @@ async function loadStatusWidgets() {
     }
 }
 
-// Call it when the page loads
 loadStatusWidgets();

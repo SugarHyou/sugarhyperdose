@@ -51,6 +51,13 @@
                                         in Pixel Art)</td>
                                 </tr>
                                 <tr>
+                                    <td style="padding: 5px 0; font-weight: bold; border-bottom: 1px solid blueviolet;">
+                                        Website Button:</td>
+                                    <td style="padding: 5px 0; border-bottom: 1px solid blueviolet;">
+                                        <img src="assets/graphics/buttons/Sugar0verdosed.gif">
+                                    </td>
+                                </tr>
+                                <tr>
                                     <td colspan="2" style="padding: 10px; font-style: italic; text-align: center;">
                                         “I’m obsessed with sweets to a probably-unhealthy degree!”
                                     </td>
@@ -61,41 +68,55 @@
                         <img src="assets/art/Sugar-12-(Jul-31-2026).png" height="350"
                             style="width: fit-content; pointer-events: none; margin: -20px;">
                     </div>
-                    <div class="flex column" style="gap: 10px;">
-                        <div class="flex" style="gap: 10px; flex-wrap: wrap;">
-                            <!-- Recent Art Widget -->
-                            <div class="widget-box"
-                                style="flex: 1; min-width: 130px; border: 2px solid blueviolet; padding: 8px; background: #fff0f5; font-size: 0.85rem;">
-                                <div style="font-weight: bold; color: blueviolet; margin-bottom: 4px;">🎨 LATEST ART
+
+                    <div class="flex column" style="gap: 15px;">
+                        <div class="flex" style="gap: 15px; align-items: stretch;">
+                            <div class="flex column" style="flex: 1; gap: 10px;">
+                                <div class="widget-box">
+                                    <div style="font-weight: bold; color: blueviolet;">🎨 LATEST ART</div>
+                                    <img id="widget-art-img" src=""
+                                        style="width: 100%; height: 120px; object-fit: cover; border: 1px solid blueviolet;">
+                                    <div id="widget-art-title" style="font-weight: bold;">Loading...</div>
+                                    <div id="widget-art-desc">Loading...</div>
                                 </div>
-                                <img id="widget-art-img" src=""
-                                    style="width: 100%; height: 80px; object-fit: cover; border: 1px solid blueviolet; margin-bottom: 4px;">
-                                <div id="widget-art-title" style="font-weight: bold;">Loading...</div>
-                                <div id="widget-art-desc" style="font-size: 0.75rem; color: #555;">Loading...</div>
+
+                                <div class="widget-box">
+                                    <div style="font-weight: bold; color: dodgerblue;">🎮 PLAYING</div>
+                                    <img id="widget-play-img" src=""
+                                        style="width: 100%; height: 120px; object-fit: cover; border: 1px solid dodgerblue;">
+                                    <div id="widget-play-title" style="font-weight: bold;">Loading...</div>
+                                    <div id="widget-play-desc">Loading...</div>
+                                </div>
+
+                                <div class="widget-box">
+                                    <div style="font-weight: bold; color: limegreen;">📺 WATCHING</div>
+                                    <img id="widget-watch-img" src=""
+                                        style="width: 100%; height: 120px; object-fit: cover; border: 1px solid limegreen;">
+                                    <div id="widget-watch-title" style="font-weight: bold;">Loading...</div>
+                                    <div id="widget-watch-desc">Loading...</div>
+                                </div>
                             </div>
 
-                            <!-- Currently Playing Widget -->
-                            <div class="widget-box"
-                                style="flex: 1; min-width: 130px; border: 2px solid dodgerblue; padding: 8px; background: #f0f8ff; font-size: 0.85rem;">
-                                <div style="font-weight: bold; color: dodgerblue; margin-bottom: 4px;">🎮 PLAYING</div>
-                                <img id="widget-play-img" src=""
-                                    style="width: 100%; height: 80px; object-fit: cover; border: 1px solid dodgerblue; margin-bottom: 4px;">
-                                <div id="widget-play-title" style="font-weight: bold;">Loading...</div>
-                                <div id="widget-play-desc" style="font-size: 0.75rem; color: #555;">Loading...</div>
-                            </div>
-
-                            <!-- Currently Watching Widget -->
-                            <div class="widget-box"
-                                style="flex: 1; min-width: 130px; border: 2px solid limegreen; padding: 8px; background: #f0fff0; font-size: 0.85rem;">
-                                <div style="font-weight: bold; color: limegreen; margin-bottom: 4px;">📺 WATCHING</div>
-                                <img id="widget-watch-img" src=""
-                                    style="width: 100%; height: 80px; object-fit: cover; border: 1px solid limegreen; margin-bottom: 4px;">
-                                <div id="widget-watch-title" style="font-weight: bold;">Loading...</div>
-                                <div id="widget-watch-desc" style="font-size: 0.75rem; color: #555;">Loading...</div>
+                            <div class="flex column" style="flex: 1.5; gap: 10px;">
+                                <img src="assets\graphics\shop\Keychains\Cover A.png"
+                                    style="width: 100%; border: 1px solid blueviolet;">
+                                <a href="YOUR_ETSY_LINK_HERE" target="_blank"
+                                    style="display: block; width: 100%; background: orange; color: white; padding: 6px; text-decoration: none; font-weight: bold; border: 2px outset #ff8c00; text-align: center;">
+                                    CHECK OUT ON ETSY!
+                                </a>
+                                <p>This shop is my passion project and my pathway toward a more independent, brighter
+                                    life!
+                                    I needed a way to raise funds for my own future and separate from a difficult and
+                                    stressful environment. I turned to the things that bring me the most joy: vibrant
+                                    colors and the addictive, happy feeling of sugar.
+                                    I’m obsessed with sweets to a probably-unhealthy degree! Creating these items is my
+                                    therapy, my escape, and my way of taking control.</p>
+                                    <img src="assets/art/SugarHyperdose-3-(Jul-22-2026).png" width="100%">
                             </div>
                         </div>
                     </div>
                 </div>
+
                 <div class="app-sidebar justify-center align-center">
 
                     <a href="javascript:void(0)" class="app flex column"
@@ -222,7 +243,6 @@
                 <button onclick="controlAudio('stop')" style="background: red; color: white;">■ STOP</button>
             </div>
 
-            <!-- This container will be filled by JS -->
             <div id="playlist-container" class="flex column" style="max-height: 250px; overflow-y: auto;"></div>
         </div>
     </div>
