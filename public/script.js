@@ -388,7 +388,7 @@ async function loadSiteData() {
             // Conditionally generate image HTML if the post has an image attached
             let imageHtml = "";
             if (post.image && post.image.trim() !== "") {
-                imageHtml = `<img src="${post.image}" style="max-width: 100%; margin-top: 10px; border: 2px solid #000;">`;
+                imageHtml = `<img src="${post.image}" style="max-width: 100%; margin-top: 10px;">`;
             }
 
             postEl.innerHTML = `

@@ -536,7 +536,7 @@ button:hover {
     z-index: -1;
     pointer-events: none;
     max-height: 100%;
-    margin: 0 -50px;
+    margin: 0 -150px;
 }
 
 blockquote {
