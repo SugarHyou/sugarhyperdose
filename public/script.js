@@ -6,37 +6,116 @@ const sugarDialogueTrees = {
         nodeId: "start",
         text: "So, what's up?",
         choices: [
-            { text: "You look super energetic today!", next: "energetic_path" },
+            { text: "How are you today?", next: "how_are_you_branch" },
+            { text: "What are you working on?", next: "working_on_branch" },
             { text: "Are you hiding something from your blog?", next: "blog_path" },
             { text: "Let's just chill and listen to music.", next: "chill_path" }
         ]
     },
-    energetic_path: {
-        nodeId: "energetic_path",
-        text: "Right?! I had way too much caffeine and a brilliant layout idea. Want to hear about it?",
-        effect: { affection: 5, stress: 2 },
+
+    // --- HOW ARE YOU? (Dynamic Stress Tiers) ---
+    how_are_you_branch: {
+        nodeId: "how_are_you_branch",
+        getText: (stats) => {
+            if (stats.stress > 70) {
+                return "The hell do you mean \"how are you\"? Are you mocking me right now? Or do you just not read my blogs...? I mean, if you haven't, you're better off looking there for your answer. I don't feel like talking about it right now...";
+            }
+            if (stats.stress >= 50) {
+                return "Uhh, ask me that in about like 30 minutes. I'm not feeling so great right now. Sorry.";
+            }
+            if (stats.stress >= 20) {
+                return "Eehh I'm okay. A little stressed, but I mean what's life without it?";
+            }
+            return "Im doing pretty good actually! Living life, y'know.... Breathing and stuff. I mean, just because im not an active person doesnt mean im not chilling!";
+        },
+        effect: { affection: 2, stress: 0 },
         choices: [
-            { text: "Always! Tell me everything.", next: "energetic_deep_dive" },
-            { text: "Maybe tone it down a bit before you crash.", next: "energetic_warning" }
+            { text: "Take a deep breath, let's lower that stress.", next: "end_gentle" },
+            { text: "My bad, let's talk about something else.", next: "default" }
         ]
     },
-    energetic_deep_dive: {
-        nodeId: "energetic_deep_dive",
-        text: "YES! Okay, so imagine neon pink blinking margins, flashing marquee tags, and a custom cursor that leaves rainbow sparkles—",
+
+    // --- WHAT ARE YOU WORKING ON? (3 Main Options) ---
+    working_on_branch: {
+        nodeId: "working_on_branch",
+        text: "Oh, man, I've got like three different hyperfixations going on at once. Which project do you wanna hear about?",
+        choices: [
+            { text: "Your Etsy shop items!", next: "work_shop" },
+            { text: "Digital art / Commissions!", next: "work_art" },
+            { text: "Coding and fixing up this site!", next: "work_site" }
+        ]
+    },
+
+    // Shop Path
+    work_shop: {
+        nodeId: "work_shop",
+        text: "Im working on items for my shop! I get reaaaally impatient waiting for things to dry and set and whatnot but i think its worth it!",
+        effect: { affection: 5, stress: 3 },
+        choices: [
+            { text: "Patience is a virtue, epoxy master.", next: "shop_tease" },
+            { text: "They always turn out super sparkly and cool.", next: "shop_praise" }
+        ]
+    },
+    shop_tease: {
+        nodeId: "shop_tease",
+        text: "Ugh, don't remind me! I always poke them too early and ruin a fingerprint. Total disaster.",
+        effect: { stress: 5 },
+        choices: [ { text: "Haha, lesson learned. Back to default?", next: "end_positive" } ]
+    },
+    shop_praise: {
+        nodeId: "shop_praise",
+        text: "Hehe, exactly! All that waiting pays off when they catch the light just right.",
+        effect: { affection: 8, stress: -3 },
+        choices: [ { text: "Can't argue with results!", next: "end_positive" } ]
+    },
+
+    // Art Path
+    work_art: {
+        nodeId: "work_art",
+        text: "Im working on a drawing right now! I kinda had a brain blast moment so thats all i do, yknow? Or commissions.",
+        effect: { affection: 4, stress: -2 },
+        choices: [
+            { text: "Show me the brain blast sketch!", next: "art_sketch" },
+            { text: "Don't burn yourself out on commissions.", next: "art_burnout" }
+        ]
+    },
+    art_sketch: {
+        nodeId: "art_sketch",
+        text: "No way, it's a messy WIP! You'll see it when I post it to the 'Latest Art' widget, nice try though~",
+        effect: { affection: 5 },
+        choices: [ { text: "Fair enough, I'll keep an eye out.", next: "end_positive" } ]
+    },
+    art_burnout: {
+        nodeId: "art_burnout",
+        text: "Aww, thanks for caring. Sometimes the creative groove takes over and I forget to eat, but I'm managing!",
         effect: { affection: 10, stress: -5 },
+        choices: [ { text: "Go grab a snack, seriously.", next: "end_gentle" } ]
+    },
+
+    // Site Coding Path
+    work_site: {
+        nodeId: "work_site",
+        text: "Im actually trying to fix some things on the site youre currently on! some things are... well, they need updating and fixing for the stuff i wanna add in the future!",
+        effect: { affection: 5, stress: 5 },
         choices: [
-            { text: "That sounds like a masterpiece.", next: "end_positive" },
-            { text: "That sounds like a migraine waiting to happen.", next: "end_tease" }
+            { text: "Breaking production on main, bold strategy.", next: "site_roast" },
+            { text: "The layout looks amazing though!", next: "site_praise" }
         ]
     },
-    energetic_warning: {
-        nodeId: "energetic_warning",
-        text: "...Hmph. You sound like my calendar. But... yeah, okay, maybe a little break is fine.",
-        effect: { affection: 2, stress: -10 },
-        choices: [
-            { text: "See? Trust me.", next: "end_positive" }
-        ]
+    site_roast: {
+        nodeId: "site_roast",
+        text: "HEY! It's an aesthetic choice! Chaos debugging is half the Neocities experience!",
+        effect: { stress: 3, affection: 3 },
+        choices: [ { text: "If it works, it works.", next: "end_positive" } ]
     },
+    site_praise: {
+        nodeId: "site_praise",
+        text: "R-really?! Aw, thank you! I spent forever getting the windows to drag right without breaking everything.",
+        effect: { affection: 10, stress: -5 },
+        choices: [ { text: "All your hard work shows.", next: "end_positive" } ]
+    },
+
+    // --- BLOG PATH ---
     blog_path: {
         nodeId: "blog_path",
         text: "W-what?! No! I'm just typing regular journal stuff. Why, did you read something?!",
@@ -62,6 +141,8 @@ const sugarDialogueTrees = {
             { text: "We can talk about it whenever you're ready.", next: "end_positive" }
         ]
     },
+
+    // --- CHILL PATH ---
     chill_path: {
         nodeId: "chill_path",
         text: "Oh, mood. Honestly, the playlist has been hitting just right today anyway.",
@@ -78,6 +159,19 @@ const sugarDialogueTrees = {
             { text: "Couldn't agree more.", next: "end_positive" }
         ]
     },
+
+    // --- ENERGETIC PATH ---
+    energetic_deep_dive: {
+        nodeId: "energetic_deep_dive",
+        text: "YES! Okay, so imagine neon pink blinking margins, flashing marquee tags, and a custom cursor that leaves rainbow sparkles—",
+        effect: { affection: 10, stress: -5 },
+        choices: [
+            { text: "That sounds like a masterpiece.", next: "end_positive" },
+            { text: "That sounds like a migraine waiting to happen.", next: "end_tease" }
+        ]
+    },
+
+    // --- ENDINGS ---
     end_positive: {
         nodeId: "end_positive",
         text: "Hehe, yeah! Thanks for hanging out with me.",
@@ -152,7 +246,19 @@ function renderDialogueNode(node) {
 
     optionsBox.innerHTML = "";
 
-    typeWriterEffect(dialogueBox, node.text, 25, () => {
+    // 1. Resolve text dynamically if node uses getText function based on current stats
+    let textToDisplay = node.text;
+    if (typeof node.getText === 'function') {
+        const currentStress = parseInt(document.getElementById('txt-stress')?.innerText) || 20;
+        const currentAffection = parseInt(document.getElementById('txt-affection')?.innerText) || 50;
+        textToDisplay = node.getText({ stress: currentStress, affection: currentAffection });
+    }
+
+    // Safety check in case text is somehow still missing
+    if (!textToDisplay) textToDisplay = "...";
+
+    // 2. Pass the resolved string safely to the typewriter effect
+    typeWriterEffect(dialogueBox, textToDisplay, 25, () => {
         if (node.effect) {
             applyStatChanges(node.effect);
         }
@@ -183,7 +289,6 @@ function renderDialogueNode(node) {
         });
     });
 }
-
 let typingInterval = null;
 
 function typeWriterEffect(element, text, speed = 25, callback = null) {
@@ -280,6 +385,12 @@ async function loadSiteData() {
             postEl.style.borderBottom = "1px solid #ccc";
             postEl.style.paddingBottom = "10px";
 
+            // Conditionally generate image HTML if the post has an image attached
+            let imageHtml = "";
+            if (post.image && post.image.trim() !== "") {
+                imageHtml = `<img src="${post.image}" style="max-width: 100%; margin-top: 10px; border: 2px solid #000;">`;
+            }
+
             postEl.innerHTML = `
                 <div class="flex" style="align-items: center; gap: 8px; margin-bottom: 5px;">
                     <img src="assets/art/Sugar-3-(Jul-4-2026).png" style="width: 40px; height: 40px; border: 2px solid red;">
@@ -290,6 +401,7 @@ async function loadSiteData() {
                 </div>
                 <h3 style="margin: 0 0 5px 0;">${post.title}</h3>
                 <div style="font-size: 0.9rem;">${post.content}</div>
+                ${imageHtml}
             `;
             container.appendChild(postEl);
         });
@@ -658,17 +770,32 @@ async function loadStatusWidgets() {
         const response = await fetch('https://raw.githubusercontent.com/SugarHyou/sugarhyperdose/main/public/output/journal.json');
         const data = await response.json();
 
-        document.getElementById('widget-art-img').src = data.art.image;
-        document.getElementById('widget-art-title').innerText = data.art.title;
-        document.getElementById('widget-art-desc').innerText = data.art.desc;
+        if (data.art) {
+            const artImg = document.getElementById('widget-art-img');
+            const artTitle = document.getElementById('widget-art-title');
+            const artDesc = document.getElementById('widget-art-desc');
+            if (artImg && data.art.image) artImg.src = data.art.image;
+            if (artTitle) artTitle.innerText = data.art.title || "";
+            if (artDesc) artDesc.innerText = data.art.desc || "";
+        }
 
-        document.getElementById('widget-play-img').src = data.playing.image;
-        document.getElementById('widget-play-title').innerText = data.playing.title;
-        document.getElementById('widget-play-desc').innerText = data.playing.desc;
+        if (data.playing) {
+            const playImg = document.getElementById('widget-play-img');
+            const playTitle = document.getElementById('widget-play-title');
+            const playDesc = document.getElementById('widget-play-desc');
+            if (playImg && data.playing.image) playImg.src = data.playing.image;
+            if (playTitle) playTitle.innerText = data.playing.title || "";
+            if (playDesc) playDesc.innerText = data.playing.desc || "";
+        }
 
-        document.getElementById('widget-watch-img').src = data.watching.image;
-        document.getElementById('widget-watch-title').innerText = data.watching.title;
-        document.getElementById('widget-watch-desc').innerText = data.watching.desc;
+        if (data.watching) {
+            const watchImg = document.getElementById('widget-watch-img');
+            const watchTitle = document.getElementById('widget-watch-title');
+            const watchDesc = document.getElementById('widget-watch-desc');
+            if (watchImg && data.watching.image) watchImg.src = data.watching.image;
+            if (watchTitle) watchTitle.innerText = data.watching.title || "";
+            if (watchDesc) watchDesc.innerText = data.watching.desc || "";
+        }
     } catch (error) {
         console.error("Failed to load status widgets:", error);
     }
