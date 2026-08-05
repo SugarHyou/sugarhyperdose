@@ -5,6 +5,12 @@
   },
   "posts": [
     {
+      "date": "Aug 5 - 01:18 AM",
+      "title": "test",
+      "content": "test",
+      "image": "assets/camera/snapchat-67426895.jpg"
+    },
+    {
       "date": "Jul 31 - 05:28 PM",
       "title": "meow",
       "content": ":3 im sweating\n"
