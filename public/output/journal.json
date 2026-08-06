@@ -1,9 +1,15 @@
 {
   "currentStats": {
-    "stress": 20,
-    "affection": 50
+    "stress": 8,
+    "affection": 78
   },
   "posts": [
+    {
+      "date": "Aug 6 - 01:46 AM",
+      "title": "Playing Minecraft",
+      "content": "I got back into Minecraft thanks to him! I'm having a lot of fun! We made a 3-story house with a basement and farm!!!",
+      "image": "assets/camera/2026-08-06_01.43.47.png"
+    },
     {
       "date": "Aug 5 - 01:18 AM",
       "title": "test",
