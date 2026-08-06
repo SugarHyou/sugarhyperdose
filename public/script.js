@@ -803,3 +803,58 @@ async function loadStatusWidgets() {
 }
 
 loadStatusWidgets();
+
+fetch('art.json')
+    .then(response => response.json())
+    .then(artPieces => {
+        const container = document.getElementById('gallery-container');
+        container.innerHTML = '';
+
+        artPieces.forEach(art => {
+            const itemHTML = `
+                    <img src="${art.path}" style="max-width: 100%; height: 100px; object-fit: contain; border: 1px solid blueviolet;">
+            `;
+            container.innerHTML += itemHTML;
+        });
+    })
+    .catch(error => console.error('Error loading art vault:', error));
+
+    function toggleMaximize(windowId) {
+    const win = document.getElementById(windowId);
+    win.classList.toggle('maximized');
+    
+    // Optional: If you want to dynamically adjust the inner gallery height when maximized
+    const container = win.querySelector('#gallery-container');
+    if (win.classList.contains('maximized')) {
+        container.style.maxHeight = '65vh'; // Expand inner scroll area when fullscreen
+    } else {
+        container.style.maxHeight = '300px'; // Revert back to normal size
+    }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    const ad = document.getElementById("random-comm-ad");
+    if (!ad) return;
+
+    // Define a list of random corner/side positions (CSS offsets)
+    const corners = [
+        { top: "20px", left: "20px", right: "auto", bottom: "auto" },       // Top-Left
+        { top: "20px", right: "20px", left: "auto", bottom: "auto" },      // Top-Right
+        { bottom: "20px", left: "20px", right: "auto", top: "auto" },      // Bottom-Left
+        { bottom: "20px", right: "20px", left: "auto", top: "auto" },     // Bottom-Right
+        { top: "50%", left: "10px", right: "auto", bottom: "auto", transform: "translateY(-50%)" }, // Mid-Left
+        { top: "50%", right: "10px", left: "auto", bottom: "auto", transform: "translateY(-50%)" }  // Mid-Right
+    ];
+
+    // Pick a random index
+    const randomCorner = corners[Math.floor(Math.random() * corners.length)];
+
+    // Apply the styles
+    ad.style.top = randomCorner.top;
+    ad.style.left = randomCorner.left;
+    ad.style.right = randomCorner.right;
+    ad.style.bottom = randomCorner.bottom;
+    if (randomCorner.transform) {
+        ad.style.transform = randomCorner.transform;
+    }
+});

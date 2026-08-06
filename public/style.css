@@ -208,7 +208,7 @@ a {
 }
 
 .main-content {
-    flex: 1;
+    flex: 3;
 }
 
 marquee {
@@ -388,6 +388,23 @@ marquee {
     background: var(--white);
 }
 
+/* Styles for when the window is expanded */
+.window.window-popup.maximized {
+    width: 95vw !important;         /* Takes up 85% of the screen width */
+    max-width: 900px;               /* Perimeter limit so it doesn't get too giant */
+    height: 95vh !important;        /* Takes up 75% of the screen height */
+    position: fixed !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important; /* Perfectly centers it */
+    z-index: 999;                   /* Ensures it sits on top of everything */
+}
+
+/* Optional: Make the gallery layout stretch nicely to fill the expanded space */
+.window.window-popup.maximized #gallery-container {
+    max-height: 100% !important; 
+}
+
 button {
     color: inherit;
     font-family: inherit;
@@ -443,12 +460,13 @@ button:hover {
 }
 
 #app-mainbar {
+    flex: 3;
     overflow-x: hidden;
     position: relative;
 }
 
 .app-sidebar {
-    width: 140px;
+    flex: 1;
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -495,6 +513,10 @@ button:hover {
     background: blueviolet;
 }
 
+.app-sidebar .app:nth-child(6) .app-name {
+    background: fuchsia;
+}
+
 .app:hover,
 .app:hover span {
     background: #00ff66 !important;
@@ -533,10 +555,11 @@ button:hover {
 }
 
 #sugar {
+    flex: 1;
     z-index: -1;
     pointer-events: none;
     max-height: 100%;
-    margin: 0 -150px;
+    margin: 0 -120px;
 }
 
 blockquote {
