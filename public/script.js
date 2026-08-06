@@ -246,7 +246,6 @@ function renderDialogueNode(node) {
 
     optionsBox.innerHTML = "";
 
-    // 1. Resolve text dynamically if node uses getText function based on current stats
     let textToDisplay = node.text;
     if (typeof node.getText === 'function') {
         const currentStress = parseInt(document.getElementById('txt-stress')?.innerText) || 20;
@@ -254,10 +253,8 @@ function renderDialogueNode(node) {
         textToDisplay = node.getText({ stress: currentStress, affection: currentAffection });
     }
 
-    // Safety check in case text is somehow still missing
     if (!textToDisplay) textToDisplay = "...";
 
-    // 2. Pass the resolved string safely to the typewriter effect
     typeWriterEffect(dialogueBox, textToDisplay, 25, () => {
         if (node.effect) {
             applyStatChanges(node.effect);
@@ -379,13 +376,22 @@ async function loadSiteData() {
 
         container.innerHTML = "";
 
+        // Populate Front Page Recent Blog Widget with the latest post
+        const blogWidget = document.getElementById('widget-blog-container');
+        if (blogWidget && data.posts.length > 0) {
+            const latest = data.posts[0];
+            blogWidget.innerHTML = `<strong>${latest.title}</strong><br><span style="font-size: 0.8rem; color: #666;">${latest.date}</span><p style="margin: 4px 0 0 0;">${latest.content.replace(/<[^>]*>/g, '').substring(0, 75)}...</p>`;
+        } else if (blogWidget) {
+            blogWidget.innerHTML = "No recent blog posts found.";
+        }
+
+        // Populate Blog Window
         data.posts.forEach(post => {
             const postEl = document.createElement('div');
             postEl.style.marginBottom = "20px";
             postEl.style.borderBottom = "1px solid #ccc";
             postEl.style.paddingBottom = "10px";
 
-            // Conditionally generate image HTML if the post has an image attached
             let imageHtml = "";
             if (post.image && post.image.trim() !== "") {
                 imageHtml = `<img src="${post.image}" style="max-width: 100%; margin-top: 10px;">`;
@@ -393,7 +399,7 @@ async function loadSiteData() {
 
             postEl.innerHTML = `
                 <div class="flex" style="align-items: center; gap: 8px; margin-bottom: 5px;">
-                    <img src="assets/art/Sugar-3-(Jul-4-2026).png" style="width: 40px; height: 40px; border: 2px solid red;">
+                    <img src="assets/art/Sugar-7B-(Jul-9-2026).gif" style="width: 40px; height: 40px; border: 2px solid red;">
                     <div class="flex column">
                         <span>SugarHyperdose</span>
                         <span style="margin-top: 2.5px; font-size: 0.7rem; opacity: 0.6;">${post.date}</span>
@@ -438,33 +444,97 @@ function playSong(trackName, audioSrc) {
     playerTitle.innerText = `NOW PLAYING: ${trackName}`;
 }
 
-function controlAudio(action) {
-    const audioEngine = document.getElementById('audio-engine');
-    const playerTitle = document.getElementById('player-track-title');
-    if (!audioEngine) return;
-
-    if (action === 'play' && audioEngine.src) {
-        audioEngine.play();
-    } else if (action === 'pause') {
-        audioEngine.pause();
-    } else if (action === 'stop') {
-        audioEngine.pause();
-        audioEngine.currentTime = 0;
-        if (playerTitle) {
-            playerTitle.innerText = "TRACK: [ IDLE / STOPPED ]";
-            playerTitle.style.color = "lime";
-        }
-    }
-}
-
 const myPlaylist = [
     { title: "混沌ブギ 初音ミク", file: "assets/audio/music/混沌ブギ 初音ミク.mp3" },
     { title: "＋♂", file: "assets/audio/music/plus-boy.mp3" },
     { title: "BANG BANG BANG", file: "assets/audio/music/BANG BANG BANG.mp3" },
     { title: "Chiwawa", file: "assets/audio/music/Chiwawa.mp3" },
     { title: "Confessions of a Rotten Girl", file: "assets/audio/music/Confessions of a Rotten Girl.mp3" },
-    { title: "ELECTRIC WEEKEND ZONE", file: "assets/audio/music/ELECTRIC WEEKEND ZONE.mp3" }
+    { title: "edgy", file: "assets/audio/music/edgy.mp3" },
+    { title: "ELECTRIC WEEKEND ZONE", file: "assets/audio/music/ELECTRIC WEEKEND ZONE.mp3" },
+    { title: "Indecent", file: "assets/audio/music/Indecent.mp3" },
+    { title: "INTERNET ANGEL", file: "assets/audio/music/INTERNET ANGEL.mp3" },
+    { title: "Let's Go Gambling!", file: "assets/audio/music/Let's Go Gambling!.mp3" },
 ];
+
+function populatePlaylist() {
+    const container = document.getElementById('playlist-container');
+    if (!container) return;
+
+    container.innerHTML = "";
+
+    myPlaylist.forEach((song, index) => {
+        const trackDiv = document.createElement('div');
+        trackDiv.className = "playlist-track";
+        trackDiv.style.cursor = "pointer";
+        trackDiv.style.padding = "4px";
+        trackDiv.innerText = `${(index + 1).toString().padStart(2, '0')}. ${song.title}`;
+
+        trackDiv.onclick = () => playSong(song.title, song.file);
+
+        container.appendChild(trackDiv);
+    });
+}
+
+// Helper to handle showing the dancing sugar widget
+function showDancer() {
+    const dancer = document.getElementById("dancing-sugar");
+    if (!dancer) return;
+    dancer.classList.remove('hidden');
+    setTimeout(() => {
+        dancer.style.opacity = '1';
+    }, 10);
+}
+
+// Helper to handle hiding the dancing sugar widget
+function hideDancer() {
+    const dancer = document.getElementById("dancing-sugar");
+    if (!dancer) return;
+    dancer.style.opacity = '0';
+    setTimeout(() => {
+        dancer.classList.add('hidden');
+    }, 600);
+}
+
+function playSong(trackName, audioSrc) {
+    const audioEngine = document.getElementById('audio-engine');
+    const playerTitle = document.getElementById('player-track-title');
+
+    if (!audioEngine || !playerTitle) return;
+
+    audioEngine.src = audioSrc;
+    audioEngine.play();
+
+    playerTitle.innerText = `NOW PLAYING: ${trackName}`;
+    playerTitle.style.color = ""; // reset color if it was changed
+
+    // Trigger the dancing sugar widget when a song starts!
+    showDancer();
+}
+
+function controlAudio(action) {
+    const audioEngine = document.getElementById('audio-engine');
+    const playerTitle = document.getElementById('player-track-title');
+    if (!audioEngine) return;
+
+    if (action === 'play') {
+        if (audioEngine.src) {
+            audioEngine.play();
+            showDancer();
+        }
+    } else if (action === 'pause') {
+        audioEngine.pause();
+        hideDancer();
+    } else if (action === 'stop') {
+        audioEngine.pause();
+        audioEngine.currentTime = 0;
+        hideDancer();
+        if (playerTitle) {
+            playerTitle.innerText = "TRACK: [ IDLE / STOPPED ]";
+            playerTitle.style.color = "lime";
+        }
+    }
+}
 
 function populatePlaylist() {
     const container = document.getElementById('playlist-container');
@@ -682,7 +752,8 @@ const characterEvents = {
     "2026-8-4": ["Psych Eval (11:00AM)"],
     "2026-8-6": ["DMV (9:20AM)", "P.T (2:00PM)"],
     "2026-8-7": ["Drop", "Hire!"],
-    "2026-8-15": ["Sonic Boost", "Harajuku Day LA", "Santa Ana Flea"],
+    "2026-8-8": ["Party (7PM)"],
+    "2026-8-15": ["Sonic Boost", "Harajuku Day LA", "Santa Ana Flea (4PM)"],
     "2026-8-16": ["Sonic Boost"],
     "2026-8-24": ["First day of School"],
     "2026-9-5": ["Psych (12PM)"],
@@ -857,4 +928,57 @@ document.addEventListener("DOMContentLoaded", () => {
     if (randomCorner.transform) {
         ad.style.transform = randomCorner.transform;
     }
+});
+
+function renderFrontPageWidgets() {
+    // Populate Upcoming Events Widget by sorting actual future dates
+    const eventsWidget = document.getElementById('widget-events-container');
+    if (eventsWidget && typeof characterEvents !== 'undefined') {
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        const currentYear = today.getFullYear();
+        
+        let upcomingList = [];
+        
+        for (let key in characterEvents) {
+            let eventDate;
+            if (key.includes('-') && key.split('-').length === 3) {
+                // Format: YYYY-MM-DD
+                eventDate = new Date(key);
+            } else {
+                // Format: MM-DD (recurring yearly)
+                eventDate = new Date(`${currentYear}-${key}`);
+                if (eventDate < today) {
+                    eventDate = new Date(`${currentYear + 1}-${key}`);
+                }
+            }
+            
+            if (eventDate >= today) {
+                const eventTexts = Array.isArray(characterEvents[key]) ? characterEvents[key].join(', ') : characterEvents[key];
+                upcomingList.push({ dateObj: eventDate, text: eventTexts });
+            }
+        }
+        
+        // Sort chronologically closest to today first
+        upcomingList.sort((a, b) => a.dateObj - b.dateObj);
+        
+        if (upcomingList.length > 0) {
+            let html = '<ul style="margin: 0; padding-left: 15px; display: flex; flex-direction: column; gap: 4px;">';
+            // Show the next 2 upcoming events
+            const nextFew = upcomingList.slice(0, 2);
+            nextFew.forEach(item => {
+                const readableDate = item.dateObj.toLocaleDateString('default', { month: 'short', day: 'numeric', year: 'numeric' });
+                html += `<li><strong>${readableDate}:</strong> ${item.text}</li>`;
+            });
+            html += '</ul>';
+            eventsWidget.innerHTML = html;
+        } else {
+            eventsWidget.innerHTML = "No upcoming events scheduled right now!";
+        }
+    }
+}
+
+// Call it on page load
+window.addEventListener('DOMContentLoaded', () => {
+    renderFrontPageWidgets();
 });

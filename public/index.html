@@ -12,10 +12,16 @@
 <body>
 
     <!-- Randomizing Commissions Ad -->
-<img id="random-comm-ad" src="assets/art/Sugar-10B-(Jul-20-2026).png" 
-     style="position: fixed; width: 140px; height: auto; z-index: 9999; cursor: pointer; filter: drop-shadow(2px 2px 2px rgba(0, 0, 0, 0.5));" 
-     onclick="toggleWindow('window-commissions');" 
-     title="CLICK FOR COMMISSIONS! ✨">
+    <img id="random-comm-ad" src="assets/art/Sugar-10B-(Jul-20-2026).png"
+        style="position: fixed; width: 140px; height: auto; z-index: 9999; cursor: pointer; filter: drop-shadow(2px 2px 2px rgba(0, 0, 0, 0.5));"
+        onclick="toggleWindow('window-commissions');" title="CLICK FOR COMMISSIONS! ✨">
+
+    <!-- Dancing Sugar Music Widget -->
+    <div id="dancing-sugar" class="hidden"
+        style="position: fixed; bottom: 20px; left: 20px; z-index: 9999; text-align: center; transition: opacity 7s ease-in-out; opacity: 0;">
+        <img src="assets/art/Sugar-14-(Aug-6-2026).gif"
+            style="width: 210px;">
+    </div>
 
     <div class="desktop flex">
         <img id="sugar" src="assets/art/Sugar-4-(Jul-5-2026).png" style="transform: scaleX(-1); margin-left: -120px;">
@@ -107,7 +113,7 @@
                                 <a href="https://www.etsy.com/listing/4547343245/pixel-heart-shaker-keychain"><img
                                         src="assets\graphics\shop\Keychains\Cover A.png"
                                         style="width: 100%; border: 1px solid blueviolet;"></a>
-                                <a href="www.etsy.com/shop/SugarHyperdose"
+                                <a href="https://www.etsy.com/shop/SugarHyperdose"
                                     style="display: block; width: 100%; background: orange; color: white; padding: 6px; text-decoration: none; font-weight: bold; border: 2px outset #ff8c00; text-align: center;">
                                     CHECK OUT ON ETSY!
                                 </a>
@@ -120,6 +126,57 @@
                                     therapy, my escape, and my way of taking control.</p>
                             </div>
                         </div>
+
+                        <!-- NEW: Upcoming Events & Recent Blog Boxes Row -->
+                        <div class="flex" style="gap: 15px;">
+                            <div class="widget-box" style="flex: 1;">
+                                <div style="font-weight: bold; color: darkcyan;">📅 UPCOMING EVENTS</div>
+                                <div id="widget-events-container" style="font-size: 0.9rem; margin-top: 5px;">
+                                    Loading events...
+                                </div>
+                            </div>
+                            <div class="widget-box" style="flex: 1;">
+                                <div style="font-weight: bold; color: limegreen;">📰 RECENT BLOG</div>
+                                <div id="widget-blog-container" style="font-size: 0.9rem; margin-top: 5px;">
+                                    Loading blog...
+                                </div>
+                            </div>
+                        </div>
+                        <div class="widget-box">
+                            <div class="flex column" style="gap: 10px;">
+                                <div class="flex" style="align-items: flex-start; gap: 8px;">
+                                    <span style="font-size: 1.2rem;" title="Anonymous Visitor">👤</span>
+                                    <div style="padding: 6px 10px; border: 1px solid blueviolet; border-radius: 4px; flex: 1;">What's your absolute favorite candy?
+                                    </div>
+                                </div>
+                                <div class="flex" style="align-items: flex-start; gap: 8px; flex-direction: row-reverse;">
+                                    <img src="assets/art/Sugar-7-(Jul-9-2026).gif" style="width: 35px; height: 35px; object-fit: cover; border-radius: 50%; border: 1px solid blueviolet;" title="Sugar">
+                                    <div style="background: blueviolet; padding: 6px 10px; color: white; border-radius: 4px; flex: 1;">This is the most difficult question in the world... 'Cause sometimes I really like Oreos, y'know? But then other days I CRAVE Sour Patch Watermelon... I'd have to pick Oreos!</div>
+                                </div>
+                                <div class="flex" style="align-items: flex-start; gap: 8px;">
+                                    <span style="font-size: 1.2rem;" title="Anonymous Visitor">👤</span>
+                                    <div style="padding: 6px 10px; border: 1px solid blueviolet; border-radius: 4px; flex: 1;">What art program do you use? Brush? Animating software?
+                                    </div>
+                                </div>
+                                <div class="flex" style="align-items: flex-start; gap: 8px; flex-direction: row-reverse;">
+                                    <img src="assets/art/Sugar-7B-(Jul-9-2026).gif" style="width: 35px; height: 35px; object-fit: cover; border-radius: 50%; border: 1px solid blueviolet;" title="Sugar">
+                                    <div style="background: blueviolet; padding: 6px 10px; color: white; border-radius: 4px; flex: 1;">I use Ibispaint! I had IbisPaint X for 3 years before deciding to finally get the actual OG app...!</div>
+                                </div>
+                                <div class="flex" style="align-items: flex-start; gap: 8px; flex-direction: row-reverse;">
+                                    <img src="assets/art/Sugar-7B-(Jul-9-2026).gif" style="width: 35px; height: 35px; object-fit: cover; border-radius: 50%; border: 1px solid blueviolet;" title="Sugar">
+                                    <div style="background: blueviolet; padding: 6px 10px; color: white; border-radius: 4px; flex: 1;">I mostly use a brush called "Pixel Perfect", but honestly the default rough pen and fade pen are extremely nice, too.</div>
+                                </div>
+                                <div class="flex" style="align-items: flex-start; gap: 8px; flex-direction: row-reverse;">
+                                    <img src="assets/art/Sugar-7B-(Jul-9-2026).gif" style="width: 35px; height: 35px; object-fit: cover; border-radius: 50%; border: 1px solid blueviolet;" title="Sugar">
+                                    <div style="background: blueviolet; padding: 6px 10px; color: white; border-radius: 4px; flex: 1;">As for animation... I just draw every frame in Ibispaint, then go to EZGif and put 'em all together and hope for the best!</div>
+                                </div>
+                                <div class="flex" style="align-items: flex-start; gap: 8px; flex-direction: row-reverse;">
+                                    <img src="assets/art/Sugar-7E-(Jul-9-2026).gif" style="width: 35px; height: 35px; object-fit: cover; border-radius: 50%; border: 1px solid blueviolet;" title="Sugar">
+                                    <div style="background: blueviolet; padding: 6px 10px; color: white; border-radius: 4px; flex: 1;">Professional animation software is too confusing for me.</div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
 
@@ -257,59 +314,115 @@
     </div>
 
     <div id="window-commissions" class="window window-popup hidden flex"
-        style="width: 450px; border: 4px solid blueviolet;">
+        style="width: 380px; border: 4px solid blueviolet;">
         <div class="window-title flex" style="background: blueviolet; color: white;">
             <span>COMMISSIONS.EXE</span>
-            <div class="window-close" onclick="toggleWindow('window-commissions')">X</div>
+            <div class="window-controls flex" style="gap: 4px;">
+                <div class="window-maximize" onclick="toggleMaximize('window-commissions')">🗖</div>
+                <div class="window-close" onclick="toggleWindow('window-commissions')">X</div>
+            </div>
         </div>
-        <div class="window-popup-content flex column" style="gap: 10px;">
-
+        <div class="window-popup-content flex column"
+            style="gap: 12px; max-height: 400px; overflow-y: auto; padding: 10px;">
             <div class="comm-banner"
-                style="background: hotpink; color: white; padding: 5px; text-align: center; border: 2px dashed blueviolet; font-weight: bold;">
+                style="background: hotpink; color: white; padding: 6px; text-align: center; font-weight: bold;">
                 🌈 COMMISSIONS CLOSED! 🌈
             </div>
-
-            <!-- SLOT FOR SUGAR-10 COMMISSIONS AD IMAGE -->
-            <img src="assets/art/Sugar-10-(Jul-18-2026).png" style="width: 100%; border: 2px solid blueviolet; object-fit: cover;">
-
-            <div class="flex column justify-center align-center">
-                <p style="margin: 0 0 5px 0; font-weight: bold; font-size: 0.9rem;">SLOT STATUS [ 5 / 5 ]</p>
+            <div class="flex column justify-center align-center" style="padding: 6px;">
+                <p style="margin: 0 0 5px 0;">SLOT STATUS [ 2 / 5 AVAILABLE ]</p>
                 <div class="flex" style="gap: 5px;">
-                    <div style="width: 20px; height: 20px; background: limegreen; border: 2px solid white;"></div>
-                    <div style="width: 20px; height: 20px; background: limegreen; border: 2px solid white;"></div>
-                    <div style="width: 20px; height: 20px; background: limegreen; border: 2px solid white;"></div>
-                    <div style="width: 20px; height: 20px; background: limegreen; border: 2px solid white;"></div>
-                    <div style="width: 20px; height: 20px; background: limegreen; border: 2px solid white;"></div>
+                    <div style="width: 18px; height: 18px; background: limegreen;" title="Taken"></div>
+                    <div style="width: 18px; height: 18px; background: limegreen;" title="Taken"></div>
+                    <div style="width: 18px; height: 18px; background: LIMEGREEN;" title="Open"></div>
+                    <div style="width: 18px; height: 18px; background: #eee; border: 2px solid blueviolet;"
+                        title="Open"></div>
+                    <div style="width: 18px; height: 18px; background: #eee; border: 2px solid blueviolet;"
+                        title="Open"></div>
                 </div>
             </div>
-
             <div>
-                ✨ <strong>Specialty:</strong> Colorful palettes that pop! Also pixel art!<br>
-                📩 <strong>How to order:</strong> WIP!
+                <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
+                    <tr style="background: blueviolet; color: white;">
+                        <th style="padding: 4px; text-align: left;">Type</th>
+                        <th style="padding: 4px; text-align: right;">Base Price</th>
+                    </tr>
+                    <tr>
+                        <td style="padding: 6px; border-bottom: 1px dotted blueviolet;">Pixel Icon / Headshot</td>
+                        <td style="padding: 6px; border-bottom: 1px dotted blueviolet; text-align: right;">$5</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 6px; border-bottom: 1px dotted blueviolet;">Half Body</td>
+                        <td style="padding: 6px; border-bottom: 1px dotted blueviolet; text-align: right;">$10</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 6px; border-bottom: 1px dotted blueviolet;">Full Body</td>
+                        <td style="padding: 6px; border-bottom: 1px dotted blueviolet; text-align: right;">$15</td>
+                    </tr>
+                    <!-- Add-ons Section inside the same table or right below -->
+                    <tr style="background: #f0e6fa;">
+                        <td colspan="2" style="padding: 4px; font-weight: bold; font-size: 0.8rem;">ADD-ONS & EXTRAS
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 4px; border-bottom: 1px dotted blueviolet; font-size: 0.85rem;">+ Complex
+                            Background / Props</td>
+                        <td
+                            style="padding: 4px; border-bottom: 1px dotted blueviolet; text-align: right; font-size: 0.85rem;">
+                            +5%</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 4px; border-bottom: 1px dotted blueviolet; font-size: 0.85rem;">+ Extra
+                            Character</td>
+                        <td
+                            style="padding: 4px; border-bottom: 1px dotted blueviolet; text-align: right; font-size: 0.85rem;">
+                            +100% base</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 4px; border-bottom: 1px dotted blueviolet; font-size: 0.85rem;">+ Physical
+                            8" x 11" Poster of Completed Commission</td>
+                        <td
+                            style="padding: 4px; border-bottom: 1px dotted blueviolet; text-align: right; font-size: 0.85rem;">
+                            +30$</td>
+                    </tr>
+                </table>
             </div>
+            <p style="font-size: 0.85rem; margin: 0 0 5px 0;">Check out my art in my <a href="javascript:void(0)"
+                    onclick="toggleWindow('window-gallery');" style="color: magenta; font-weight: bold;">gallery.exe</a>
+                app if you haven't already to get a sense of my style! I'd like to claim that its Western-based with
+                slight Eastern influence!</p>
 
-            <a href="mailto:your-email@example.com"
-                style="background: blueviolet; color: white; text-align: center; padding: 8px; text-decoration: none; font-weight: bold; border: 2px outset #a020f0;">
-                [ SEND EMAIL ]
-            </a>
+            <div style="font-size: 0.8rem;">
+                <strong>📝 TOS:</strong>
+                <ul style="margin: 4px 0 0 15px; padding: 0; display: flex; flex-direction: column; gap: 4px;">
+                    <li>Payment is via Cash App, PayPal, Venmo or Zelle transfer. Giftcards and other digital currency
+                        (V-Bucks, Robux, Coins, etc.) will not be accepted.</li>
+                    <li>Payment is due after the completed product is handed off to you and you are satisfied (I will
+                        change this if a single scam occurs!)</li>
+                    <li>By default, your completed commission is ordered as a fully colored, fully shaded piece unless
+                        specified otherwise.</li>
+                    <li>By default, your completed commission is personal use only.</li>
+                    <li>No AI training or commercial redistribution without discussion.</li>
+                    <li>Turnaround time is roughly 1–3 weeks.</li>
+                    <li>I will send a sketch WIP (Work in Progress) for approval before moving to final lines and
+                        colors.</li>
+                    <li>You reserve the right to an infinite amount of revisions within reason.</li>
+                    <li>I reserve the right to refuse a commission for any reason.</li>
+                </ul>
+            </div>
         </div>
     </div>
 
     <div id="window-gallery" class="window window-popup hidden flex" style="width: 450px; border: 4px solid magenta;">
         <div class="window-title flex" style="background: magenta; color: white;">
             <span>gallery.exe</span>
-            <!-- Added button container for controls -->
             <div class="window-controls flex" style="gap: 4px;">
-                <div class="window-maximize" onclick="toggleMaximize('window-gallery')"
-                    style="cursor: pointer; padding: 0 4px; background: rgba(0,0,0,0.2);">🗖</div>
-                <div class="window-close" onclick="toggleWindow('window-gallery')"
-                    style="cursor: pointer; padding: 0 4px; background: rgba(0,0,0,0.2);">X</div>
+                <div class="window-maximize" onclick="toggleMaximize('window-gallery')">🗖</div>
+                <div class="window-close" onclick="toggleWindow('window-gallery')">X</div>
             </div>
         </div>
         <div class="window-popup-content" style="padding: 10px;">
             <div id="gallery-container" class="flex justify-center"
                 style="overflow-y: auto; flex-wrap: wrap; max-height: 300px; gap: 10px;">
-                <!-- Dynamically loaded via art.json -->
             </div>
         </div>
     </div>
