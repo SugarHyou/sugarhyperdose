@@ -1,9 +1,15 @@
 {
   "currentStats": {
-    "stress": 79,
-    "affection": 0
+    "stress": 61,
+    "affection": 80
   },
   "posts": [
+    {
+      "date": "Aug 8 - 10:45 AM",
+      "title": "Love, Love",
+      "content": "He always makes me feel so much better. I feel so lucky to know him.",
+      "image": ""
+    },
     {
       "date": "Aug 7 - 11:29 PM",
       "title": "I Don't Feel Loved At All.",
