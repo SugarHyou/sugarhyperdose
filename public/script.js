@@ -452,6 +452,7 @@ const myPlaylist = [
     { title: "Confessions of a Rotten Girl", file: "assets/audio/music/Confessions of a Rotten Girl.mp3" },
     { title: "edgy", file: "assets/audio/music/edgy.mp3" },
     { title: "ELECTRIC WEEKEND ZONE", file: "assets/audio/music/ELECTRIC WEEKEND ZONE.mp3" },
+    { title: "glitter ✩‧₊˚", file: "assets/audio/music/glitter ✩‧₊˚.mp3"},
     { title: "Indecent", file: "assets/audio/music/Indecent.mp3" },
     { title: "INTERNET ANGEL", file: "assets/audio/music/INTERNET ANGEL.mp3" },
     { title: "Let's Go Gambling!", file: "assets/audio/music/Let's Go Gambling!.mp3" },
