@@ -781,16 +781,9 @@ blockquote {
     text-shadow: 1px 1px var(--blue);
 }
 
-.magazine-preview {
+.magazine-card img {
+    object-fit: cover;
     height: 85px;
-    border: 1px dashed blueviolet;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    font-size: 0.75rem;
-    text-align: center;
-    padding: 4px;
 }
 
 .magazine-preview img {
