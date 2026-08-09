@@ -1,9 +1,15 @@
 {
   "currentStats": {
-    "stress": 61,
-    "affection": 80
+    "stress": 20,
+    "affection": 50
   },
   "posts": [
+    {
+      "date": "Aug 9 - 04:13 AM",
+      "title": "Disco Disco Party Party!",
+      "content": "Wow, I usually think of myself as a social person, but a birthday party with 40+ people kinda killed me @_@",
+      "image": "assets/camera/20260808_200526.jpg"
+    },
     {
       "date": "Aug 8 - 10:45 AM",
       "title": "Love, Love",
