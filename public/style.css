@@ -9,13 +9,13 @@
     --black: black;
     --red: red;
     --orange: orange;
-    --yellow: yellow;
+    --gold: gold;
     --green: limegreen;
     --blue: blue;
     --purple: blueviolet;
     --pink: fuchsia;
-    --rainbow-gradient: linear-gradient(90deg, red, orange, yellow, lime, cyan, blue, blueviolet);
-    --rainbow-gradient-border: linear-gradient(90deg, red, orange, yellow, lime, cyan, blue, blueviolet) 1;
+    --rainbow-gradient: linear-gradient(90deg, red, orange, gold, lime, cyan, blue, blueviolet);
+    --rainbow-gradient-border: linear-gradient(90deg, red, orange, gold, lime, cyan, blue, blueviolet) 1;
 }
 
 @font-face {
@@ -249,7 +249,7 @@ marquee {
     font-weight: bold;
     text-decoration: none;
     border: 2px solid;
-    border-image: linear-gradient(90deg, red, yellow, blue) 1;
+    border-image: linear-gradient(90deg, red, gold, blue) 1;
     background: #ffffff;
 }
 
@@ -655,7 +655,7 @@ blockquote {
 }
 
 #calendarGrid div:hover {
-    background: yellow;
+    background: gold;
     color: var(--red);
     border-color: var(--pink);
 }
@@ -663,7 +663,7 @@ blockquote {
 #calendarGrid div.today {
     background: var(--red) !important;
     color: var(--white) !important;
-    border: 2px dashed yellow;
+    border: 2px dashed gold;
 }
 
 #calendarGrid div.event-day {
@@ -722,7 +722,7 @@ blockquote {
 @keyframes rainbow {
     0% { background: hotpink; }
     33% { background: cyan; }
-    66% { background: yellow; }
+    66% { background: gold; }
     100% { background: hotpink; }
 }
 
@@ -757,10 +757,9 @@ blockquote {
     padding: 6px;
     text-decoration: none;
     display: flex;
+    color: white;
     flex-direction: column;
     gap: 6px;
-    box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .magazine-card:hover {
@@ -777,21 +776,19 @@ blockquote {
 }
 
 .magazine-vol {
-    padding: 2px 4px;
-    border-radius: 3px;
-    color: white;
+    color: var(--white);
+    text-transform: uppercase;
+    text-shadow: 1px 1px var(--blue);
 }
 
 .magazine-preview {
     height: 85px;
-    background: #f9f0ff;
     border: 1px dashed blueviolet;
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
     font-size: 0.75rem;
-    color: #666;
     text-align: center;
     padding: 4px;
 }
@@ -808,22 +805,13 @@ blockquote {
     padding: 2px 0;
 }
 
-/* Color Themes matching your journals */
-.vol-pink { border: 2px solid red; }
-.vol-pink .magazine-vol { background: red; }
-.vol-pink .magazine-name { color: red; }
+.magazine-card:nth-child(7n+1) { border: 2px solid blueviolet; background: red; }
 
-.vol-cyan { border: 2px solid orange; }
-.vol-cyan .magazine-vol { background: orange; }
-.vol-cyan .magazine-name { color: orange; }
+.magazine-card:nth-child(7n+2) { border: 2px solid blueviolet; background: orange;}
 
-.vol-purple { border: 2px solid gold; }
-.vol-purple .magazine-vol { background: gold; }
-.vol-purple .magazine-name { color: gold; }
+.magazine-card:nth-child(7n+3) { border: 2px solid blueviolet; background: gold; color: blueviolet; }
 
-.vol-green { border: 2px solid lime; }
-.vol-green .magazine-vol { background: lime; }
-.vol-green .magazine-name { color: limegreen; }
+.magazine-card:nth-child(7n+4) { border: 2px solid blueviolet; background: lime; color: blueviolet; }
 
 @media (max-width: 768px) {
     .desktop {
