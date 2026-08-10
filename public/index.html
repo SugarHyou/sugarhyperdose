@@ -11,12 +11,10 @@
 
 <body>
 
-    <!-- Randomizing Commissions Ad -->
     <img id="random-comm-ad" src="assets/art/Sugar-10B-(Jul-20-2026).png"
-        style="position: fixed; width: 140px; height: auto; z-index: 9999; cursor: pointer; filter: drop-shadow(2px 2px 2px rgba(0, 0, 0, 0.5));"
+        style="position: fixed; width: 140px; height: auto; cursor: pointer; filter: drop-shadow(2px 2px 2px rgba(0, 0, 0, 0.5));"
         onclick="toggleWindow('window-commissions');" title="CLICK FOR COMMISSIONS! ✨">
 
-    <!-- Dancing Sugar Music Widget -->
     <div id="dancing-sugar" class="hidden"
         style="position: fixed; bottom: 20px; left: 20px; z-index: 9999; text-align: center; transition: opacity 7s ease-in-out; opacity: 0;">
         <img src="assets/art/Sugar-14-(Aug-6-2026).gif" style="width: 210px;">
@@ -30,19 +28,17 @@
                 <span>🌈 HOME</span>
                 <div class="window-close">X</div>
             </div>
-            <div class="window-popup-content"
-                style="display: flex; flex-direction: row; height: 100%; overflow: hidden; padding: 10px; gap: 10px;">
-                <div id="app-mainbar"
-                    style="overflow-y: auto; padding-right: 10px; display: flex; flex-direction: column; gap: 15px;">
-                    <div class="flex row" style="position: relative;">
+            <div class="window-popup-content flex row" style="overflow: hidden;">
+                <div id="app-mainbar" class="flex column">
+                    <div class="flex row">
                         <div>
                             <h1>Finding Sweetness in Chaos!</h1>
-                            <p style="padding: 4px 1px;">Hi! Hello! I'm Sugar, and I run <i>SugarHyperdose</i> across
+                            <p>Hi! Hello! I'm Sugar, and I run <i>SugarHyperdose</i> across
                                 all different kinds of places on the web! I'm a Decora Artist trying to get through life
                                 while stressing out about it and eating all the sweets I find to cope. Oh, I'm also
                                 trying to go to school for Animation! I hope to help bring an indie company's dream to
                                 life someday!</p>
-                            <table style="margin-top: 5px; border-collapse: collapse;">
+                            <table style="border-collapse: collapse;">
                                 <tr>
                                     <td
                                         style="padding: 5px 0; font-weight: bold; width: 35%; border-bottom: 1px solid blueviolet;">
@@ -76,14 +72,13 @@
                             </table>
 
                         </div>
-                        <img src="assets/art/Sugar-12-(Jul-31-2026).png" height="350"
-                            style="width: fit-content; pointer-events: none; margin: -20px;">
+                        <img src="assets/art/Sugar-12-(Jul-31-2026).png" height="350" style="margin: -20px;">
                     </div>
 
-                    <div class="magazine-rack-grid">
+                    <div class="magazine-rack">
 
-                        <!-- VOL. 01: PERSONAL -->
-                        <a href="javascript:void(0)" onclick="toggleWindow('window-blog');" class="magazine-card">
+                        <a href="javascript:void(0)" onclick="toggleWindow('window-personalMagazine');"
+                            class="magazine-card">
                             <div class="magazine-header">
                                 <span class="magazine-vol">VOL. 01</span>
                             </div>
@@ -91,8 +86,8 @@
                             <div class="magazine-name">PERSONAL</div>
                         </a>
 
-                        <!-- VOL. 02: CHARACTER BOOK -->
-                        <a href="javascript:void(0)" onclick="toggleWindow('window-gallery');" class="magazine-card">
+                        <a href="javascript:void(0)" onclick="toggleWindow('window-charMagazine');"
+                            class="magazine-card">
                             <div class="magazine-header">
                                 <span class="magazine-vol">VOL. 02</span>
                             </div>
@@ -103,7 +98,8 @@
                         </a>
 
                         <!-- VOL. 03: EVENTS -->
-                        <a href="javascript:void(0)" onclick="toggleWindow('window-calendar');" class="magazine-card">
+                        <a href="javascript:void(0)" onclick="toggleWindow('window-eventMagazine');"
+                            class="magazine-card">
                             <div class="magazine-header">
                                 <span class="magazine-vol">VOL. 03</span>
                             </div>
@@ -114,7 +110,7 @@
                         </a>
 
                         <!-- VOL. 04: COMMISSIONS -->
-                        <a href="javascript:void(0)" onclick="toggleWindow('window-commissions');"
+                        <a href="javascript:void(0)" onclick="toggleWindow('window-tutorialMagazine');"
                             class="magazine-card">
                             <div class="magazine-header">
                                 <span class="magazine-vol">VOL. 04</span>
@@ -189,7 +185,7 @@
                         </div>
                         <div class="widget-box">
                             <div class="flex column" style="gap: 10px;">
-                                <div class="flex" style="align-items: flex-start; gap: 8px;">
+                                <div class="flex" style="align-items: center; gap: 8px;">
                                     <span style="font-size: 1.2rem;" title="Anonymous Visitor">👤</span>
                                     <div
                                         style="padding: 6px 10px; border: 1px solid blueviolet; border-radius: 4px; flex: 1;">
@@ -197,9 +193,9 @@
                                     </div>
                                 </div>
                                 <div class="flex"
-                                    style="align-items: flex-start; gap: 8px; flex-direction: row-reverse;">
+                                    style="align-items: center; gap: 8px; flex-direction: row-reverse;">
                                     <img src="assets/art/Sugar-7-(Jul-9-2026).gif"
-                                        style="width: 35px; height: 35px; object-fit: cover; border-radius: 50%; border: 1px solid blueviolet;"
+                                        style="width: 45px; height: 45px; object-fit: cover; border-radius: 50%; border: 1px solid blueviolet;"
                                         title="Sugar">
                                     <div
                                         style="background: blueviolet; padding: 6px 10px; color: white; border-radius: 4px; flex: 1;">
@@ -207,7 +203,7 @@
                                         like Oreos, y'know? But then other days I CRAVE Sour Patch Watermelon... I'd
                                         have to pick Oreos!</div>
                                 </div>
-                                <div class="flex" style="align-items: flex-start; gap: 8px;">
+                                <div class="flex" style="align-items: center; gap: 8px;">
                                     <span style="font-size: 1.2rem;" title="Anonymous Visitor">👤</span>
                                     <div
                                         style="padding: 6px 10px; border: 1px solid blueviolet; border-radius: 4px; flex: 1;">
@@ -215,9 +211,9 @@
                                     </div>
                                 </div>
                                 <div class="flex"
-                                    style="align-items: flex-start; gap: 8px; flex-direction: row-reverse;">
+                                    style="align-items: center; gap: 8px; flex-direction: row-reverse;">
                                     <img src="assets/art/Sugar-7B-(Jul-9-2026).gif"
-                                        style="width: 35px; height: 35px; object-fit: cover; border-radius: 50%; border: 1px solid blueviolet;"
+                                        style="width: 45px; height: 45px; object-fit: cover; border-radius: 50%; border: 1px solid blueviolet;"
                                         title="Sugar">
                                     <div
                                         style="background: blueviolet; padding: 6px 10px; color: white; border-radius: 4px; flex: 1;">
@@ -225,9 +221,9 @@
                                         the actual OG app...!</div>
                                 </div>
                                 <div class="flex"
-                                    style="align-items: flex-start; gap: 8px; flex-direction: row-reverse;">
+                                    style="align-items: center; gap: 8px; flex-direction: row-reverse;">
                                     <img src="assets/art/Sugar-7B-(Jul-9-2026).gif"
-                                        style="width: 35px; height: 35px; object-fit: cover; border-radius: 50%; border: 1px solid blueviolet;"
+                                        style="width: 45px; height: 45px; object-fit: cover; border-radius: 50%; border: 1px solid blueviolet;"
                                         title="Sugar">
                                     <div
                                         style="background: blueviolet; padding: 6px 10px; color: white; border-radius: 4px; flex: 1;">
@@ -235,9 +231,9 @@
                                         and fade pen are extremely nice, too.</div>
                                 </div>
                                 <div class="flex"
-                                    style="align-items: flex-start; gap: 8px; flex-direction: row-reverse;">
+                                    style="align-items: center; gap: 8px; flex-direction: row-reverse;">
                                     <img src="assets/art/Sugar-7B-(Jul-9-2026).gif"
-                                        style="width: 35px; height: 35px; object-fit: cover; border-radius: 50%; border: 1px solid blueviolet;"
+                                        style="width: 45px; height: 45px; object-fit: cover; border-radius: 50%; border: 1px solid blueviolet;"
                                         title="Sugar">
                                     <div
                                         style="background: blueviolet; padding: 6px 10px; color: white; border-radius: 4px; flex: 1;">
@@ -245,9 +241,9 @@
                                         put 'em all together and hope for the best!</div>
                                 </div>
                                 <div class="flex"
-                                    style="align-items: flex-start; gap: 8px; flex-direction: row-reverse;">
+                                    style="align-items: center; gap: 8px; flex-direction: row-reverse;">
                                     <img src="assets/art/Sugar-7E-(Jul-9-2026).gif"
-                                        style="width: 35px; height: 35px; object-fit: cover; border-radius: 50%; border: 1px solid blueviolet;"
+                                        style="width: 45px; height: 45px; object-fit: cover; border-radius: 50%; border: 1px solid blueviolet;"
                                         title="Sugar">
                                     <div
                                         style="background: blueviolet; padding: 6px 10px; color: white; border-radius: 4px; flex: 1;">
@@ -349,11 +345,11 @@
         <div class="window-popup-content">
             <div class="flex align-center" style="justify-content: space-between; margin-bottom: 10px;">
                 <button id="prevMonth">◀ PREV</button>
-                <div id="monthDisplay" style="text-align: center; font-weight: bold;"></div>
+                <div id="monthDisplay"></div>
                 <button id="nextMonth">NEXT ▶</button>
             </div>
 
-            <div id="calendarGrid" class="flex" style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px;">
+            <div id="calendarGrid" class="flex" style="display: grid; grid-template-columns: repeat(7, 1fr);">
             </div>
         </div>
     </div>
@@ -467,7 +463,7 @@
 
             <div style="font-size: 0.8rem;">
                 <strong>📝 TOS:</strong>
-                <ul style="margin: 4px 0 0 15px; padding: 0; display: flex; flex-direction: column; gap: 4px;">
+                <ul style="margin: 4px 0 0 15px; display: flex; flex-direction: column; gap: 4px;">
                     <li>Payment is via Cash App, PayPal, Venmo or Zelle transfer. Giftcards and other digital currency
                         (V-Bucks, Robux, Coins, etc.) will not be accepted.</li>
                     <li>Payment is due after the completed product is handed off to you and you are satisfied (I will
@@ -497,6 +493,50 @@
         <div class="window-popup-content" style="padding: 10px;">
             <div id="gallery-container" class="flex justify-center"
                 style="overflow-y: auto; flex-wrap: wrap; max-height: 300px; gap: 10px;">
+            </div>
+        </div>
+    </div>
+
+    <div id="window-personalMagazine" class="window window-popup hidden flex" style="width: 550px;">
+        <div class="window-title flex">
+            <span>VOL. 01: PERSONAL MAGAZINE</span>
+            <div class="window-controls flex" style="gap: 5px;">
+                <div class="window-maximize" onclick="toggleMaximize('window-personalMagazine')">🗖</div>
+                <div class="window-close" onclick="toggleWindow('window-personalMagazine')">X</div>
+            </div>
+        </div>
+        <div class="window-popup-content flex row" style="overflow: hidden; padding: 0;">
+            <div class="chapter-sidebar flex column"
+                style="flex: 0.3; border-right: 2px solid blueviolet; gap: 5px; padding: 10px;">
+                <button onclick="openChapter('pers-ch1', this)" class="chapter-btn active"
+                    style="background: #ffb6c1;">Ch.
+                    1: Intro</button>
+                <button onclick="openChapter('pers-ch2', this)" class="chapter-btn">Ch. 2:
+                    Routine</button>
+                <button onclick="openChapter('pers-ch3', this)" class="chapter-btn">Ch. 3:
+                    Favorites</button>
+            </div>
+
+            <div class="chapter-content-container" style="flex: 1; padding: 15px; overflow-y: auto;">
+                <div id="pers-ch1" class="magazine-chapter">
+                    <h3>Chapter 1: Getting to Know Me</h3>
+                    <p>Welcome to the first chapter of my personal magazine! Here is where I talk more in-depth about
+                        who I am beyond just the homepage widgets.</p>
+                    <img src="assets/camera/Jul-18-2026.jpg" style="width: 100%; margin-top: 10px; border-radius: 4px;">
+                </div>
+
+                <div id="pers-ch2" class="magazine-chapter" style="display: none;">
+                    <h3>Chapter 2: My Daily Routine</h3>
+                    <p>Juggling art, school for animation, and snacking isn't easy! Here's a look at how a typical
+                        chaotic day goes down...</p>=
+                </div>
+
+                <div id="pers-ch3" class="magazine-chapter" style="display: none;">
+                    <h3>Chapter 3: Favorite Things</h3>
+                    <p>A comprehensive list of things that keep me fueled:</p>
+                    <p>✨ Sour Patch Watermelon<br>✨ Bright neon colors<br>✨ Decora fashion items</p>
+                </div>
+
             </div>
         </div>
     </div>

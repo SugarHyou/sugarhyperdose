@@ -60,13 +60,13 @@ const sugarDialogueTrees = {
         nodeId: "shop_tease",
         text: "Ugh, don't remind me! I always poke them too early and ruin a fingerprint. Total disaster.",
         effect: { stress: 5 },
-        choices: [ { text: "Haha, lesson learned. Back to default?", next: "end_positive" } ]
+        choices: [{ text: "Haha, lesson learned. Back to default?", next: "end_positive" }]
     },
     shop_praise: {
         nodeId: "shop_praise",
         text: "Hehe, exactly! All that waiting pays off when they catch the light just right.",
         effect: { affection: 8, stress: -3 },
-        choices: [ { text: "Can't argue with results!", next: "end_positive" } ]
+        choices: [{ text: "Can't argue with results!", next: "end_positive" }]
     },
 
     // Art Path
@@ -83,13 +83,13 @@ const sugarDialogueTrees = {
         nodeId: "art_sketch",
         text: "No way, it's a messy WIP! You'll see it when I post it to the 'Latest Art' widget, nice try though~",
         effect: { affection: 5 },
-        choices: [ { text: "Fair enough, I'll keep an eye out.", next: "end_positive" } ]
+        choices: [{ text: "Fair enough, I'll keep an eye out.", next: "end_positive" }]
     },
     art_burnout: {
         nodeId: "art_burnout",
         text: "Aww, thanks for caring. Sometimes the creative groove takes over and I forget to eat, but I'm managing!",
         effect: { affection: 10, stress: -5 },
-        choices: [ { text: "Go grab a snack, seriously.", next: "end_gentle" } ]
+        choices: [{ text: "Go grab a snack, seriously.", next: "end_gentle" }]
     },
 
     // Site Coding Path
@@ -106,13 +106,13 @@ const sugarDialogueTrees = {
         nodeId: "site_roast",
         text: "HEY! It's an aesthetic choice! Chaos debugging is half the Neocities experience!",
         effect: { stress: 3, affection: 3 },
-        choices: [ { text: "If it works, it works.", next: "end_positive" } ]
+        choices: [{ text: "If it works, it works.", next: "end_positive" }]
     },
     site_praise: {
         nodeId: "site_praise",
         text: "R-really?! Aw, thank you! I spent forever getting the windows to drag right without breaking everything.",
         effect: { affection: 10, stress: -5 },
-        choices: [ { text: "All your hard work shows.", next: "end_positive" } ]
+        choices: [{ text: "All your hard work shows.", next: "end_positive" }]
     },
 
     // --- BLOG PATH ---
@@ -224,16 +224,9 @@ function setSugarMode(mode) {
             dialogueBox.innerText = "Sugar is sleeping... Zzz...";
             if (optionsBox) optionsBox.innerHTML = "";
             break;
-        case 'andy':
-            avatarImg.src = "assets/art/Andy-(Jul-16-2026).png";
-            dialogueBox.innerText = "...don't look at me.";
-            document.body.classList.add('andy-mode');
-            renderAndyOptions();
-            break;
         default:
             avatarImg.src = "assets/art/Sugar-11-(Jul-25-2026).gif";
             dialogueBox.innerText = "So, what's up?";
-            document.body.classList.remove('andy-mode');
             renderDefaultOptions();
             break;
     }
@@ -290,7 +283,7 @@ let typingInterval = null;
 
 function typeWriterEffect(element, text, speed = 25, callback = null) {
     if (!element) return;
-    
+
     if (typingInterval) {
         clearInterval(typingInterval);
     }
@@ -312,10 +305,10 @@ function typeWriterEffect(element, text, speed = 25, callback = null) {
 
 function applyStatChanges(effect) {
     console.log("Applying stat changes:", effect);
-    
+
     const stressMeter = document.getElementById('meter-stress');
     const affectionMeter = document.getElementById('meter-affection');
-    
+
     let currentStress = parseInt(document.getElementById('txt-stress').innerText) || 0;
     let currentAffection = parseInt(document.getElementById('txt-affection').innerText) || 0;
 
@@ -338,30 +331,6 @@ function applyStatChanges(effect) {
 function renderDefaultOptions() {
     currentDialogueNode = sugarDialogueTrees.default;
     renderDialogueNode(currentDialogueNode);
-}
-
-function renderAndyOptions() {
-    const optionsBox = document.getElementById("options-box");
-    const dialogueBox = document.getElementById("dialogue-box");
-    if (!optionsBox) return;
-    
-    optionsBox.innerHTML = "";
-    
-    const andyChoices = [
-        { text: "Are you okay?", response: "No. Leave it alone." },
-        { text: "What happened?", response: "Just life. Don't worry about it." },
-        { text: "Rest...", response: "...I am trying." }
-    ];
-
-    andyChoices.forEach(choice => {
-        const btn = document.createElement("button");
-        btn.className = "dialogue-choice";
-        btn.innerText = `► ${choice.text}`;
-        btn.onclick = () => { 
-            if (dialogueBox) dialogueBox.innerText = choice.response; 
-        };
-        optionsBox.appendChild(btn);
-    });
 }
 
 async function loadSiteData() {
@@ -452,7 +421,7 @@ const myPlaylist = [
     { title: "Confessions of a Rotten Girl", file: "assets/audio/music/Confessions of a Rotten Girl.mp3" },
     { title: "edgy", file: "assets/audio/music/edgy.mp3" },
     { title: "ELECTRIC WEEKEND ZONE", file: "assets/audio/music/ELECTRIC WEEKEND ZONE.mp3" },
-    { title: "glitter ✩‧₊˚", file: "assets/audio/music/glitter ✩‧₊˚.mp3"},
+    { title: "glitter ✩‧₊˚", file: "assets/audio/music/glitter ✩‧₊˚.mp3" },
     { title: "Indecent", file: "assets/audio/music/Indecent.mp3" },
     { title: "INTERNET ANGEL", file: "assets/audio/music/INTERNET ANGEL.mp3" },
     { title: "Let's Go Gambling!", file: "assets/audio/music/Let's Go Gambling!.mp3" },
@@ -891,17 +860,14 @@ fetch('art.json')
     })
     .catch(error => console.error('Error loading art vault:', error));
 
-    function toggleMaximize(windowId) {
+function toggleMaximize(windowId) {
     const win = document.getElementById(windowId);
+    if (!win) return;
+
     win.classList.toggle('maximized');
-    
-    // Optional: If you want to dynamically adjust the inner gallery height when maximized
+
+    // Safely check if a gallery container exists inside this specific window
     const container = win.querySelector('#gallery-container');
-    if (win.classList.contains('maximized')) {
-        container.style.maxHeight = '65vh'; // Expand inner scroll area when fullscreen
-    } else {
-        container.style.maxHeight = '300px'; // Revert back to normal size
-    }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -938,9 +904,9 @@ function renderFrontPageWidgets() {
         const today = new Date();
         today.setHours(0, 0, 0, 0);
         const currentYear = today.getFullYear();
-        
+
         let upcomingList = [];
-        
+
         for (let key in characterEvents) {
             let eventDate;
             if (key.includes('-') && key.split('-').length === 3) {
@@ -953,16 +919,16 @@ function renderFrontPageWidgets() {
                     eventDate = new Date(`${currentYear + 1}-${key}`);
                 }
             }
-            
+
             if (eventDate >= today) {
                 const eventTexts = Array.isArray(characterEvents[key]) ? characterEvents[key].join(', ') : characterEvents[key];
                 upcomingList.push({ dateObj: eventDate, text: eventTexts });
             }
         }
-        
+
         // Sort chronologically closest to today first
         upcomingList.sort((a, b) => a.dateObj - b.dateObj);
-        
+
         if (upcomingList.length > 0) {
             let html = '<ul style="margin: 0; padding-left: 15px; display: flex; flex-direction: column; gap: 4px;">';
             // Show the next 2 upcoming events
@@ -983,3 +949,22 @@ function renderFrontPageWidgets() {
 window.addEventListener('DOMContentLoaded', () => {
     renderFrontPageWidgets();
 });
+
+function openChapter(chapterId, buttonElement) {
+    // Hide all chapters inside the active window
+    const windowBody = buttonElement.closest('.window-popup');
+    const chapters = windowBody.querySelectorAll('.magazine-chapter');
+    chapters.forEach(ch => ch.style.display = 'none');
+
+    // Show the selected chapter
+    document.getElementById(chapterId).style.display = 'block';
+
+    // Remove active styles from all chapter buttons and highlight the clicked one
+    const buttons = windowBody.querySelectorAll('.chapter-btn');
+    buttons.forEach(btn => {
+        btn.style.background = '#eee';
+        btn.style.fontWeight = 'normal';
+    });
+    buttonElement.style.background = '#ffb6c1';
+    buttonElement.style.fontWeight = 'bold';
+}

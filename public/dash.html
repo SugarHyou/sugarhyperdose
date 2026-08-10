@@ -126,7 +126,8 @@
                 <div class="widget-section">
                     <label>🎨 LATEST ART</label>
                     <input type="text" id="art-title" placeholder="Art Title...">
-                    <label style="font-size: 0.7rem; color: #555; margin-bottom: 2px;">Select Existing Asset or Upload New:</label>
+                    <label style="font-size: 0.7rem; color: #555; margin-bottom: 2px;">Select Existing Asset or Upload
+                        New:</label>
                     <select id="art-select" class="art-dropdown">
                         <option value="">-- Load from existing assets --</option>
                     </select>
@@ -162,7 +163,6 @@
                     <button onclick="saveMode('busy')">BUSY</button>
                     <button onclick="saveMode('gaming')">GAMING</button>
                     <button onclick="saveMode('blogging')">BLOGGING</button>
-                    <button onclick="saveMode('andy')" style="background: #333; color: #fff;">...</button>
                 </div>
             </div>
 
@@ -239,7 +239,7 @@
         }
 
         async function resJsonOrEmpty(res) {
-            try { return await res.json(); } catch(err) { return []; }
+            try { return await res.json(); } catch (err) { return []; }
         }
 
         // Helper to convert an uploaded file into base64 and push it to a specified GitHub folder path
@@ -369,11 +369,11 @@
 
                 if (content.trim() !== "") {
                     if (!dbStructure.posts) dbStructure.posts = [];
-                    dbStructure.posts.unshift({ 
-                        date: formattedDate, 
-                        title: title || "Untitled", 
+                    dbStructure.posts.unshift({
+                        date: formattedDate,
+                        title: title || "Untitled",
                         content: content,
-                        image: blogImageFinal || "" 
+                        image: blogImageFinal || ""
                     });
                 }
 

@@ -38,15 +38,20 @@ body {
 }
 
 @keyframes rainbowText {
-  0% { filter: hue-rotate(0deg); }
-  100% { filter: hue-rotate(360deg); }
+    0% {
+        filter: hue-rotate(0deg);
+    }
+
+    100% {
+        filter: hue-rotate(360deg);
+    }
 }
 
 h1 {
-  background: var(--rainbow-gradient);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: rainbowText 2s linear infinite;
+    background: var(--rainbow-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: rainbowText 2s linear infinite;
 }
 
 strong {
@@ -87,32 +92,9 @@ a {
     justify-content: space-evenly;
 }
 
-.logo {
-    word-break: keep-all;
-    text-transform: uppercase;
-    font-weight: bold;
-    font-size: 1.4rem;
-    text-shadow: 2px 2px #00ffff, -2px -2px #ff00ff;
-    animation: glitch 0.5s infinite alternate;
-}
-
 .desktop {
-    gap: 10px;
     flex: 1;
     max-height: 100%;
-}
-
-#desktop-grid {
-    position: relative;
-    flex: 1;
-    min-width: 180px;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(80px, 100px));
-    gap: 15px;
-    padding: 10px;
-    border: 2px inset cyan;
-    background: rgba(255, 255, 255, 0.7);
-    align-content: start;
 }
 
 .window {
@@ -200,15 +182,8 @@ a {
     word-break: break-word;
 }
 
-.dialogue-choice:hover {
-    -webkit-text-fill-color: unset;
-    background: #00ff66;
-    color: var(--white) !important;
-    border-color: limegreen;
-}
-
 .main-content {
-    flex: 3;
+    max-width: 750px;
 }
 
 marquee {
@@ -217,18 +192,6 @@ marquee {
     padding: 3px;
     font-weight: bold;
     color: #ff0055;
-}
-
-.bpm-counter {
-    font-size: 2.5rem;
-    font-weight: bold;
-    color: #00ff66;
-    background: #4a0072;
-    padding: 5px;
-    border-radius: 5px;
-    text-align: center;
-    text-shadow: 3px 3px #ff0055, -2px -2px #ffcc00;
-    animation: beat 0.32s infinite alternate;
 }
 
 .status-bar {
@@ -242,22 +205,6 @@ marquee {
     justify-content: space-around;
 }
 
-.button-link {
-    display: inline-block;
-    margin: 5px 0;
-    padding: 5px 10px;
-    font-weight: bold;
-    text-decoration: none;
-    border: 2px solid;
-    border-image: linear-gradient(90deg, red, gold, blue) 1;
-    background: #ffffff;
-}
-
-.button-link:hover {
-    background: #ffcc00;
-    color: var(--white);
-}
-
 @keyframes beat {
     0% {
         transform: scale(0.92) rotate(-1deg);
@@ -268,71 +215,6 @@ marquee {
     }
 }
 
-@keyframes glitch {
-    0% {
-        text-shadow: 2px 2px #ff0000;
-        transform: skewX(-3deg);
-    }
-
-    50% {
-        text-shadow: -2px 2px #00ff00;
-    }
-
-    100% {
-        text-shadow: 2px -2px #0000ff;
-        transform: skewX(3deg);
-    }
-}
-
-::-webkit-scrollbar {
-    width: 14px;
-}
-
-::-webkit-scrollbar-track {
-    background: #ffffcc;
-}
-
-::-webkit-scrollbar-thumb {
-    background: #ff0055;
-    border: 2px solid #ffffcc;
-}
-
-.status-container {
-    display: flex;
-    gap: 30px;
-    padding: 10px 10px 0;
-    background: rgba(255, 255, 255, 0.8);
-    border: 3px solid var(--deep-ink);
-    width: 100%;
-}
-
-.meter-group {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    flex: 1;
-}
-
-.meter-label {
-    text-align: center;
-    font-weight: 900;
-    font-size: 1.1rem;
-    letter-spacing: 1px;
-}
-
-.pixel-bar-container {
-    width: 100%;
-    height: 24px;
-    background: #ffffff;
-    border: 3px solid blue;
-    position: relative;
-    padding: 1px;
-}
-
-.pixel-bar-fill {
-    height: 100%;
-    transition: width 0.3s steps(4);
-}
 
 @keyframes blinker {
     50% {
@@ -390,31 +272,29 @@ marquee {
 
 /* Styles for when the window is expanded */
 .window.window-popup.maximized {
-    width: 95vw !important;         /* Takes up 85% of the screen width */
-    max-width: 900px;               /* Perimeter limit so it doesn't get too giant */
-    height: 95vh !important;        /* Takes up 75% of the screen height */
+    width: 95vw !important;
+    /* Takes up 85% of the screen width */
+    max-width: 900px;
+    /* Perimeter limit so it doesn't get too giant */
+    height: 95vh !important;
+    /* Takes up 75% of the screen height */
     position: fixed !important;
     top: 50% !important;
     left: 50% !important;
-    transform: translate(-50%, -50%) !important; /* Perfectly centers it */
-    z-index: 999;                   /* Ensures it sits on top of everything */
+    transform: translate(-50%, -50%) !important;
+    /* Perfectly centers it */
+    z-index: 999;
+    /* Ensures it sits on top of everything */
 }
 
 /* Optional: Make the gallery layout stretch nicely to fill the expanded space */
 .window.window-popup.maximized #gallery-container {
-    max-height: 100% !important; 
+    max-height: 100% !important;
 }
 
 button {
     color: inherit;
     font-family: inherit;
-}
-
-button:hover {
-    border-style: inset !important;
-    background: #00ff66 !important;
-    color: var(--white) !important;
-    border-color: limegreen !important;
 }
 
 .playlist-track {
@@ -453,15 +333,22 @@ button:hover {
     border-color: blueviolet;
 }
 
-.playlist-track:hover {
-    background: #00ff66 !important;
-    color: var(--white) !important;
-    border-color: limegreen !important;
+button:hover,
+.dialogue-choice:hover,
+.playlist-track:hover,
+.app:hover,
+.app:hover span,
+#calendarGrid div:hover,
+.magazine-card:hover {
+    background: lime !important;
+    border-color: lime !important;
 }
 
 #app-mainbar {
-    flex: 3;
+    gap: 15px;
+    padding-right: 20px;
     overflow-x: hidden;
+    overflow-y: auto;
     position: relative;
 }
 
@@ -474,7 +361,7 @@ button:hover {
     flex-shrink: 0;
 }
 
-.app-sidebar > span:first-child {
+.app-sidebar>span:first-child {
     font-weight: bold;
     font-size: 0.8rem;
     text-align: center;
@@ -517,13 +404,6 @@ button:hover {
     background: fuchsia;
 }
 
-.app:hover,
-.app:hover span {
-    background: #00ff66 !important;
-    color: var(--white) !important;
-    border-color: limegreen !important;
-}
-
 .app-icon {
     font-size: 3.5rem;
 }
@@ -545,41 +425,32 @@ button:hover {
     padding: 5px;
 }
 
-.tab-btn {
-    background: red;
-    color: var(--white);
-    border: 2px inset #000;
-    cursor: pointer;
-    font-weight: bold;
-    padding: 2px 6px;
-}
-
 #sugar {
+    display: block;
     flex: 1;
     z-index: -1;
     pointer-events: none;
     max-height: 100%;
+    object-fit: contain;
     margin: 0 -120px;
 }
 
-blockquote {
-    margin: 10px 0 0;
-    padding: 10px;
-    background: #ffffcc;
-    position: relative;
-    color: var(--blue);
-    quotes: "\201C""\201D";
-    opacity: 0.6;
-}
-
 @keyframes rainbow-shift {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
 }
 
 .rainbow-text {
-    background: linear-gradient(90deg, #ff0000, #ff7f00, #ffff00, #00ff00, cyan, #0000ff, blueviolet);
+    background: linear-gradient(90deg, #ff0000, #ff7f00, #ffff00, lime, cyan, #0000ff, blueviolet);
     background-size: 400% 100%;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -588,23 +459,6 @@ blockquote {
     font-weight: bold;
 }
 
-@keyframes blogPop {
-    0% { opacity: 0; transform: translateY(10px); }
-    100% { opacity: 1; transform: translateY(0); }
-}
-
-.blog-update-anim {
-    animation: blogPop 0.6s ease-out forwards;
-}
-
-/* --- Calendar Window & Header Styling --- */
-#window-calendar {
-    border: 4px solid;
-    border-image: var(--rainbow-gradient-border);
-    background: #fff0f5; /* Light lavender-pink background */
-}
-
-/* --- Calendar Navigation Buttons --- */
 #window-calendar button {
     background: var(--white);
     border: 2px solid;
@@ -618,100 +472,31 @@ blockquote {
     transition: transform 0.1s ease;
 }
 
-#window-calendar button:hover {
-    background: #00ff66 !important;
-    color: var(--white) !important;
-    border-color: limegreen !important;
-    border-image: none !important;
-    transform: scale(1.05);
-}
-
-#window-calendar button:active {
-    transform: translate(1px, 1px);
-    box-shadow: 1px 1px 0px var(--pink);
-}
-
-/* --- Month Display Header --- */
 #monthDisplay {
     background: var(--rainbow-gradient);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     font-size: 1.25rem;
-    text-shadow: none; /* Text clip handles color, shadow can mess it up */
+    text-shadow: none;
     filter: drop-shadow(1px 1px 0px var(--blue));
 }
 
-/* --- Calendar Grid Days --- */
 #calendarGrid div {
     background: var(--white);
     padding: 6px;
     border: 2px solid cyan;
     text-align: center;
-    font-size: 0.75rem;
-    font-weight: bold;
-    color: var(--blue);
     cursor: pointer;
-    transition: background 0.2s;
-}
-
-#calendarGrid div:hover {
-    background: gold;
-    color: var(--red);
-    border-color: var(--pink);
 }
 
 #calendarGrid div.today {
-    background: var(--red) !important;
+    background: var(--purple) !important;
     color: var(--white) !important;
-    border: 2px dashed gold;
 }
 
 #calendarGrid div.event-day {
-    background: hotpink !important;
-    color: var(--white) !important;
-    border: 2px solid cyan;
-}
-
-.has-tooltip {
-    position: relative;
-    cursor: help;
-    border-bottom: 2px dotted var(--blue);
-}
-
-.has-tooltip .tooltip-text {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    visibility: hidden;
-    width: 200px;
-    background-color: var(--white);
-    text-align: center;
-    padding: 5px;
-    border: 2px solid var(--blue);
-    position: absolute;
-    z-index: 999;
-    bottom: 125%; 
-    left: 50%;
-    transform: translateX(-50%);
-}
-
-.has-tooltip:hover .tooltip-text {
-    visibility: visible;
-}
-
-#window-commissions {
-    z-index: 100;
-    box-shadow: 5px 5px 0px rgba(138, 43, 226, 0.5);
-}
-
-.comm-card {
-    transition: transform 0.2s;
-}
-
-.comm-card:hover {
-    transform: rotate(-3deg) scale(1.05);
-    background: #fff0ff !important;
+    background: hotpink;
+    color: var(--white);
 }
 
 .comm-banner {
@@ -720,32 +505,24 @@ blockquote {
 }
 
 @keyframes rainbow {
-    0% { background: hotpink; }
-    33% { background: cyan; }
-    66% { background: gold; }
-    100% { background: hotpink; }
+    0% {
+        background: hotpink;
+    }
+
+    33% {
+        background: cyan;
+    }
+
+    66% {
+        background: gold;
+    }
+
+    100% {
+        background: hotpink;
+    }
 }
 
-.andy-mode {
-    background-image: url('assets/graphics/backgrounds/andy.jpg');
-    background-size: contain;
-    --white: #0d1632;
-    --blue: white;
-}
-
-.andy-mode .window {
-    border-color: red !important;
-}
-
-.andy-mode .window-title {
-    background: blue !important;
-}
-
-.andy-mode #sugar {
-    visibility: hidden;
-}
-
-.magazine-rack-grid {
+.magazine-rack {
     display: flex;
     gap: 12px;
     justify-content: center;
@@ -760,11 +537,6 @@ blockquote {
     color: white;
     flex-direction: column;
     gap: 6px;
-}
-
-.magazine-card:hover {
-    background: lime;
-    border-color: lime;
 }
 
 .magazine-header {
@@ -799,13 +571,35 @@ blockquote {
     padding: 2px 0;
 }
 
-.magazine-card:nth-child(7n+1) { border: 2px solid blueviolet; background: red; }
+.magazine-card:nth-child(7n+1) {
+    border: 2px solid blueviolet;
+    background: red;
+}
 
-.magazine-card:nth-child(7n+2) { border: 2px solid blueviolet; background: orange;}
+.magazine-card:nth-child(7n+2) {
+    border: 2px solid blueviolet;
+    background: orange;
+}
 
-.magazine-card:nth-child(7n+3) { border: 2px solid blueviolet; background: gold; color: blueviolet; }
+.magazine-card:nth-child(7n+3) {
+    border: 2px solid blueviolet;
+    background: gold;
+    color: blueviolet;
+}
 
-.magazine-card:nth-child(7n+4) { border: 2px solid blueviolet; background: lime; color: blueviolet; }
+.magazine-card:nth-child(7n+4) {
+    border: 2px solid blueviolet;
+    background: lime;
+    color: blueviolet;
+}
+
+.chapter-btn {
+    text-align: left;
+    padding: 5px;
+    background: #eee;
+    border: none;
+    cursor: pointer;
+}
 
 @media (max-width: 768px) {
     .desktop {
@@ -817,17 +611,8 @@ blockquote {
         order: 1;
     }
 
-    #desktop-grid {
-        min-width: 100%;
-        grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
-    }
-
     #sugar {
-        display: none; 
-    }
-
-    .bpm-counter {
-        font-size: 1.5rem;
+        display: none;
     }
 
     body {
