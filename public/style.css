@@ -608,20 +608,13 @@ button:hover,
 }
 
 @media (max-width: 768px) {
-    .desktop {
-        flex-direction: column;
-    }
-
-    #sidebar {
-        width: 100%;
-        order: 1;
-    }
 
     #sugar {
         display: none;
     }
 
     body {
+        padding: 10px;
         gap: 5px;
     }
 }
