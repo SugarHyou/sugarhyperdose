@@ -945,26 +945,19 @@ function renderFrontPageWidgets() {
     }
 }
 
-// Call it on page load
 window.addEventListener('DOMContentLoaded', () => {
     renderFrontPageWidgets();
 });
 
 function openChapter(chapterId, buttonElement) {
-    // Hide all chapters inside the active window
     const windowBody = buttonElement.closest('.window-popup');
     const chapters = windowBody.querySelectorAll('.magazine-chapter');
     chapters.forEach(ch => ch.style.display = 'none');
 
-    // Show the selected chapter
     document.getElementById(chapterId).style.display = 'block';
 
-    // Remove active styles from all chapter buttons and highlight the clicked one
     const buttons = windowBody.querySelectorAll('.chapter-btn');
-    buttons.forEach(btn => {
-        btn.style.background = '#eee';
-        btn.style.fontWeight = 'normal';
-    });
-    buttonElement.style.background = '#ffb6c1';
-    buttonElement.style.fontWeight = 'bold';
+    buttons.forEach(btn => btn.classList.remove('active'));
+    
+    buttonElement.classList.add('active');
 }

@@ -596,9 +596,15 @@ button:hover,
 .chapter-btn {
     text-align: left;
     padding: 5px;
+    border: 1px solid blueviolet;
     background: #eee;
-    border: none;
     cursor: pointer;
+    color: inherit;
+}
+
+.chapter-btn.active {
+    background: blueviolet;
+    color: white;
 }
 
 @media (max-width: 768px) {
