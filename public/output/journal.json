@@ -1,9 +1,15 @@
 {
   "currentStats": {
-    "stress": 20,
-    "affection": 50
+    "stress": 7,
+    "affection": 21
   },
   "posts": [
+    {
+      "date": "Aug 10 - 10:06 PM",
+      "title": "Untitled",
+      "content": "I'm getting fat. im hungry every fucking 2 hours",
+      "image": ""
+    },
     {
       "date": "Aug 9 - 04:13 AM",
       "title": "Disco Disco Party Party!",
