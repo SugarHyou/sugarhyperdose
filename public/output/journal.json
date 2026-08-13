@@ -1,7 +1,7 @@
 {
   "currentStats": {
-    "stress": 5,
-    "affection": 2
+    "stress": 20,
+    "affection": 50
   },
   "events": {
     "4-25": ["SugarHyou's Neocities Anniversary! ✨"],
@@ -181,5 +181,10 @@
     "title": "The Amazing Digital Circus",
     "image": "assets/art/pomni-(aug-1-2026).gif",
     "desc": "I know the movie was already a while ago, but I still love the entire show so much!"
+  },
+  "events": {
+    "2026-08-29": [
+      "Party Plus Ultra (7PM)"
+    ]
   }
 }
