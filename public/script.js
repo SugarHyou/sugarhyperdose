@@ -684,16 +684,14 @@ window.addEventListener('load', () => {
     updateUIStats();
 });
 
-let date = new Date();
 let characterEvents = {}; 
 let fetchedHolidays = {};
 let calDate = new Date();
 
 async function initCalendar() {
-    // 1. Load your custom events first
+    // 1. Fetch your journal JSON file
     try {
-        let res = await fetch('output/journal.json'); // Match your dash.json path structure
-        if (!res.ok) res = await fetch('output/journal.json'); // Fallback if hosted differently
+        let res = await fetch('output/journal.json'); // Change to 'public/output/journal.json' if needed based on your folder setup
         let data = await res.json();
         if (data.events) {
             characterEvents = data.events;
@@ -702,7 +700,7 @@ async function initCalendar() {
         console.error("Could not load local events:", e);
     }
 
-    // 2. Fetch public holidays for the current year
+    // 2. Fetch public holidays
     const year = calDate.getFullYear();
     try {
         const holidayRes = await fetch(`https://date.nager.at/api/v3/PublicHolidays/${year}/US`);
@@ -716,7 +714,7 @@ async function initCalendar() {
         console.error("Error fetching holidays:", err);
     }
 
-    // 3. Render once everything is safely loaded!
+    // 3. Render the calendar with all data loaded
     renderCalendar();
 }
 
@@ -740,15 +738,19 @@ function renderCalendar() {
     for (let i = 1; i <= lastDate; i++) {
         const dayDiv = document.createElement('div');
         dayDiv.innerText = i;
-        const absKey = `${year}-${month + 1}-${i}`;
+        
+        // Match keys with or without leading zeros so they always catch
+        const absKeyZero = `${year}-${String(month + 1).padStart(2, '0')}-${String(i).padStart(2, '0')}`;
+        const absKeyNormal = `${year}-${month + 1}-${i}`;
         const recKey = `${month + 1}-${i}`;
 
         if (i === today.getDate() && month === today.getMonth() && year === today.getFullYear()) dayDiv.classList.add('today');
 
         let dayEvents = [];
-        if (characterEvents[absKey]) dayEvents = dayEvents.concat(characterEvents[absKey]);
+        if (characterEvents[absKeyZero]) dayEvents = dayEvents.concat(characterEvents[absKeyZero]);
+        if (characterEvents[absKeyNormal]) dayEvents = dayEvents.concat(characterEvents[absKeyNormal]);
         if (characterEvents[recKey]) dayEvents = dayEvents.concat(characterEvents[recKey]);
-        if (fetchedHolidays[absKey]) dayEvents.push(fetchedHolidays[absKey]);
+        if (fetchedHolidays[absKeyZero]) dayEvents.push(fetchedHolidays[absKeyZero]);
 
         if (dayEvents.length > 0) {
             dayDiv.classList.add('event-day');
@@ -765,7 +767,7 @@ const nextBtn = document.getElementById('nextMonth');
 if (prevBtn) prevBtn.onclick = () => { calDate.setMonth(calDate.getMonth() - 1); renderCalendar(); };
 if (nextBtn) nextBtn.onclick = () => { calDate.setMonth(calDate.getMonth() + 1); renderCalendar(); };
 
-// Kick off the sequence!
+// Initialize!
 initCalendar();
 
 function checkSleepStatus() {
