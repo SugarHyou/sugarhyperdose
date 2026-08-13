@@ -95,6 +95,19 @@
             padding-left: 8px;
             margin-top: 8px;
         }
+
+        input[type="text"],
+        input[type="date"],
+        select,
+        input[type="file"],
+        textarea {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            margin-bottom: 8px;
+            border: 2px solid #000;
+            background: #fff;
+        }
     </style>
 </head>
 
@@ -178,6 +191,14 @@
             <textarea id="content" placeholder="What's corrupting your mind?"></textarea>
 
             <button id="submit-btn" onclick="publishPost()">TRANSMIT TO CORE ⚡</button>
+
+            <div class="widget-section" style="border-left-color: #ffaa00;">
+                <label>📅 ADD CALENDAR EVENT</label>
+                <input type="date" id="event-date">
+                <input type="text" id="event-text" placeholder="Event Description (e.g. Doctor (1PM))">
+                <label style="font-size: 0.7rem; color: #555; margin-bottom: 2px;">(If multiple events on one day, it
+                    will safely append!)</label>
+            </div>
         </div>
     </div>
 
@@ -193,13 +214,11 @@
             alert("Command Sent: " + mode.toUpperCase());
         }
 
-        // Automatically populate dropdown menus with existing files from both art and camera folders
         async function initAdminPanel() {
             let GITHUB_TOKEN = localStorage.getItem('overdose_journal_token');
-            if (!GITHUB_TOKEN) return; // Skip fetching if not authenticated yet
+            if (!GITHUB_TOKEN) return;
 
             try {
-                // Fetch Art Assets
                 const artRes = await fetch(`https://api.github.com/repos/${GITHUB_USERNAME}/${REPO_NAME}/contents/${ART_ASSETS_PATH}`, { headers: { 'Authorization': `token ${GITHUB_TOKEN}` } });
                 if (artRes.status === 200) {
                     let artFiles = await resJsonOrEmpty(artRes);
@@ -216,11 +235,9 @@
                     });
                 }
 
-                // Fetch Camera / Photo Assets
                 const camRes = await fetch(`https://api.github.com/repos/${GITHUB_USERNAME}/${REPO_NAME}/contents/${CAMERA_ASSETS_PATH}`, { headers: { 'Authorization': `token ${GITHUB_TOKEN}` } });
                 if (camRes.status === 200) {
                     let camFiles = await resJsonOrEmpty(camRes);
-                    // Add camera assets primarily to blog-select (and others if you want)
                     ['blog-select', 'art-select'].forEach(id => {
                         let select = document.getElementById(id);
                         camFiles.forEach(file => {
@@ -329,6 +346,7 @@
                     art: { title: "", image: "", desc: "" },
                     playing: { title: "", image: "", desc: "" },
                     watching: { title: "", image: "", desc: "" },
+                    events: {},
                     posts: []
                 };
 
@@ -367,6 +385,19 @@
                     dbStructure.watching.desc = watchDesc || dbStructure.watching.desc || "";
                 }
 
+                const eventDateInput = document.getElementById('event-date').value.trim();
+                const eventTextInput = document.getElementById('event-text').value.trim();
+
+                if (!dbStructure.events) dbStructure.events = {};
+                if (eventDateInput && eventTextInput) {
+                    if (!dbStructure.events[eventDateInput]) {
+                        dbStructure.events[eventDateInput] = [];
+                    }
+                    if (!dbStructure.events[eventDateInput].includes(eventTextInput)) {
+                        dbStructure.events[eventDateInput].push(eventTextInput);
+                    }
+                }
+
                 if (content.trim() !== "") {
                     if (!dbStructure.posts) dbStructure.posts = [];
                     dbStructure.posts.unshift({
@@ -403,6 +434,8 @@
                     document.getElementById('play-file-upload').value = '';
                     document.getElementById('watch-file-upload').value = '';
                     document.getElementById('blog-file-upload').value = '';
+                    document.getElementById('event-date').value = '';
+                    document.getElementById('event-text').value = '';
                 } else {
                     const errData = await updateRes.json();
                     alert("Error writing to core: " + (errData.message || updateRes.status));

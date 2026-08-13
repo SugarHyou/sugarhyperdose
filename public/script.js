@@ -345,6 +345,8 @@ async function loadSiteData() {
 
         container.innerHTML = "";
 
+        
+
         // Populate Front Page Recent Blog Widget with the latest post
         const blogWidget = document.getElementById('widget-blog-container');
         if (blogWidget && data.posts.length > 0) {
@@ -375,7 +377,7 @@ async function loadSiteData() {
                     </div>
                 </div>
                 <h3 style="margin: 0 0 5px 0;">${post.title}</h3>
-                <div style="font-size: 0.9rem;">${post.content}</div>
+                <div style="font-size: 0.9rem; white-space: pre-line;">${post.content}</div>
                 ${imageHtml}
             `;
             container.appendChild(postEl);
@@ -683,70 +685,39 @@ window.addEventListener('load', () => {
 });
 
 let date = new Date();
-
-const characterEvents = {
-    "4-25": ["SugarHyou's Neocities Anniversary! ✨"],
-    "10-14": ["SugarHyou's Birthday! ✨"],
-    "2026-5-2": ["One4AllTeam Cosplay Meetup"],
-    "2026-5-15": ["Comic-Con Revolution Early Badge Pickup"],
-    "2026-5-16": ["Comic-Con Revolution! ✨"],
-    "2026-5-17": ["Comic-Con Revolution! ✨"],
-    "2026-5-21": ["BN Appt"],
-    "2026-5-24": ["BKawaii Market x Kira Kira Gals! ✨"],
-    "2026-5-30": ["Anime Riverside ✨"],
-    "2026-5-31": ["Anime Riverside ✨"],
-    "2026-6-6": ["One4AllTeam "],
-    "2026-6-8": ["Photoshoot"],
-    "2026-6-19": ["The Nostalgia Con"],
-    "2026-6-20": ["Anime Night Mart", "Harajuku Day Swap Meet", "The Nostalgia Con", "Jade's Furry Friends 5K Run/Walk", "QCON", "Santa Ana Flea Market"],
-    "2026-6-21": ["The Nostalgia Con", "Anime Night Mart"],
-    "2026-6-22": ["STEP"],
-    "2026-6-23": ["STEP"],
-    "2026-6-24": ["STEP"],
-    "2026-6-25": ["STEP"],
-    "2026-6-26": ["Fan Expo Anaheim"],
-    "2026-6-27": ["Fan Expo Anaheim"],
-    "2026-6-28": ["Fan Expo Anaheim"],
-    "2026-6-29": ["STEP"],
-    "2026-6-30": ["STEP"],
-    "2026-7-1": ["STEP"],
-    "2026-7-2": ["Anime Expo! ✨", "STEP"],
-    "2026-7-3": ["Anime Expo! ✨"],
-    "2026-7-4": ["Harajuku Day Swap Meet", "Anime Expo"],
-    "2026-7-5": ["Anime Expo"],
-    "2026-7-11": ["Spirit of Japan Festival! ✨"],
-    "2026-7-12": ["Spirit of Japan Festival! ✨"],
-    "2026-7-15": ["New Patient Intake"],
-    "2026-7-18": ["Santa Ana Flea Market"],
-    "2026-7-21": ["Counseling"],
-    "2026-8-4": ["Psych Eval (11:00AM)"],
-    "2026-8-6": ["DMV (9:20AM)", "P.T (2:00PM)"],
-    "2026-8-7": ["Drop", "Hire!"],
-    "2026-8-8": ["Party (7PM)"],
-    "2026-8-15": ["Sonic Boost", "Harajuku Day LA", "Santa Ana Flea (4PM)"],
-    "2026-8-16": ["Sonic Boost"],
-    "2026-8-24": ["First day of School"],
-    "2026-9-5": ["Psych (12PM)"],
-    "2026-9-5": ["Anime San Diego! ✨"],
-    "2026-9-6": ["Anime San Diego! ✨"],
-};
-
+let characterEvents = {}; 
 let fetchedHolidays = {};
 let calDate = new Date();
 
-function fetchHolidays(year) {
-    const url = `https://date.nager.at/api/v3/PublicHolidays/${year}/US`;
-    fetch(url)
-        .then(response => response.json())
-        .then(data => {
-            data.forEach(holiday => {
-                const parts = holiday.date.split('-');
-                const key = `${parseInt(parts[0], 10)}-${parseInt(parts[1], 10)}-${parseInt(parts[2], 10)}`;
-                fetchedHolidays[key] = holiday.localName;
-            });
-            renderCalendar();
-        })
-        .catch(err => console.error("Error fetching holidays:", err));
+async function initCalendar() {
+    // 1. Load your custom events first
+    try {
+        let res = await fetch('output/journal.json'); // Match your dash.json path structure
+        if (!res.ok) res = await fetch('output/journal.json'); // Fallback if hosted differently
+        let data = await res.json();
+        if (data.events) {
+            characterEvents = data.events;
+        }
+    } catch(e) {
+        console.error("Could not load local events:", e);
+    }
+
+    // 2. Fetch public holidays for the current year
+    const year = calDate.getFullYear();
+    try {
+        const holidayRes = await fetch(`https://date.nager.at/api/v3/PublicHolidays/${year}/US`);
+        const holidayData = await holidayRes.json();
+        holidayData.forEach(holiday => {
+            const parts = holiday.date.split('-');
+            const key = `${parseInt(parts[0], 10)}-${parseInt(parts[1], 10)}-${parseInt(parts[2], 10)}`;
+            fetchedHolidays[key] = holiday.localName;
+        });
+    } catch(err) {
+        console.error("Error fetching holidays:", err);
+    }
+
+    // 3. Render once everything is safely loaded!
+    renderCalendar();
 }
 
 function renderCalendar() {
@@ -794,7 +765,8 @@ const nextBtn = document.getElementById('nextMonth');
 if (prevBtn) prevBtn.onclick = () => { calDate.setMonth(calDate.getMonth() - 1); renderCalendar(); };
 if (nextBtn) nextBtn.onclick = () => { calDate.setMonth(calDate.getMonth() + 1); renderCalendar(); };
 
-fetchHolidays(calDate.getFullYear());
+// Kick off the sequence!
+initCalendar();
 
 function checkSleepStatus() {
     const now = new Date();
