@@ -5,6 +5,12 @@
   },
   "posts": [
     {
+      "date": "Aug 14 - 02:15 AM",
+      "title": "Tummyache",
+      "content": "Donut at 2AM was... A choice.",
+      "image": ""
+    },
+    {
       "date": "Aug 12 - 04:17 PM",
       "title": "Bored and Tired",
       "content": "I've been so sleepy lately. I just don't feel the need to do anything. I miss my dog. \n\nI guess I never talked about it on my blog but she passed away a week and a half ago. Really sudden decision we had to make cause she had Pyometra and we just could not take care of her. I have no money, I am starting school soon, I am working next month, I just... I don't know.\n\nThe decision to spay her was up to me when I was 10 years old. The only way it was described to me was to choose to not let my dog have puppies or let her have puppies. If I had known not spaying = pyometra, I would've just done it. But I didn't know any better. This is kinda what makes me think my mom was the one who killed her. She didn't care to take care of her or do any research at all and just let me take the fall for the decision. I felt so alone.\n\nI don't regret the decision that I made. I just wish I had the option to make another one. But I didn't. My baby isn't suffering anymore. That's all I could hope for...",
@@ -128,66 +134,184 @@
     "desc": "I know the movie was already a while ago, but I still love the entire show so much!"
   },
   "events": {
-    "4-25": ["SugarHyou's Neocities Anniversary! ✨"],
-    "10-14": ["SugarHyou's Birthday! ✨"],
-    "2026-5-2": ["One4AllTeam Cosplay Meetup"],
-    "2026-5-15": ["Comic-Con Revolution Early Badge Pickup"],
-    "2026-5-16": ["Comic-Con Revolution! ✨"],
-    "2026-5-17": ["Comic-Con Revolution! ✨"],
-    "2026-5-21": ["BN Appt"],
-    "2026-5-24": ["BKawaii Market x Kira Kira Gals! ✨"],
-    "2026-5-30": ["Anime Riverside ✨"],
-    "2026-5-31": ["Anime Riverside ✨"],
-    "2026-6-6": ["One4AllTeam "],
-    "2026-6-8": ["Photoshoot"],
-    "2026-6-19": ["The Nostalgia Con"],
-    "2026-6-20": ["Anime Night Mart", "Harajuku Day Swap Meet", "The Nostalgia Con", "Jade's Furry Friends 5K Run/Walk", "QCON", "Santa Ana Flea Market"],
-    "2026-6-21": ["The Nostalgia Con", "Anime Night Mart"],
-    "2026-6-22": ["STEP"],
-    "2026-6-23": ["STEP"],
-    "2026-6-24": ["STEP"],
-    "2026-6-25": ["STEP"],
-    "2026-6-26": ["Fan Expo Anaheim"],
-    "2026-6-27": ["Fan Expo Anaheim"],
-    "2026-6-28": ["Fan Expo Anaheim"],
-    "2026-6-29": ["STEP"],
-    "2026-6-30": ["STEP"],
-    "2026-7-1": ["STEP"],
-    "2026-7-2": ["Anime Expo! ✨", "STEP"],
-    "2026-7-3": ["Anime Expo! ✨"],
-    "2026-7-4": ["Harajuku Day Swap Meet", "Anime Expo"],
-    "2026-7-5": ["Anime Expo"],
-    "2026-7-11": ["Spirit of Japan Festival! ✨"],
-    "2026-7-12": ["Spirit of Japan Festival! ✨"],
-    "2026-7-15": ["New Patient Intake"],
-    "2026-7-18": ["Santa Ana Flea Market"],
-    "2026-7-21": ["Counseling"],
-    "2026-08-04": ["Psych (11:00AM)"],
-    "2026-08-06": ["DMV (9:20AM)", "P.T (2:00PM)"],
-    "2026-08-07": ["Drop", "Hire!"],
-    "2026-08-08": ["Party (7PM)"],
-    "2026-08-12": ["Doctor (1PM)"],
-    "2026-08-13": ["P.T (2PM)"],
-    "2026-08-15": ["Sonic Boost", "Harajuku Day LA", "Santa Ana Flea! ✨ (4PM-10PM)"],
-    "2026-08-16": ["Sonic Boost"],
+    "4-25": [
+      "SugarHyou's Neocities Anniversary! ✨"
+    ],
+    "10-14": [
+      "SugarHyou's Birthday! ✨"
+    ],
+    "2026-5-2": [
+      "One4AllTeam Cosplay Meetup"
+    ],
+    "2026-5-15": [
+      "Comic-Con Revolution Early Badge Pickup"
+    ],
+    "2026-5-16": [
+      "Comic-Con Revolution! ✨"
+    ],
+    "2026-5-17": [
+      "Comic-Con Revolution! ✨"
+    ],
+    "2026-5-21": [
+      "BN Appt"
+    ],
+    "2026-5-24": [
+      "BKawaii Market x Kira Kira Gals! ✨"
+    ],
+    "2026-5-30": [
+      "Anime Riverside ✨"
+    ],
+    "2026-5-31": [
+      "Anime Riverside ✨"
+    ],
+    "2026-6-6": [
+      "One4AllTeam "
+    ],
+    "2026-6-8": [
+      "Photoshoot"
+    ],
+    "2026-6-19": [
+      "The Nostalgia Con"
+    ],
+    "2026-6-20": [
+      "Anime Night Mart",
+      "Harajuku Day Swap Meet",
+      "The Nostalgia Con",
+      "Jade's Furry Friends 5K Run/Walk",
+      "QCON",
+      "Santa Ana Flea Market"
+    ],
+    "2026-6-21": [
+      "The Nostalgia Con",
+      "Anime Night Mart"
+    ],
+    "2026-6-22": [
+      "STEP"
+    ],
+    "2026-6-23": [
+      "STEP"
+    ],
+    "2026-6-24": [
+      "STEP"
+    ],
+    "2026-6-25": [
+      "STEP"
+    ],
+    "2026-6-26": [
+      "Fan Expo Anaheim"
+    ],
+    "2026-6-27": [
+      "Fan Expo Anaheim"
+    ],
+    "2026-6-28": [
+      "Fan Expo Anaheim"
+    ],
+    "2026-6-29": [
+      "STEP"
+    ],
+    "2026-6-30": [
+      "STEP"
+    ],
+    "2026-7-1": [
+      "STEP"
+    ],
+    "2026-7-2": [
+      "Anime Expo! ✨",
+      "STEP"
+    ],
+    "2026-7-3": [
+      "Anime Expo! ✨"
+    ],
+    "2026-7-4": [
+      "Harajuku Day Swap Meet",
+      "Anime Expo"
+    ],
+    "2026-7-5": [
+      "Anime Expo"
+    ],
+    "2026-7-11": [
+      "Spirit of Japan Festival! ✨"
+    ],
+    "2026-7-12": [
+      "Spirit of Japan Festival! ✨"
+    ],
+    "2026-7-15": [
+      "New Patient Intake"
+    ],
+    "2026-7-18": [
+      "Santa Ana Flea Market"
+    ],
+    "2026-7-21": [
+      "Counseling"
+    ],
+    "2026-08-04": [
+      "Psych (11:00AM)"
+    ],
+    "2026-08-06": [
+      "DMV (9:20AM)",
+      "P.T (2:00PM)"
+    ],
+    "2026-08-07": [
+      "Drop",
+      "Hire!"
+    ],
+    "2026-08-08": [
+      "Party (7PM)"
+    ],
+    "2026-08-12": [
+      "Doctor (1PM)"
+    ],
+    "2026-08-13": [
+      "P.T (2PM)"
+    ],
+    "2026-08-15": [
+      "Sonic Boost",
+      "Harajuku Day LA",
+      "Santa Ana Flea! ✨ (4PM-10PM)"
+    ],
+    "2026-08-16": [
+      "Sonic Boost"
+    ],
     "2026-08-17": [
       "Onboarding (12PM)",
       "Volunteer Orientation (5PM)"
     ],
-    "2026-08-20": ["Promise Plus Orientation! ✨ (8AM)"],
-    "2026-08-22": ["Anime Impulse! ✨ (10AM-6PM)"],
-    "2026-08-23": ["Anime Impulse! ✨ (10AM-6PM)"],
-    "2026-08-24": ["First day of School (8AM)"],
+    "2026-08-20": [
+      "Promise Plus Orientation! ✨ (8AM)"
+    ],
+    "2026-08-22": [
+      "Anime Impulse! ✨ (10AM-6PM)"
+    ],
+    "2026-08-23": [
+      "Anime Impulse! ✨ (10AM-6PM)"
+    ],
+    "2026-08-24": [
+      "First day of School (8AM)"
+    ],
     "2026-08-29": [
       "Department Orientation! ✨ (9AM-11AM)",
       "Party Plus Ultra (7PM)"
     ],
-    "2026-09-04": ["Psych (11AM)"],
-    "2026-09-05": ["Anime San Diego! ✨ (9:15AM-2PM) ✨ (10AM-7PM)"],
-    "2026-09-06": ["Anime San Diego! ✨ (10AM-6PM)"],
-    "2026-09-12": ["Anime Night Mart"],
-    "2026-09-13": ["Anime Night Mart"],
-    "2026-09-17": ["Farm Opens"],
-    "2026-10-04": ["HHN! ✨"]
+    "2026-09-04": [
+      "Psych (11AM)"
+    ],
+    "2026-09-05": [
+      "Anime San Diego! ✨ (9:15AM-2PM) ✨ (10AM-7PM)"
+    ],
+    "2026-09-06": [
+      "Anime San Diego! ✨ (10AM-6PM)"
+    ],
+    "2026-09-12": [
+      "Anime Night Mart"
+    ],
+    "2026-09-13": [
+      "Anime Night Mart"
+    ],
+    "2026-09-17": [
+      "Farm Opens"
+    ],
+    "2026-10-04": [
+      "HHN! ✨"
+    ]
   }
 }
