@@ -9,24 +9,48 @@
     <style>
         .dash-container {
             width: 100%;
-            max-width: 400px;
-            max-height: 90vh;
+            max-width: 480px;
+            max-height: 380px;
             display: flex;
             flex-direction: column;
         }
 
-        .window-body {
-            padding: 15px;
-            display: flex;
+        /* Tab Navigation Styling */
+        .tab-nav {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        .tab-btn {
+            background: #eee;
+            border: 2px outset #fff;
+            padding: 6px 4px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .tab-btn.active {
+            background: blueviolet;
+            color: white;
+            border-style: inset;
+        }
+
+        .tab-content {
+            display: none;
             flex-direction: column;
             gap: 12px;
-            overflow-y: auto;
-            flex: 1;
+        }
+
+        .tab-content.active {
+            display: flex;
         }
 
         .section-box {
             padding: 10px;
             background: #f9f9f9;
+            border: 1px solid #ddd;
         }
 
         label {
@@ -66,6 +90,7 @@
         }
 
         input[type="text"],
+        input[type="date"],
         select,
         input[type="file"],
         textarea {
@@ -79,34 +104,17 @@
 
         textarea {
             resize: vertical;
-            min-height: 60px;
+            min-height: 80px;
         }
 
         #submit-btn {
             background: blueviolet;
             color: white;
             font-weight: 900;
-            padding: 10px;
+            padding: 12px;
             cursor: pointer;
-        }
-
-        .widget-section {
-            border-left: 4px solid blueviolet;
-            padding-left: 8px;
-            margin-top: 8px;
-        }
-
-        input[type="text"],
-        input[type="date"],
-        select,
-        input[type="file"],
-        textarea {
             width: 100%;
-            padding: 8px;
-            box-sizing: border-box;
-            margin-bottom: 8px;
-            border: 2px solid #000;
-            background: #fff;
+            margin-top: 10px;
         }
     </style>
 </head>
@@ -114,32 +122,56 @@
 <body class="flex justify-center align-center" onload="initAdminPanel()">
 
     <div class="window dash-container">
-        <div class="window-title">admin.exe</div>
+        <div class="window-title flex">admin.exe
+            <div class="window-controls flex" style="gap: 4px;">
+                <div class="window-maximize" onclick="toggleMaximize('window-commissions')">🗖</div>
+                <div class="window-close" onclick="toggleWindow('window-commissions')">X</div>
+            </div>
+        </div>
+
+        <div class="tab-nav">
+            <button class="tab-btn active" onclick="switchTab('tab-status', event)">Stats</button>
+            <button class="tab-btn" onclick="switchTab('tab-widgets', event)">Widgets</button>
+            <button class="tab-btn" onclick="switchTab('tab-broadcast', event)">Post</button>
+            <button class="tab-btn" onclick="switchTab('tab-events', event)">Calendar</button>
+        </div>
+
         <div class="window-body">
+            <div id="tab-status" class="tab-content active">
+                <div class="section-box">
+                    <label style="color: red;">STRESS</label>
+                    <div class="slider-wrap">
+                        <input type="range" id="stat-stress" min="0" max="100" value="20"
+                            oninput="document.getElementById('val-stress').innerText = this.value + '%'">
+                        <span id="val-stress">20%</span>
+                    </div>
+                </div>
 
-            <div class="section-box">
-                <label style="color: red;">STRESS</label>
-                <div class="slider-wrap">
-                    <input type="range" id="stat-stress" min="0" max="100" value="20"
-                        oninput="document.getElementById('val-stress').innerText = this.value + '%'">
-                    <span id="val-stress">20%</span>
+                <div class="section-box">
+                    <label style="color: hotpink;">AFFECTION</label>
+                    <div class="slider-wrap">
+                        <input type="range" id="stat-affection" min="0" max="100" value="50"
+                            oninput="document.getElementById('val-affection').innerText = this.value + '%'">
+                        <span id="val-affection">50%</span>
+                    </div>
+                </div>
+
+                <div class="section-box">
+                    <label>MODE OVERRIDE</label>
+                    <div class="mode-grid">
+                        <button onclick="saveMode('default')">DEFAULT</button>
+                        <button onclick="saveMode('busy')">BUSY</button>
+                        <button onclick="saveMode('gaming')">GAMING</button>
+                        <button onclick="saveMode('blogging')">BLOGGING</button>
+                    </div>
                 </div>
             </div>
 
-            <div class="section-box">
-                <label style="color: hotpink;">AFFECTION</label>
-                <div class="slider-wrap">
-                    <input type="range" id="stat-affection" min="0" max="100" value="50"
-                        oninput="document.getElementById('val-affection').innerText = this.value + '%'">
-                    <span id="val-affection">50%</span>
-                </div>
-            </div>
-
-            <div class="section-box">
-                <div class="widget-section">
+            <div id="tab-widgets" class="tab-content">
+                <div class="section-box">
                     <label>🎨 LATEST ART</label>
                     <input type="text" id="art-title" placeholder="Art Title...">
-                    <label style="font-size: 0.7rem; color: #555; margin-bottom: 2px;">Select Existing Asset or Upload
+                    <label style="font-size: 0.7rem; color: #555; margin-bottom: 2px;">Select Asset or Upload
                         New:</label>
                     <select id="art-select" class="art-dropdown">
                         <option value="">-- Load from existing assets --</option>
@@ -148,7 +180,7 @@
                     <input type="text" id="art-desc" placeholder="Art Short Description...">
                 </div>
 
-                <div class="widget-section" style="border-left-color: dodgerblue;">
+                <div class="section-box">
                     <label>🎮 PLAYING</label>
                     <input type="text" id="play-title" placeholder="Game Name...">
                     <select id="play-select" class="art-dropdown">
@@ -157,8 +189,7 @@
                     <input type="file" id="play-file-upload" accept="image/*">
                     <input type="text" id="play-desc" placeholder="Status (e.g. Grinding levels)...">
                 </div>
-
-                <div class="widget-section" style="border-left-color: limegreen;">
+                <div class="section-box">
                     <label>📺 WATCHING</label>
                     <input type="text" id="watch-title" placeholder="Show Name...">
                     <select id="watch-select" class="art-dropdown">
@@ -169,36 +200,29 @@
                 </div>
             </div>
 
-            <div class="section-box">
-                <label>MODE OVERRIDE</label>
-                <div class="mode-grid">
-                    <button onclick="saveMode('default')">DEFAULT</button>
-                    <button onclick="saveMode('busy')">BUSY</button>
-                    <button onclick="saveMode('gaming')">GAMING</button>
-                    <button onclick="saveMode('blogging')">BLOGGING</button>
+            <div id="tab-broadcast" class="tab-content">
+                <div class="section-box">
+                    <label>📝 BLOG POST IMAGE (Optional)</label>
+                    <select id="blog-select" class="art-dropdown">
+                        <option value="">-- Load from existing assets --</option>
+                    </select>
+                    <input type="file" id="blog-file-upload" accept="image/*">
+
+                    <label style="margin-top: 10px;">BROADCAST CONTENT</label>
+                    <input type="text" id="title" placeholder="Broadcast Title...">
+                    <textarea id="content" placeholder="What's corrupting your mind?"></textarea>
                 </div>
             </div>
 
-            <div class="widget-section" style="border-left-color: #ff0055;">
-                <label>📝 BLOG POST IMAGE (Optional)</label>
-                <select id="blog-select" class="art-dropdown">
-                    <option value="">-- Load from existing assets --</option>
-                </select>
-                <input type="file" id="blog-file-upload" accept="image/*">
+            <div id="tab-events" class="tab-content">
+                <div class="section-box">
+                    <label>📅 ADD CALENDAR EVENT</label>
+                    <input type="date" id="event-date">
+                    <input type="text" id="event-text" placeholder="Event Description (e.g. Doctor (1PM))">
+                </div>
             </div>
 
-            <input type="text" id="title" placeholder="Broadcast Title...">
-            <textarea id="content" placeholder="What's corrupting your mind?"></textarea>
-
-            <button id="submit-btn" onclick="publishPost()">TRANSMIT TO CORE ⚡</button>
-
-            <div class="widget-section" style="border-left-color: #ffaa00;">
-                <label>📅 ADD CALENDAR EVENT</label>
-                <input type="date" id="event-date">
-                <input type="text" id="event-text" placeholder="Event Description (e.g. Doctor (1PM))">
-                <label style="font-size: 0.7rem; color: #555; margin-bottom: 2px;">(If multiple events on one day, it
-                    will safely append!)</label>
-            </div>
+            <button id="submit-btn" onclick="publishPost()">POST</button>
         </div>
     </div>
 
@@ -208,6 +232,14 @@
         const FILE_PATH = 'public/output/journal.json';
         const ART_ASSETS_PATH = 'public/assets/art';
         const CAMERA_ASSETS_PATH = 'public/assets/camera';
+
+        function switchTab(tabId, event) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+
+            document.getElementById(tabId).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
 
         function saveMode(mode) {
             localStorage.setItem('sugar_mode_request', mode);
@@ -259,7 +291,6 @@
             try { return await res.json(); } catch (err) { return []; }
         }
 
-        // Helper to convert an uploaded file into base64 and push it to a specified GitHub folder path
         async function uploadFileToGithub(fileInputId, folderPath, token) {
             const fileInput = document.getElementById(fileInputId);
             if (!fileInput.files || fileInput.files.length === 0) return null;
@@ -286,7 +317,6 @@
             });
 
             if (res.status === 200 || res.status === 201) {
-                // Return relative public asset path matching the folder used
                 const folderName = folderPath.split('/').pop();
                 return `assets/${folderName}/${fileName}`;
             } else {
@@ -306,11 +336,10 @@
             }
 
             const btn = document.getElementById('submit-btn');
-            btn.innerText = "TRANSMITTING... ⚡";
+            btn.innerText = "POSTING...";
             btn.disabled = true;
 
             try {
-                // Upload normal widgets to assets/art, but blog uploads go to assets/camera!
                 const uploadedArtImg = await uploadFileToGithub('art-file-upload', 'public/assets/art', GITHUB_TOKEN);
                 const uploadedPlayImg = await uploadFileToGithub('play-file-upload', 'public/assets/art', GITHUB_TOKEN);
                 const uploadedWatchImg = await uploadFileToGithub('watch-file-upload', 'public/assets/art', GITHUB_TOKEN);
@@ -427,7 +456,7 @@
                 });
 
                 if (updateRes.status === 200 || updateRes.status === 201) {
-                    alert("TRANSMITTED SUCCESSFULLY! 🎀");
+                    alert("POSTED SUCCESSFULLY! 🎀");
                     document.getElementById('title').value = '';
                     document.getElementById('content').value = '';
                     document.getElementById('art-file-upload').value = '';
@@ -443,7 +472,7 @@
             } catch (error) {
                 alert(`Terminal Error: ${error.message}`);
             } finally {
-                btn.innerText = "TRANSMIT TO CORE ⚡";
+                btn.innerText = "POST";
                 btn.disabled = false;
             }
         }
