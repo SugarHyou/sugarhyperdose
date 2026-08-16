@@ -1,9 +1,21 @@
 {
   "currentStats": {
-    "stress": 20,
-    "affection": 50
+    "stress": 78,
+    "affection": 0
   },
   "posts": [
+    {
+      "date": "Aug 16 - 03:37 AM",
+      "title": "Haha",
+      "content": "You ever just think of abandoning everything you've ever known and everyone you've ever met. Would it be so much different than the life I'm living now?",
+      "image": ""
+    },
+    {
+      "date": "Aug 16 - 01:18 AM",
+      "title": "POKEMON MARKET WAS A SUCCESS!!!",
+      "content": "I absolutely loved every second of it! I brought a claw machine this time around. Little toy one. And it was a hit! People tipped me for how much they loved using it, even though the game itself is completely free and you win a prize every time. I think it was the best thing for my little setup! I usually make pennies compared to my selling partner. But this one was awesome! Can't wait to come back!",
+      "image": "assets/camera/untitled121_20260816011634.png"
+    },
     {
       "date": "Aug 14 - 02:15 AM",
       "title": "Tummyache",
